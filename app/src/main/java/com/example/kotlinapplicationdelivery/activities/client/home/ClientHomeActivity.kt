@@ -8,8 +8,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
 import com.example.kotlinapplicationdelivery.R
 import com.example.kotlinapplicationdelivery.activities.MainActivity
+import com.example.kotlinapplicationdelivery.fragments.client.ClientCategoriesFragment
+import com.example.kotlinapplicationdelivery.fragments.client.ClientOrdersFragment
+import com.example.kotlinapplicationdelivery.fragments.client.ClientProfileFragment
 import com.example.kotlinapplicationdelivery.models.User
 import com.example.kotlinapplicationdelivery.utils.SharedPref
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -32,12 +36,39 @@ class ClientHomeActivity : AppCompatActivity() {
         btnLogOut?.setOnClickListener {
             logOut()
         }
-        getUserFromSession()
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+        openFragment(ClientCategoriesFragment())
+
+        bottomNavigation = findViewById(R.id.bottom_navigation)
+        bottomNavigation?.setOnItemSelectedListener {
+
+            when (it.itemId) {
+
+                R.id.item_home -> {
+                    openFragment(ClientCategoriesFragment())
+                    true
+                }
+
+                R.id.item_orders -> {
+                    openFragment(ClientOrdersFragment())
+                    true
+                }
+
+                R.id.item_profile -> {
+                    openFragment(ClientProfileFragment())
+                    true
+                }
+
+                else -> false
+
+            }
+
+        }
+        getUserFromSession()
     }
 
     private fun getUserFromSession() {
@@ -54,4 +85,11 @@ class ClientHomeActivity : AppCompatActivity() {
         val i = Intent(this, MainActivity::class.java)
         startActivity(i)
     }
+    private fun openFragment(fragment: Fragment) {
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+    }
+
 }

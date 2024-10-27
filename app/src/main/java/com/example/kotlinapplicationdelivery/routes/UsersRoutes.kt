@@ -28,4 +28,9 @@ interface UsersRoutes {
         @Part image: MultipartBody.Part,
         @Part("user") user: RequestBody
     ): retrofit2.Call<ResponseHttp>
+
+    @PUT("users/updateWithoutImage")
+    fun updateWithoutImage(
+        @Body user: User
+    ): retrofit2.Call<ResponseHttp>
 }

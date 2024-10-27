@@ -15,12 +15,12 @@ class SharedPref(activity: Activity) {
         prefs = activity.getSharedPreferences("com.example.kotlinapplicationdelivery", Context.MODE_PRIVATE)
     }
 
-    fun save(key: String, objeto: Any) {
+    fun save(key: String, objet: Any) {
 
         try {
 
             val gson = Gson()
-            val json = gson.toJson(objeto)
+            val json = gson.toJson(objet)
             with(prefs?.edit()) {
                 this?.putString(key, json)
                 this?.commit()
