@@ -7,7 +7,6 @@
     tools:context=".activities.client.home.ClientHomeActivity"
     android:id="@+id/main">
 
-
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"

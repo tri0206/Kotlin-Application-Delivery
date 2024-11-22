@@ -14,4 +14,11 @@
     <string name="client_home">Client Home</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="product_name">Product Name</string>
+    <string name="product_description">Product Description</string>
+    <string name="product_price">Product Price</string>
+    <string name="create_product">Create Product</string>
+    <string name="google_map_api_key">AIzaSyDtMHUF2rrH49ixvmHhin3WgmL82ZQFGgg</string>
+    <string name="vnd">VND</string>
+    <string name="_0_vnd">0 VND</string>
 </resources>

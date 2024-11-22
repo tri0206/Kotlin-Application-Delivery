@@ -33,7 +33,7 @@ class SaveImageActivity : AppCompatActivity() {
 
     private var imageFile: File? = null
     private var TAG = "SaveImage"
-    private var usersProvider = UsersProvider()
+    private var usersProvider: UsersProvider? = null
     private var user: User? = null
     private var sharedPref: SharedPref? = null
 
@@ -45,6 +45,7 @@ class SaveImageActivity : AppCompatActivity() {
         sharedPref = SharedPref(this)
         getUserFromSession()
 
+        usersProvider = UsersProvider(user?.sessionToken)
         circleImageUser = findViewById(R.id.circleimage_user)
         buttonNext = findViewById(R.id.btn_next)
         buttonConfirm = findViewById(R.id.btn_confirm)
@@ -74,7 +75,7 @@ class SaveImageActivity : AppCompatActivity() {
     private fun saveImage() {
 
         if (imageFile != null && user != null) {
-            usersProvider.update(imageFile!!, user!!)?.enqueue(object: Callback<ResponseHttp> {
+            usersProvider?.update(imageFile!!, user!!)?.enqueue(object: Callback<ResponseHttp> {
                 override fun onResponse(call: Call<ResponseHttp>, response: Response<ResponseHttp>) {
 
                     Log.d(TAG, "RESPONSE: $response")

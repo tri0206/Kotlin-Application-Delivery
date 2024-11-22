@@ -1,13 +1,18 @@
 package com.example.kotlinapplicationdelivery.adapters
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
+import android.os.Handler
+import android.os.Looper
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.bumptech.glide.Glide
 import com.example.kotlinapplicationdelivery.R
 import com.example.kotlinapplicationdelivery.activities.client.home.ClientHomeActivity
@@ -20,7 +25,8 @@ import com.example.kotlinapplicationdelivery.utils.SharedPref
 class RolesAdapter(private val context: Activity, private val roles: ArrayList<Rol>): RecyclerView.Adapter<RolesAdapter.RolesViewHolder>() {
 
     private val sharedPref = SharedPref(context)
-
+    private lateinit var dialog: AlertDialog
+    private var dialogView : View? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RolesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cardview_roles, parent, false)
@@ -38,27 +44,30 @@ class RolesAdapter(private val context: Activity, private val roles: ArrayList<R
         holder.textViewRol.text = rol.name
         Glide.with(context).load(rol.image).into(holder.imageViewRol)
 
-        holder.itemView.setOnClickListener { goToRol(rol) }
+        holder.itemView.setOnClickListener {
+            goToRol(rol)
+            Handler(Looper.getMainLooper()).postDelayed({
+                hideLoading()
+            }, 1000)
+        }
     }
 
     private fun goToRol(rol: Rol) {
         when (rol.name) {
-            "RESTAURANTE" -> {
+            "RESTAURANT" -> {
 
-                sharedPref.save("rol", "RESTAURANTE")
-
+                sharedPref.save("rol", "RESTAURANT")
                 val i = Intent(context, RestaurantHomeActivity::class.java)
                 context.startActivity(i)
             }
-            "CLIENTE" -> {
-                sharedPref.save("rol", "CLIENTE")
-
+            "CLIENT" -> {
+                sharedPref.save("rol", "CLIENT")
                 val i = Intent(context, ClientHomeActivity::class.java)
                 context.startActivity(i)
             }
-            "REPARTIDOR" -> {
+            "REPARTITION" -> {
 
-                sharedPref.save("rol", "REPARTIDOR")
+                sharedPref.save("rol", "REPARTITION")
 
                 val i = Intent(context, DeliveryHomeActivity::class.java)
                 context.startActivity(i)
@@ -72,5 +81,24 @@ class RolesAdapter(private val context: Activity, private val roles: ArrayList<R
         val imageViewRol: ImageView = view.findViewById(R.id.imageview_rol)
 
     }
+    private fun showLoading() {
+        val builder = AlertDialog.Builder(context)
 
+        builder.setView(dialogView)
+        builder.setCancelable(false)
+
+        dialog = builder.create()
+        dialog.window?.setGravity(Gravity.CENTER)
+
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
+    }
+
+
+    private fun hideLoading() {
+        if (::dialog.isInitialized && dialog.isShowing) {
+            dialog.dismiss()
+        }
+    }
 }

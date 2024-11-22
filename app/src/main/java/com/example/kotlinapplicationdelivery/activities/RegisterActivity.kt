@@ -57,6 +57,7 @@ class RegisterActivity : AppCompatActivity() {
         val sharedPref = SharedPref(this)
         val gson = Gson()
         val user = gson.fromJson(data, User::class.java)
+        //Log.e("tridoan", "saveUserInSession: $user")
         sharedPref.save("user", user)
     }
     private fun String.isEmailValid(): Boolean {

@@ -1,39 +1,67 @@
 [versions]
-agp = "8.7.1"
+agp = "8.7.2"
+androidMapsUtils = "2.2.3"
 circleimageview = "3.1.0"
 converterGson = "2.2.0"
+drawroute = "2.3"
+drawrouteVersion = "1.5"
 glide = "4.16.0"
 gson = "2.10.1"
 imagepicker = "2.1"
+imageslideshow = "0.1.2"
 kotlin = "2.0.0"
-coreKtx = "1.13.1"
+coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
+lottie = "5.2.0"
+mapsKtx = "3.2.0"
+mapsUtilsKtx = "3.2.0"
 material = "1.12.0"
-activity = "1.9.2"
-constraintlayout = "2.1.4"
+activity = "1.9.3"
+constraintlayout = "2.2.0"
 materialVersion = "1.12.0"
+playServicesLocation = "21.3.0"
+playServicesMaps = "19.0.0"
+playServicesMapsVersion = "17.0.1"
+progressDialog = "1.0.0"
 retrofit = "2.9.0"
+socketIoClient = "0.6.0"
+viewpager2 = "1.1.0"
+firebaseMessagingKtx = "24.0.3"
 
 [libraries]
+android-maps-utils = { module = "com.google.maps.android:android-maps-utils", version.ref = "androidMapsUtils" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
 circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson" }
+drawroute = { module = "com.github.malikdawar:drawroute", version.ref = "drawroute" }
+drawroute-v15 = { module = "com.github.malikdawar:drawroute", version.ref = "drawrouteVersion" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 imagepicker = { module = "com.github.dhaval2404:imagepicker", version.ref = "imagepicker" }
+imageslideshow = { module = "com.github.denzcoskun:ImageSlideshow", version.ref = "imageslideshow" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
+maps-ktx = { module = "com.google.maps.android:maps-ktx", version.ref = "mapsKtx" }
+maps-utils-ktx = { module = "com.google.maps.android:maps-utils-ktx", version.ref = "mapsUtilsKtx" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 material-v170 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
+play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
+play-services-maps-v1701 = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMapsVersion" }
+progress-dialog = { module = "com.github.tommasoberlose:progress-dialog", version.ref = "progressDialog" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit2-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx", version.ref = "firebaseMessagingKtx" }
+socket-io-client = { module = "com.github.nkzawa:socket.io-client", version.ref = "socketIoClient" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -14,6 +14,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.airbnb.lottie.LottieAnimationView
 import com.example.kotlinapplicationdelivery.R
 import com.example.kotlinapplicationdelivery.activities.client.home.ClientHomeActivity
 import com.example.kotlinapplicationdelivery.activities.delivery.home.DeliveryHomeActivity
@@ -90,20 +91,21 @@ class MainActivity : AppCompatActivity() {
                 val rol = sharedPref.getData("rol")?.replace("\"", "")
 
                 when (rol) {
-                    "RESTAURANTE" -> {
+                    "RESTAURANT" -> {
                         goToRestaurantHome()
                     }
-                    "CLIENTE" -> {
+                    "CLIENT" -> {
                         goToClientHome()
                     }
-                    "REPARTIDOR" -> {
+                    "REPARTITION" -> {
                         goToDeliveryHome()
                     }
                 }
+
             }
-        }
-        else {
-            goToClientHome()
+            else {
+                goToClientHome()
+            }
         }
     }
     private fun String.isEmailValid() : Boolean {

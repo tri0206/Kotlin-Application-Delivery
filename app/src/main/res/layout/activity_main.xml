@@ -2,7 +2,6 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
@@ -73,18 +72,6 @@
                 android:inputType="textPassword"
                 android:hint="@string/password" />
     </com.google.android.material.textfield.TextInputLayout>
-<!--        <EditText-->
-<!--            android:id="@+id/password"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:hint="@string/password"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginLeft="20dp"-->
-<!--            android:layout_marginRight="20dp"-->
-<!--            android:inputType="textPassword"-->
-<!--            android:textSize="15sp"-->
-<!--            android:background="@drawable/edittext_custom"-->
-<!--            />-->
 
 
     </LinearLayout>

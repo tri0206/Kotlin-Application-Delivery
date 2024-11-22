@@ -13,11 +13,12 @@ class User(
     @SerializedName("password") val password: String,
     @SerializedName("image") val image: String? = null,
     @SerializedName("session_token") val sessionToken: String? = null,
+    @SerializedName("notification_token") var notificationToken: String? = null,
     @SerializedName("is_available") val isAvailable: Boolean? = null,
     @SerializedName("roles") val roles: ArrayList<Rol>? = null
     ) {
     override fun toString(): String {
-        return "User(id='$id', firstname='$firstname', lastname='$lastname', email='$email', phone='$phone', password='$password', image='$image', sessionToken='$sessionToken', isAvailable=$isAvailable, roles=$roles)"
+        return "$firstname $lastname"
     }
 
     fun toJson(): String {

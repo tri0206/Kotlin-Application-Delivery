@@ -7,8 +7,6 @@
     tools:context=".activities.SelectRolesActivity"
     android:id="@+id/main"
     >
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_roles"
         android:layout_width="match_parent"

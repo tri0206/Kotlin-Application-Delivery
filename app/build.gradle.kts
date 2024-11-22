@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.example.kotlinapplicationdelivery"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.kotlinapplicationdelivery"
@@ -50,7 +50,21 @@ dependencies {
     implementation(libs.glide)
     implementation (libs.imagepicker)
     implementation(libs.circleimageview)
+    implementation(libs.lottie)
+    implementation(libs.maps.ktx)
+    implementation(libs.androidx.viewpager2)
+    implementation(libs.maps.utils.ktx)
+    implementation(libs.play.services.maps)
+    implementation(libs.play.services.location)
+    implementation(libs.android.maps.utils)
+    implementation(libs.imageslideshow)
+    implementation(libs.drawroute.v15)
+    implementation(libs.firebase.messaging.ktx)
+    implementation(libs.socket.io.client)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
 }
+
+

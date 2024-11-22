@@ -1,17 +1,23 @@
 package com.example.kotlinapplicationdelivery.activities
 
+import android.app.AlertDialog
 import android.os.Bundle
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.airbnb.lottie.LottieAnimationView
 import com.example.kotlinapplicationdelivery.R
 import com.example.kotlinapplicationdelivery.adapters.RolesAdapter
 import com.example.kotlinapplicationdelivery.models.User
 import com.example.kotlinapplicationdelivery.utils.SharedPref
 import com.google.gson.Gson
+
 
 class SelectRolesActivity : AppCompatActivity() {
     private var recyclerViewRoles: RecyclerView? = null
@@ -45,6 +51,6 @@ class SelectRolesActivity : AppCompatActivity() {
         if (!sharedPref.getData("user").isNullOrBlank()) {
             user = gson.fromJson(sharedPref.getData("user"), User::class.java)
         }
-
     }
+
 }

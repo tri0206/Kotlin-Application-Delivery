@@ -5,17 +5,24 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="false" />
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
 
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
         android:maxSdkVersion="32" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="32"
-        tools:ignore="ScopeStorage" />
+        tools:ignore="ScopeStorage,ScopedStorage" />
 
     <application
         android:allowBackup="true"
@@ -27,13 +34,64 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KotlinApplicationDelivery"
         android:usesCleartextTraffic="true"
+        tools:ignore="ExtraText"
         tools:targetApi="31">
         <activity
-            android:name=".activities.client.update.ClientUpdateActivity"
+            android:name=".activities.client.payments.paypal.form.ClientPaymentsPaypalFormActivity"
+            android:exported="false"
+            android:parentActivityName=".activities.client.payments.payment_method.ClientPaymentMethodActivity"/>
+        <activity
+            android:name=".activities.client.payments.payment_method.ClientPaymentMethodActivity"
+            android:exported="false"
+            android:parentActivityName=".activities.client.address.list.ClientAddressListActivity"/>
+        <activity
+            android:name=".activities.delivery.orders.map.DeliveryOrdersMapActivity"
             android:exported="false" />
         <activity
+            android:name=".activities.delivery.orders.detail.DeliveryOrdersDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.restaurant.orders.detail.RestaurantOrdersDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".activities.restaurant.home.RestaurantHomeActivity" />
+        <activity
+            android:name=".activities.client.orders.map.ClientOrdersMapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.client.orders.detail.ClientOrdersDetailActivity"
+            android:exported="false"
+            android:parentActivityName=".activities.client.home.ClientHomeActivity" />
+        <activity
+            android:name=".activities.client.payments.momo.ClientPaymentMomoFormActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.client.address.map.ClientAddressMapActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.client.address.create.ClientAddressCreateActivity"
+            android:exported="false"
+            android:parentActivityName=".activities.client.address.list.ClientAddressListActivity" />
+        <activity
+            android:name=".activities.client.address.list.ClientAddressListActivity"
+            android:exported="false"
+            android:parentActivityName=".activities.client.shopping_bag.ClientShoppingBagActivity" />
+        <activity
+            android:name=".activities.client.shopping_bag.ClientShoppingBagActivity"
+            android:exported="false"
+            android:parentActivityName=".activities.client.home.ClientHomeActivity" />
+        <activity
+            android:name=".activities.client.products.detail.ClientProductsDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.client.products.list.ClientProductsListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.client.update.ClientUpdateActivity"
+            android:exported="false"
+            android:parentActivityName=".activities.client.home.ClientHomeActivity" />
+        <activity
             android:name=".activities.SaveImageActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".activities.delivery.home.DeliveryHomeActivity"
             android:exported="false" />
@@ -58,6 +116,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_map_api_key" />
     </application>
 
 </manifest>

@@ -6,10 +6,12 @@ import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.widget.Toolbar
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.kotlinapplicationdelivery.R
 import com.example.kotlinapplicationdelivery.models.ResponseHttp
@@ -34,9 +36,9 @@ class ClientUpdateActivity : AppCompatActivity() {
 
     var sharedPref: SharedPref? = null
     var user: User? = null
-
+    private var toolbar: Toolbar? = null
     private var imageFile: File? = null
-    private var usersProvider = UsersProvider()
+    private var usersProvider: UsersProvider? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,9 +51,17 @@ class ClientUpdateActivity : AppCompatActivity() {
         editTextLastname = findViewById(R.id.edittext_lastname)
         editTextPhone = findViewById(R.id.edittext_phone)
         buttonUpdate = findViewById(R.id.btn_update)
-
+        toolbar = findViewById(R.id.toolbar)
+        toolbar?.title = "Edit profile"
+        toolbar?.setTitleTextColor(ContextCompat.getColor(this, R.color.black))
+        toolbar = findViewById(R.id.toolbar)
+        toolbar?.title = "Edit profile"
+        toolbar?.setTitleTextColor(ContextCompat.getColor(this, R.color.black))
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         getUserFromSession()
 
+        usersProvider = UsersProvider(user?.sessionToken)
         editTextName?.setText(user?.firstname)
         editTextLastname?.setText(user?.lastname)
         editTextPhone?.setText(user?.phone)
@@ -76,7 +86,7 @@ class ClientUpdateActivity : AppCompatActivity() {
         user?.phone = phone
 
         if (imageFile != null) {
-            usersProvider.update(imageFile!!, user!!)?.enqueue(object: Callback<ResponseHttp> {
+            usersProvider?.update(imageFile!!, user!!)?.enqueue(object: Callback<ResponseHttp> {
                 override fun onResponse(call: Call<ResponseHttp>, response: retrofit2.Response<ResponseHttp>) {
 
                     Log.d(TAG, "RESPONSE: $response")
@@ -84,7 +94,9 @@ class ClientUpdateActivity : AppCompatActivity() {
 
                     Toast.makeText(this@ClientUpdateActivity, response.body()?.message, Toast.LENGTH_SHORT).show()
 
-                    saveUserInSession(response.body()?.data.toString())
+                    if(response.body()?.isSuccess != false) {
+                        saveUserInSession(response.body()?.data.toString())
+                    }
 
                 }
 
@@ -96,16 +108,16 @@ class ClientUpdateActivity : AppCompatActivity() {
             })
         }
         else {
-            usersProvider.updateWithoutImage(user!!)?.enqueue(object: Callback<ResponseHttp> {
+            usersProvider?.updateWithoutImage(user!!)?.enqueue(object: Callback<ResponseHttp> {
                 override fun onResponse(call: Call<ResponseHttp>, response: retrofit2.Response<ResponseHttp>) {
 
                     Log.d(TAG, "RESPONSE: $response")
                     Log.d(TAG, "BODY: ${response.body()}")
 
                     Toast.makeText(this@ClientUpdateActivity, response.body()?.message, Toast.LENGTH_SHORT).show()
-
-                    saveUserInSession(response.body()?.data.toString())
-
+                    if(response.body()?.isSuccess != false) {
+                        saveUserInSession(response.body()?.data.toString())
+                    }
                 }
 
                 override fun onFailure(call: Call<ResponseHttp>, t: Throwable) {

@@ -2,6 +2,8 @@ package com.example.kotlinapplicationdelivery.activities.client.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
@@ -9,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.airbnb.lottie.LottieAnimationView
 import com.example.kotlinapplicationdelivery.R
 import com.example.kotlinapplicationdelivery.activities.MainActivity
 import com.example.kotlinapplicationdelivery.fragments.client.ClientCategoriesFragment
@@ -24,23 +27,12 @@ class ClientHomeActivity : AppCompatActivity() {
     private var btnLogOut : Button? = null
     private var sharedPref: SharedPref?= null
     private var bottomNavigation: BottomNavigationView? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         sharedPref = SharedPref(this)
         setContentView(R.layout.activity_client_home)
-        //btnLogOut = findViewById(R.id.log_out)
-
         bottomNavigation = findViewById(R.id.bottom_navigation)
-        btnLogOut?.setOnClickListener {
-            logOut()
-        }
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
         openFragment(ClientCategoriesFragment())
 
         bottomNavigation = findViewById(R.id.bottom_navigation)
