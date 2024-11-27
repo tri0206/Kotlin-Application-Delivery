@@ -1,4 +1,4 @@
-package com.example.kotlinapplicationdelivery.activities.client.payments.momo
+package com.example.kotlinapplicationdelivery.activities.client.payments.zalo
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge

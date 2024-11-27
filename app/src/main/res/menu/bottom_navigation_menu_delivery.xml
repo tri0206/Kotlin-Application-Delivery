@@ -5,11 +5,11 @@
     <item
         android:id="@+id/item_orders"
         android:icon="@drawable/ic_orders"
-        android:title="Orders" />
+        android:title="Đơn hàng" />
 
     <item
         android:id="@+id/item_profile"
         android:icon="@drawable/ic_person_pin"
-        android:title="Profile" />
+        android:title="Hồ sơ" />
 
 </menu>

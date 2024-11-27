@@ -9,16 +9,20 @@
         android:layout_width="match_parent"
         android:layout_height="90dp"
         android:background="@color/white"
-        android:padding="20dp"
         app:title="">
 
+        <ImageView
+            android:id="@+id/custom_toolbar_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/login_description"
+            android:src="@drawable/baseline_arrow_back_24" />
         <TextView
             android:id="@+id/custom_toolbar_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/catalish_huntera"
             android:text=""
-            android:textColor="@color/primary_color"
+            android:textColor="@color/black"
             android:textSize="20sp" />
     </androidx.appcompat.widget.Toolbar>
 

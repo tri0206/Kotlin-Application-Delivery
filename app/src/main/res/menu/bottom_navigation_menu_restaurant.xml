@@ -4,21 +4,21 @@
     <item
         android:id="@+id/item_home"
         android:icon="@drawable/ic_orders"
-        android:title="Home" />
+        android:title="Trang chủ" />
 
     <item
         android:id="@+id/item_category"
         android:icon="@drawable/ic_category"
-        android:title="Categories" />
+        android:title="Danh mục" />
 
     <item
         android:id="@+id/item_product"
         android:icon="@drawable/ic_pizza"
-        android:title="Products" />
+        android:title="Các sản phẩm" />
 
     <item
         android:id="@+id/item_profile"
         android:icon="@drawable/ic_person_pin"
-        android:title="Profile" />
+        android:title="Hồ sơ" />
 
 </menu>

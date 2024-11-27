@@ -3,14 +3,11 @@ package com.example.kotlinapplicationdelivery.activities.client.payments.payment
 import android.content.Intent
 import android.os.Bundle
 import android.widget.ImageView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import com.example.kotlinapplicationdelivery.R
-import com.example.kotlinapplicationdelivery.activities.client.payments.momo.ClientPaymentMomoFormActivity
+import com.example.kotlinapplicationdelivery.activities.client.payments.zalo.ClientPaymentMomoFormActivity
 import com.example.kotlinapplicationdelivery.activities.client.payments.paypal.form.ClientPaymentsPaypalFormActivity
 
 class ClientPaymentMethodActivity : AppCompatActivity() {

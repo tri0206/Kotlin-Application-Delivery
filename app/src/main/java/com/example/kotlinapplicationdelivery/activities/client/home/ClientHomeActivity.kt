@@ -18,6 +18,7 @@ import com.example.kotlinapplicationdelivery.fragments.client.ClientCategoriesFr
 import com.example.kotlinapplicationdelivery.fragments.client.ClientOrdersFragment
 import com.example.kotlinapplicationdelivery.fragments.client.ClientProfileFragment
 import com.example.kotlinapplicationdelivery.models.User
+import com.example.kotlinapplicationdelivery.providers.UsersProvider
 import com.example.kotlinapplicationdelivery.utils.SharedPref
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
@@ -27,6 +28,8 @@ class ClientHomeActivity : AppCompatActivity() {
     private var btnLogOut : Button? = null
     private var sharedPref: SharedPref?= null
     private var bottomNavigation: BottomNavigationView? = null
+    var user: User ?= null
+    private var usersProvider: UsersProvider? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -61,14 +64,22 @@ class ClientHomeActivity : AppCompatActivity() {
 
         }
         getUserFromSession()
+
+        usersProvider = UsersProvider(token = user?.sessionToken!!)
+        createToken()
     }
+
+    private fun createToken() {
+        usersProvider?.createToken(user!!, this)
+    }
+
 
     private fun getUserFromSession() {
 
         val gson = Gson()
 
         if(!sharedPref?.getData("user").isNullOrBlank()) {
-            val user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
+            user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
             Log.d(TAG, "getUserFromSession: $user")
         }
     }

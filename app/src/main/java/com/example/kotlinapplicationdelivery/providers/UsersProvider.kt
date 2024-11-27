@@ -62,4 +62,39 @@ class UsersProvider(private val token: String? = null) {
         val requestBody = RequestBody.create(MediaType.parse("text/plain"), user.toJson())
         return usersRoutesToken?.update(image, requestBody, token!!)
     }
+
+    fun createToken(user: User, context: Activity) {
+
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                Log.w(TAG, "Fetching FCM registration token failed", task.exception)
+                return@OnCompleteListener
+            }
+            val token = task.result
+
+            val sharedPref = SharedPref(context)
+
+            user.notificationToken = token
+
+            sharedPref.save("user", user)
+
+            updateNotificationToken(user)?.enqueue(object: Callback<ResponseHttp> {
+                override fun onResponse(call: Call<ResponseHttp>, response: Response<ResponseHttp>) {
+                    if (response.body() == null) {
+                        Log.d(TAG, "There was an error creating the token")
+                    }
+                }
+
+                override fun onFailure(call: Call<ResponseHttp>, t: Throwable) {
+                    Toast.makeText(context, "Error: ${t.message}", Toast.LENGTH_LONG).show()
+                }
+
+            })
+
+            // Get new FCM registration token
+
+            Log.d(TAG, "NOTIFICATION TOKEN $token")
+        })
+
+    }
 }

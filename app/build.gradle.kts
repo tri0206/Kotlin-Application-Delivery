@@ -1,8 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("com.google.gms.google-services")
 }
-
 android {
     namespace = "com.example.kotlinapplicationdelivery"
     compileSdk = 35
@@ -61,6 +61,9 @@ dependencies {
     implementation(libs.drawroute.v15)
     implementation(libs.firebase.messaging.ktx)
     implementation(libs.socket.io.client)
+    implementation(libs.google.firebase.messaging.ktx)
+    implementation(libs.firebase.analytics)
+    implementation(platform(libs.firebase.bom))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

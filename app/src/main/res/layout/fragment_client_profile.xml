@@ -6,6 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragments.client.ClientProfileFragment">
 
+    <include layout="@layout/action_sub_bar" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -19,7 +20,7 @@
             app:civ_border_color="@color/gray"
             app:civ_border_width="5dp"
             android:layout_gravity="center"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="90dp"
             app:civ_circle_background_color="@color/gray_light" />
 
         <LinearLayout
@@ -137,7 +138,8 @@
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:src="@drawable/ic_logout"
-        android:layout_gravity="right"
-        android:layout_margin="15dp" />
+        android:layout_gravity="end"
+        android:layout_margin="20dp"
+        android:layout_marginTop="20dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

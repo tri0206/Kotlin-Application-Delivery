@@ -4,7 +4,7 @@
 
     <item android:id="@+id/item_shopping_bag"
         android:title=""
-        android:icon="@drawable/ic_bag"
+        android:icon="@drawable/baseline_shopping_bag_24"
         app:showAsAction="always" />
 
 </menu>

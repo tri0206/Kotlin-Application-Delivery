@@ -10,6 +10,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
 import com.example.kotlinapplicationdelivery.R
 import com.example.kotlinapplicationdelivery.activities.MainActivity
@@ -33,7 +36,8 @@ class ClientProfileFragment : Fragment() {
 
     private var sharedPref: SharedPref? = null
     private var user: User? = null
-
+    private var toolbar: Toolbar? = null
+    private var titleBar : TextView? = null
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -51,13 +55,17 @@ class ClientProfileFragment : Fragment() {
         textViewPhone = myView?.findViewById(R.id.textview_phone)
         circleImageUser = myView?.findViewById(R.id.circleimage_user)
         imageViewLogout = myView?.findViewById(R.id.imageview_logout)
-
+        titleBar = myView?.findViewById(R.id.custom_toolbar_title)
         buttonSelectRol?.setOnClickListener { goToSelectRol() }
         buttonUpdateProfile?.setOnClickListener { goToUpdate() }
         imageViewLogout?.setOnClickListener { logout() }
 
         getUserFromSession()
-
+        toolbar = myView?.findViewById(R.id.toolbar)
+        toolbar?.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.black))
+        toolbar?.title = ""
+        titleBar?.text = "Hồ sơ"
+        (activity as AppCompatActivity).setSupportActionBar(toolbar)
         textViewName?.text = "${user?.firstname} ${user?.lastname}"
         textViewEmail?.text = user?.email
         textViewPhone?.text = user?.phone

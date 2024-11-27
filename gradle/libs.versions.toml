@@ -5,7 +5,9 @@ circleimageview = "3.1.0"
 converterGson = "2.2.0"
 drawroute = "2.3"
 drawrouteVersion = "1.5"
+firebaseBom = "33.6.0"
 glide = "4.16.0"
+googleServices = "4.4.2"
 gson = "2.10.1"
 imagepicker = "2.1"
 imageslideshow = "0.1.2"
@@ -22,6 +24,7 @@ material = "1.12.0"
 activity = "1.9.3"
 constraintlayout = "2.2.0"
 materialVersion = "1.12.0"
+mobileSdk = "1.0.7"
 playServicesLocation = "21.3.0"
 playServicesMaps = "19.0.0"
 playServicesMapsVersion = "17.0.1"
@@ -30,6 +33,7 @@ retrofit = "2.9.0"
 socketIoClient = "0.6.0"
 viewpager2 = "1.1.0"
 firebaseMessagingKtx = "24.0.3"
+zalopaySdkAndroid = "3.0.0"
 
 [libraries]
 android-maps-utils = { module = "com.google.maps.android:android-maps-utils", version.ref = "androidMapsUtils" }
@@ -39,7 +43,11 @@ circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circ
 converter-gson = { module = "com.squareup.retrofit2:converter-gson" }
 drawroute = { module = "com.github.malikdawar:drawroute", version.ref = "drawroute" }
 drawroute-v15 = { module = "com.github.malikdawar:drawroute", version.ref = "drawrouteVersion" }
+firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
+firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBom" }
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+google-firebase-messaging-ktx = { module = "com.google.firebase:firebase-messaging-ktx" }
+google-services = { module = "com.google.gms:google-services", version.ref = "googleServices" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 imagepicker = { module = "com.github.dhaval2404:imagepicker", version.ref = "imagepicker" }
 imageslideshow = { module = "com.github.denzcoskun:ImageSlideshow", version.ref = "imageslideshow" }
@@ -54,6 +62,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 material-v170 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
+mobile-sdk = { module = "com.github.momo-wallet:mobile-sdk", version.ref = "mobileSdk" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
 play-services-maps-v1701 = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMapsVersion" }
@@ -62,6 +71,7 @@ retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit
 retrofit2-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx", version.ref = "firebaseMessagingKtx" }
 socket-io-client = { module = "com.github.nkzawa:socket.io-client", version.ref = "socketIoClient" }
+zalopay-sdk-android = { module = "com.zalopay.sdk:zalopay-sdk-android", version.ref = "zalopaySdkAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

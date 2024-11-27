@@ -18,9 +18,10 @@
             android:layout_height="wrap_content"
             app:menu="@menu/bottom_navigation_menu_client"
             android:layout_gravity="bottom"
-            android:background="@color/green"
-            app:itemIconTint="@color/black"
-            app:itemTextColor="@color/black"/>
+            android:background="@color/white"
+            app:itemIconTint="@color/nav_item_color_selector"
+            app:itemTextColor="@color/nav_item_color_selector"
+            />
 
 
     </FrameLayout>

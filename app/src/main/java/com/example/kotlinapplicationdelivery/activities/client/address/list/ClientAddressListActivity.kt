@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplicationdelivery.R
 import com.example.kotlinapplicationdelivery.activities.client.address.create.ClientAddressCreateActivity
-import com.example.kotlinapplicationdelivery.activities.client.payments.momo.ClientPaymentMomoFormActivity
 import com.example.kotlinapplicationdelivery.activities.client.payments.payment_method.ClientPaymentMethodActivity
 import com.example.kotlinapplicationdelivery.adapters.AddressAdapter
 import com.example.kotlinapplicationdelivery.models.Address

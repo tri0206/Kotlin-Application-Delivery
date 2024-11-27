@@ -1,5 +1,6 @@
 package com.example.kotlinapplicationdelivery.fragments.client
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -10,6 +11,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
@@ -42,7 +44,7 @@ class ClientCategoriesFragment : Fragment() {
     var sharedPref: SharedPref? = null
     var categories = ArrayList<Category>()
     private var toolbar: Toolbar? = null
-
+    private var titleBar : TextView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,12 +52,13 @@ class ClientCategoriesFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         myView = inflater.inflate(R.layout.fragment_client_categories, container, false)
-
+        titleBar = myView?.findViewById(R.id.custom_toolbar_title)
         setHasOptionsMenu(true)
 
         toolbar = myView?.findViewById(R.id.toolbar)
-        toolbar?.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.black))
-        toolbar?.title = "Categories"
+        toolbar?.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.primary_color))
+        toolbar?.title = ""
+        titleBar?.text = "FoodPicking"
         (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
         recyclerViewCategories = myView?.findViewById(R.id.recyclerview_categories)

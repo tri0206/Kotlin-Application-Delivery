@@ -21,4 +21,7 @@
     <string name="google_map_api_key">AIzaSyDtMHUF2rrH49ixvmHhin3WgmL82ZQFGgg</string>
     <string name="vnd">VND</string>
     <string name="_0_vnd">0 VND</string>
+
+    <string name="default_notification_channel_id">fcm_default_channel</string>
+    <string name="your_title">Your Title</string>
 </resources>

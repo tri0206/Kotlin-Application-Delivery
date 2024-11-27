@@ -1,0 +1,12 @@
+{
+  "app_id": "2554",
+  "app_user": "UserID",
+  "app_trans_id": "YYYYMMDD123456",
+  "amount": 50000,
+  "embed_data": "{}",
+  "item": "[]",
+  "description": "Thanh toán đơn hàng #123456",
+  "bank_code": "zalopayapp",
+  "callback_url": "https://your-server.com/callback",
+  "mac": "hmac_sha256_signature"
+}
