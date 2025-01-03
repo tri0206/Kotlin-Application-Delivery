@@ -54,6 +54,7 @@ class DeliveryOrdersDetailActivity : AppCompatActivity() {
 
     var idDelivery = ""
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_delivery_orders_detail)
@@ -158,7 +159,7 @@ class DeliveryOrdersDetailActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun getTotal() {
-        var total = 0.0
+        var total = 0
 
         for (p in order?.products!!) {
             total += (p.price * p.quantity!!)

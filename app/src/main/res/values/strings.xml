@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Kotlin Application Delivery</string>
     <string name="login">Login</string>
     <string name="login_description">Enter with your email and password</string>
@@ -21,7 +21,35 @@
     <string name="google_map_api_key">AIzaSyDtMHUF2rrH49ixvmHhin3WgmL82ZQFGgg</string>
     <string name="vnd">VND</string>
     <string name="_0_vnd">0 VND</string>
-
     <string name="default_notification_channel_id">fcm_default_channel</string>
     <string name="your_title">Your Title</string>
+    <string name="mapbox_access_token" translatable="false" tools:ignore="UnusedResources">pk.eyJ1IjoiN2FmYzIwMDIiLCJhIjoiY200NWY4ZTdlMHlsZDJxcHNmOW85cGZkdiJ9.PrXU7sAFjgt6Ioh6j8YUzw</string>
+    <string name="customer_location">Vị trí của khách hàng</string>
+    <string name="deliver_order">DELIVER ORDER</string>
+    <string name="direction">Đường đi</string>
+    <string name="delivered">Hoàn tất đơn hàng</string>
+    <string name="todo">TODO</string>
+    <string name="title_activity_maps">MapsActivity</string>
+
+
+    <string name="lbl_sotien">Số Tiền</string>
+    <string name="lbl_donhang">DEMO</string>
+    <string name="btn_create_order">Tạo Đơn Hàng</string>
+    <string name="txt_amount_init">1000</string>
+    <string name="txt_amount_hint">1000</string>
+    <string name="btn_pay">Thanh Toán</string>
+    <string name="lbl_zptranstoken">zptranstoken</string>
+    <string name="to_webview">To WebView</string>
+    <string name="back">Back</string>
+    <string name="shopping_cart">Shopping Cart</string>
+    <string name="merry_christmas">Merry Christmas</string>
+    <string name="move_to_current_location">Move to current location</string>
+    <string name="your_avatar">Your Avatar</string>
+    <string name="add">Thêm</string>
+    <string name="zalopay">ZaloPay</string>
+    <string name="total">Tổng cộng:</string>
+    <string name="add_product">Thêm món</string>
+    <string name="home">Trang chủ</string>
+    <string name="avatar">Avatar</string>
+
 </resources>

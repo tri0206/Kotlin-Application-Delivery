@@ -13,5 +13,10 @@
     <color name="gray">#e0e0e0</color>
     <color name="gray_light">#F5F5F5</color>
     <color name="primary_color">#EA501F</color>
-
+    <color name="primary_map_color">#4285F4</color>
+    <color name="red_light">#FF5733</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#FFFFFF</color>
+    <color name="textInputLayout">#96ffffff</color>
 </resources>

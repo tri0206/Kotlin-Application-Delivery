@@ -1,13 +1,25 @@
 [versions]
 agp = "8.7.2"
+android = "11.8.0"
 androidMapsUtils = "2.2.3"
+androidVersion = "2.14.0"
 circleimageview = "3.1.0"
+comMapboxMapsAndroid = "10.13.0"
+comMapboxMapsAndroid2 = "10.6.0"
+comMapboxMapsAndroid3 = "11.8.1"
+comMapboxNavigationAndroid = "2.x.x"
+comMapboxNavigationAndroid2 = "2.11.0"
+comMapboxNavigationcoreAndroid = "3.5.4"
+commonsCodec = "1.14"
 converterGson = "2.2.0"
+coreLocation = "7.2.0"
+design = "28.0.0"
 drawroute = "2.3"
 drawrouteVersion = "1.5"
 firebaseBom = "33.6.0"
 glide = "4.16.0"
 googleServices = "4.4.2"
+goongAndroidMaps = "1.5.0"
 gson = "2.10.1"
 imagepicker = "2.1"
 imageslideshow = "0.1.2"
@@ -18,6 +30,21 @@ junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
 lottie = "5.2.0"
+mapboxAndroid = "10.15.0"
+mapboxAndroidNavigation = "0.42.6"
+mapboxAndroidNavigationUi = "2.1.0"
+mapboxAndroidPluginAnnotationV9 = "0.8.0"
+mapboxAndroidSdk = "9.2.0"
+mapboxAndroidSdkVersion = "9.6.2"
+mapboxAndroidVersion = "11.0.0"
+mapboxMapboxSdkServices = "5.9.0"
+mapboxMapboxSdkServicesVersion = "7.3.1"
+mapboxNavigation = "3.5.4"
+mapboxSdkCore = "7.3.1"
+mapboxSdkGeojson = "7.3.1"
+mapboxSdkServices = "6.8.0"
+mapboxSdkServicesVersion = "6.12.0"
+mapboxSdkTurf = "7.3.1"
 mapsKtx = "3.2.0"
 mapsUtilsKtx = "3.2.0"
 material = "1.12.0"
@@ -25,22 +52,41 @@ activity = "1.9.3"
 constraintlayout = "2.2.0"
 materialVersion = "1.12.0"
 mobileSdk = "1.0.7"
+navigation = "3.6.0-beta.1"
+navigationVersion = "3.5.0-beta.1"
+okhttp = "4.11.0"
 playServicesLocation = "21.3.0"
 playServicesMaps = "19.0.0"
 playServicesMapsVersion = "17.0.1"
 progressDialog = "1.0.0"
 retrofit = "2.9.0"
 socketIoClient = "0.6.0"
+uiComponents = "3.5.4"
+uiComponentsVersion = "3.3.0"
+version = "1.20.1"
 viewpager2 = "1.1.0"
 firebaseMessagingKtx = "24.0.3"
+vtmsdkMaps = "1.0.0"
 zalopaySdkAndroid = "3.0.0"
+googleAndroidLibrariesMapsplatformSecretsGradlePlugin = "2.0.1"
 
 [libraries]
+android = { module = "com.mapbox.maps:android", version.ref = "android" }
 android-maps-utils = { module = "com.google.maps.android:android-maps-utils", version.ref = "androidMapsUtils" }
+android-v10130 = { module = "com.mapbox.maps:android", version.ref = "comMapboxMapsAndroid" }
+android-v10150 = { module = "com.mapbox.maps:android", version.ref = "mapboxAndroid" }
+android-v1060 = { module = "com.mapbox.maps:android", version.ref = "comMapboxMapsAndroid2" }
+android-v1100 = { module = "com.mapbox.maps:android", version.ref = "mapboxAndroidVersion" }
+android-v1181 = { module = "com.mapbox.maps:android", version.ref = "comMapboxMapsAndroid3" }
+android-v2110 = { module = "com.mapbox.navigation:android", version.ref = "comMapboxNavigationAndroid2" }
+android-v2xx = { module = "com.mapbox.navigation:android", version.ref = "comMapboxNavigationAndroid" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2" }
 circleimageview = { module = "de.hdodenhof:circleimageview", version.ref = "circleimageview" }
+commons-codec = { module = "commons-codec:commons-codec", version.ref = "commonsCodec" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson" }
+core-location = { module = "com.mapbox.android:core-location", version.ref = "coreLocation" }
+design = { module = "com.android.support:design", version.ref = "design" }
 drawroute = { module = "com.github.malikdawar:drawroute", version.ref = "drawroute" }
 drawroute-v15 = { module = "com.github.malikdawar:drawroute", version.ref = "drawrouteVersion" }
 firebase-analytics = { module = "com.google.firebase:firebase-analytics" }
@@ -48,6 +94,7 @@ firebase-bom = { module = "com.google.firebase:firebase-bom", version.ref = "fir
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 google-firebase-messaging-ktx = { module = "com.google.firebase:firebase-messaging-ktx" }
 google-services = { module = "com.google.gms:google-services", version.ref = "googleServices" }
+goong-android-maps = { module = "io.goong:goong-android-maps", version.ref = "goongAndroidMaps" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
 imagepicker = { module = "com.github.dhaval2404:imagepicker", version.ref = "imagepicker" }
 imageslideshow = { module = "com.github.denzcoskun:ImageSlideshow", version.ref = "imageslideshow" }
@@ -56,6 +103,19 @@ androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "j
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
+map-display = { module = "com.tomtom.sdk.maps:map-display", version.ref = "version" }
+mapbox-android-navigation = { module = "com.mapbox.mapboxsdk:mapbox-android-navigation", version.ref = "mapboxAndroidNavigation" }
+mapbox-android-navigation-ui = { module = "com.mapbox.mapboxsdk:mapbox-android-navigation-ui", version.ref = "mapboxAndroidNavigationUi" }
+mapbox-android-plugin-annotation-v9 = { module = "com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v9", version.ref = "mapboxAndroidPluginAnnotationV9" }
+mapbox-android-sdk = { module = "com.mapbox.mapboxsdk:mapbox-android-sdk", version.ref = "mapboxAndroidSdk" }
+mapbox-android-sdk-v962 = { module = "com.mapbox.mapboxsdk:mapbox-android-sdk", version.ref = "mapboxAndroidSdkVersion" }
+mapbox-sdk-core = { module = "com.mapbox.mapboxsdk:mapbox-sdk-core", version.ref = "mapboxSdkCore" }
+mapbox-sdk-geojson = { module = "com.mapbox.mapboxsdk:mapbox-sdk-geojson", version.ref = "mapboxSdkGeojson" }
+mapbox-sdk-services = { module = "com.mapbox.mapboxsdk:mapbox-sdk-services", version.ref = "mapboxSdkServices" }
+mapbox-sdk-services-v590 = { module = "com.mapbox.mapboxsdk:mapbox-sdk-services", version.ref = "mapboxMapboxSdkServices" }
+mapbox-sdk-services-v6120 = { module = "com.mapbox.mapboxsdk:mapbox-sdk-services", version.ref = "mapboxSdkServicesVersion" }
+mapbox-sdk-services-v731 = { module = "com.mapbox.mapboxsdk:mapbox-sdk-services", version.ref = "mapboxMapboxSdkServicesVersion" }
+mapbox-sdk-turf = { module = "com.mapbox.mapboxsdk:mapbox-sdk-turf", version.ref = "mapboxSdkTurf" }
 maps-ktx = { module = "com.google.maps.android:maps-ktx", version.ref = "mapsKtx" }
 maps-utils-ktx = { module = "com.google.maps.android:maps-utils-ktx", version.ref = "mapsUtilsKtx" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
@@ -63,17 +123,34 @@ androidx-activity = { group = "androidx.activity", name = "activity", version.re
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 material-v170 = { module = "com.google.android.material:material", version.ref = "materialVersion" }
 mobile-sdk = { module = "com.github.momo-wallet:mobile-sdk", version.ref = "mobileSdk" }
+navigation = { module = "com.mapbox.navigationcore:navigation", version.ref = "navigation" }
+navigation-android = { module = "com.mapbox.navigation:android", version.ref = "androidVersion" }
+navigation-online = { module = "com.tomtom.sdk.navigation:navigation-online", version.ref = "version" }
+navigation-tile-store = { module = "com.tomtom.sdk.datamanagement:navigation-tile-store", version.ref = "version" }
+navigation-v350beta1 = { module = "com.mapbox.navigationcore:navigation", version.ref = "navigationVersion" }
+navigation-v354 = { module = "com.mapbox.navigationcore:navigation", version.ref = "mapboxNavigation" }
+navigationcore-android = { module = "com.mapbox.navigationcore:android", version.ref = "comMapboxNavigationcoreAndroid" }
+okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 play-services-location = { module = "com.google.android.gms:play-services-location", version.ref = "playServicesLocation" }
 play-services-maps = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMaps" }
 play-services-maps-v1701 = { module = "com.google.android.gms:play-services-maps", version.ref = "playServicesMapsVersion" }
 progress-dialog = { module = "com.github.tommasoberlose:progress-dialog", version.ref = "progressDialog" }
+provider-default = { module = "com.tomtom.sdk.location:provider-default", version.ref = "version" }
+provider-map-matched = { module = "com.tomtom.sdk.location:provider-map-matched", version.ref = "version" }
+provider-simulation = { module = "com.tomtom.sdk.location:provider-simulation", version.ref = "version" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit2-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 firebase-messaging-ktx = { group = "com.google.firebase", name = "firebase-messaging-ktx", version.ref = "firebaseMessagingKtx" }
+route-planner-online = { module = "com.tomtom.sdk.routing:route-planner-online", version.ref = "version" }
 socket-io-client = { module = "com.github.nkzawa:socket.io-client", version.ref = "socketIoClient" }
+ui = { module = "com.tomtom.sdk.navigation:ui", version.ref = "version" }
+ui-components = { module = "com.mapbox.navigationcore:ui-components", version.ref = "uiComponents" }
+ui-components-v330 = { module = "com.mapbox.navigationcore:ui-components", version.ref = "uiComponentsVersion" }
+vtmsdk-maps = { module = "com.viettel.vtmsdk:vtmsdk-maps", version.ref = "vtmsdkMaps" }
 zalopay-sdk-android = { module = "com.zalopay.sdk:zalopay-sdk-android", version.ref = "zalopaySdkAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+google-android-libraries-mapsplatform-secrets-gradle-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref = "googleAndroidLibrariesMapsplatformSecretsGradlePlugin" }
 

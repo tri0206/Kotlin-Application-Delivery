@@ -15,7 +15,10 @@
         android:id="@+id/item_product"
         android:icon="@drawable/ic_pizza"
         android:title="Các sản phẩm" />
-
+    <item
+        android:id="@+id/person_manage"
+        android:icon="@drawable/ic_pizza"
+        android:title="Nhân viên" />
     <item
         android:id="@+id/item_profile"
         android:icon="@drawable/ic_person_pin"

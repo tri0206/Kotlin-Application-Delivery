@@ -38,12 +38,50 @@
         tools:ignore="ExtraText"
         tools:targetApi="31">
         <activity
-            android:name=".activities.client.payments.zalo.form.ClientPaymentZaloFormActivity"
+            android:name=".activities.restaurant.address.create.RestaurantAddressCreateActivity"
             android:exported="false" />
         <activity
-            android:name=".activities.client.payments.paypal.form.ClientPaymentsPaypalFormActivity"
-            android:exported="false"
-            android:parentActivityName=".activities.client.payments.payment_method.ClientPaymentMethodActivity" />
+            android:name=".activities.restaurant.address.list.RestaurantAddressListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.restaurant.create.RestaurantCreateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.client.products.list.ClientProductSearchingListActivity"
+            android:exported="false" />
+        <!--
+             TODO: Before you run your application, you need a Google Maps API key.
+
+             To get one, follow the directions here:
+
+                https://developers.google.com/maps/documentation/android-sdk/get-api-key
+
+             Once you have your API key (it starts with "AIza"), define a new property in your
+             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
+             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_map_api_key" />
+
+        <activity
+            android:name=".activities.LoginForm2"
+            android:exported="false" />
+        <activity
+            android:name=".activities.client.payments.zalo.ClientPaymentZaloFormActivity"
+            android:exported="true"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="app"
+                    android:scheme="demozpdk" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".activities.client.payments.payment_method.ClientPaymentMethodActivity"
             android:exported="false"
@@ -65,9 +103,6 @@
             android:name=".activities.client.orders.detail.ClientOrdersDetailActivity"
             android:exported="false"
             android:parentActivityName=".activities.client.home.ClientHomeActivity" />
-        <activity
-            android:name=".activities.client.payments.zalo.ClientPaymentMomoFormActivity"
-            android:exported="false" />
         <activity
             android:name=".activities.client.address.map.ClientAddressMapActivity"
             android:exported="false" />
@@ -116,18 +151,28 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="app"
+                    android:scheme="demozpdk" />
             </intent-filter>
         </activity>
 
         <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_map_api_key" />
-
-        <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
+        <meta-data
+            android:name="com.mapbox.maps.token"
+            android:value="@string/mapbox_access_token" />
+
         <service
             android:name=".services.MyFirebaseMessagingClient"
             android:exported="false">

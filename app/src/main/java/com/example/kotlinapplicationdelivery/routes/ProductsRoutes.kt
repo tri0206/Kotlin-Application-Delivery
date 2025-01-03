@@ -20,6 +20,12 @@ interface ProductsRoutes {
         @Header("Authorization") token: String
     ): Call<ArrayList<Product>>
 
+    @GET("products/findByCategoryOrName/{keyword}")
+    fun findByCategoryOrName(
+        @Path("keyword") keyword: String,
+        @Header("Authorization") token: String
+    ): Call<ArrayList<Product>>
+
     @Multipart
     @POST("products/create")
     fun create(

@@ -43,7 +43,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="User name"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginStart="10dp"/>
 
         </LinearLayout>
 
@@ -106,7 +106,7 @@
         android:layout_gravity="bottom"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginBottom="100dp">
+        android:layout_marginBottom="120dp">
 
 
         <Button
@@ -114,8 +114,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="SELECT ROLE"
-            android:background="@drawable/rounded_button"
+            android:text="Chọn vai trò"
             app:backgroundTint="@color/gray"
             android:textColor="@color/black"
             />
@@ -125,7 +124,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="EDIT PROFILE"
+            android:text="Chỉnh sửa hồ sơ"
             android:background="@drawable/rounded_button"
             android:layout_marginBottom="15dp"
             android:layout_marginTop="10dp"/>
@@ -139,7 +138,7 @@
         android:layout_height="35dp"
         android:src="@drawable/ic_logout"
         android:layout_gravity="end"
-        android:layout_margin="20dp"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="40dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

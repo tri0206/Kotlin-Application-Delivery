@@ -1,10 +1,15 @@
 package com.example.kotlinapplicationdelivery.activities.client.update
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.activity.enableEdgeToEdge
@@ -33,18 +38,24 @@ class ClientUpdateActivity : AppCompatActivity() {
     private var editTextLastname: EditText? = null
     private var editTextPhone: EditText? = null
     private var buttonUpdate: Button? = null
-
+    private lateinit var dialog: AlertDialog
     var sharedPref: SharedPref? = null
     var user: User? = null
-    private var toolbar: Toolbar? = null
     private var imageFile: File? = null
     private var usersProvider: UsersProvider? = null
 
+    private var toolbar: Toolbar? = null
+    private var titleBar : TextView? = null
+    private var buttonBack : ImageView?= null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_client_update)
         sharedPref = SharedPref(this)
+
+        toolbar = findViewById(R.id.toolbar)
+        titleBar = findViewById(R.id.custom_toolbar_title)
+        buttonBack = findViewById(R.id.button_back)
 
         circleImageUser = findViewById(R.id.circleimage_user)
         editTextName = findViewById(R.id.edittext_name)
@@ -52,13 +63,8 @@ class ClientUpdateActivity : AppCompatActivity() {
         editTextPhone = findViewById(R.id.edittext_phone)
         buttonUpdate = findViewById(R.id.btn_update)
         toolbar = findViewById(R.id.toolbar)
-        toolbar?.title = "Edit profile"
+        titleBar?.text = "Chỉnh sửa hồ sơ"
         toolbar?.setTitleTextColor(ContextCompat.getColor(this, R.color.black))
-        toolbar = findViewById(R.id.toolbar)
-        toolbar?.title = "Edit profile"
-        toolbar?.setTitleTextColor(ContextCompat.getColor(this, R.color.black))
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         getUserFromSession()
 
         usersProvider = UsersProvider(user?.sessionToken)
@@ -72,7 +78,9 @@ class ClientUpdateActivity : AppCompatActivity() {
 
         circleImageUser?.setOnClickListener { selectImage() }
         buttonUpdate?.setOnClickListener { updateData() }
-
+        buttonBack?.setOnClickListener {
+            finish()
+        }
     }
 
     private fun updateData() {
@@ -84,7 +92,7 @@ class ClientUpdateActivity : AppCompatActivity() {
         user?.firstname = name
         user?.lastname = lastname
         user?.phone = phone
-
+        showLoading()
         if (imageFile != null) {
             usersProvider?.update(imageFile!!, user!!)?.enqueue(object: Callback<ResponseHttp> {
                 override fun onResponse(call: Call<ResponseHttp>, response: retrofit2.Response<ResponseHttp>) {
@@ -93,9 +101,9 @@ class ClientUpdateActivity : AppCompatActivity() {
                     Log.d(TAG, "BODY: ${response.body()}")
 
                     Toast.makeText(this@ClientUpdateActivity, response.body()?.message, Toast.LENGTH_SHORT).show()
-
                     if(response.body()?.isSuccess != false) {
                         saveUserInSession(response.body()?.data.toString())
+                        hideLoading()
                     }
 
                 }
@@ -113,10 +121,10 @@ class ClientUpdateActivity : AppCompatActivity() {
 
                     Log.d(TAG, "RESPONSE: $response")
                     Log.d(TAG, "BODY: ${response.body()}")
-
                     Toast.makeText(this@ClientUpdateActivity, response.body()?.message, Toast.LENGTH_SHORT).show()
                     if(response.body()?.isSuccess != false) {
                         saveUserInSession(response.body()?.data.toString())
+                        hideLoading()
                     }
                 }
 
@@ -179,5 +187,27 @@ class ClientUpdateActivity : AppCompatActivity() {
             .createIntent { intent ->
                 startImageForResult.launch(intent)
             }
+    }
+    private fun showLoading() {
+        val builder = AlertDialog.Builder(this)
+        val inflater = LayoutInflater.from(this)
+        val dialogView = inflater.inflate(R.layout.dialog_lottie_client_loading, null)
+
+        builder.setView(dialogView)
+        builder.setCancelable(false)
+
+        dialog = builder.create()
+        dialog.window?.setGravity(Gravity.CENTER)
+
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
+    }
+
+
+    private fun hideLoading() {
+        if (::dialog.isInitialized && dialog.isShowing) {
+            dialog.dismiss()
+        }
     }
 }

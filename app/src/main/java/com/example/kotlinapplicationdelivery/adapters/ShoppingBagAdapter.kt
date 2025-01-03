@@ -43,7 +43,7 @@ class ShoppingBagAdapter(val context: Activity, val products: ArrayList<Product>
         holder.textViewCounter.text = "${product.quantity}"
 
         if (product.quantity != null) {
-            holder.textViewPrice.text = "${product.price * product.quantity!!}$"
+            holder.textViewPrice.text = "${product.price * product.quantity!!} VND"
         }
         Glide.with(context).load(product.image1).into(holder.imageViewProduct)
 
@@ -53,8 +53,8 @@ class ShoppingBagAdapter(val context: Activity, val products: ArrayList<Product>
 //        holder.itemView.setOnClickListener { goToDetail(product) }
     }
 
-    private fun getTotal(): Double {
-        var total = 0.0
+    private fun getTotal(): Int {
+        var total = 0
         for (p in products) {
             if (p.quantity != null) {
                 total += (p.quantity!! * p.price)

@@ -10,7 +10,8 @@ class Product(@SerializedName("id") val id: String? = null,
               @SerializedName("image2") val image2: String? = null,
               @SerializedName("image3") val image3: String? = null,
               @SerializedName("id_category") val idCategory: String,
-              @SerializedName("price") val price: Double,
+              @SerializedName("id_restaurant") val idRestaurant: String? = null,
+              @SerializedName("price") val price: Int,
               @SerializedName("quantity") var quantity: Int? = null,
 ) {
 

@@ -5,6 +5,7 @@ import com.example.kotlinapplicationdelivery.models.Product
 import com.example.kotlinapplicationdelivery.models.ResponseHttp
 import com.example.kotlinapplicationdelivery.routes.ProductsRoutes
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -21,17 +22,20 @@ class ProductsProvider(private val token: String) {
     fun findByCategory(idCategory: String): Call<ArrayList<Product>>? {
         return productsRoutes?.findByCategory(idCategory, token)
     }
+    fun findByCategoryOrName(keyword: String): Call<ArrayList<Product>>? {
+        return productsRoutes?.findByCategoryOrName(keyword, token)
+    }
 
     fun create(files: List<File>, product: Product): Call<ResponseHttp>? {
 
         val images = arrayOfNulls<MultipartBody.Part>(files.size)
 
         for (i in files.indices) {
-            val reqFile = RequestBody.create(MediaType.parse("image/*"), files[i])
+            val reqFile = RequestBody.create("image/*".toMediaTypeOrNull(), files[i])
             images[i] = MultipartBody.Part.createFormData("image", files[i].name, reqFile)
         }
 
-        val requestBody = RequestBody.create(MediaType.parse("text/plain"), product.toJson())
+        val requestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), product.toJson())
         return productsRoutes?.create(images, requestBody, token)
     }
 }

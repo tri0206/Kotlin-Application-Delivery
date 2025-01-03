@@ -145,7 +145,7 @@ class RestaurantProductFragment : Fragment() {
             val product = Product(
                 name = name,
                 description = description,
-                price = priceText.toDouble(),
+                price = priceText.toInt(),
                 idCategory = idCategory
             )
 
@@ -154,8 +154,6 @@ class RestaurantProductFragment : Fragment() {
             files.add(imageFile3!!)
 
             showLoading()
-
-
 
             productsProvider?.create(files, product)?.enqueue(object: Callback<ResponseHttp> {
                 override fun onResponse(call: Call<ResponseHttp>, response: Response<ResponseHttp>) {
@@ -167,7 +165,6 @@ class RestaurantProductFragment : Fragment() {
                         resetForm()
                     }
                 }
-
                 override fun onFailure(call: Call<ResponseHttp>, t: Throwable) {
                     Log.d(TAG, "Error: ${t.message}")
                     hideLoading()
@@ -229,7 +226,6 @@ class RestaurantProductFragment : Fragment() {
             Toast.makeText(requireContext(), "Select the product category", Toast.LENGTH_SHORT).show()
             return false
         }
-
         return true
     }
 

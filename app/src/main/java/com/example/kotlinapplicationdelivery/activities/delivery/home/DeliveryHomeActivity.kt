@@ -1,5 +1,7 @@
 package com.example.kotlinapplicationdelivery.activities.delivery.home
 
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -11,6 +13,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.kotlinapplicationdelivery.R
 import com.example.kotlinapplicationdelivery.activities.MainActivity
+import com.example.kotlinapplicationdelivery.fragments.ProfileFragment
+import com.example.kotlinapplicationdelivery.fragments.client.ClientCategoriesFragment
 import com.example.kotlinapplicationdelivery.fragments.client.ClientProfileFragment
 import com.example.kotlinapplicationdelivery.fragments.delivery.DeliveryOrdersFragment
 import com.example.kotlinapplicationdelivery.models.User
@@ -35,11 +39,6 @@ class DeliveryHomeActivity : AppCompatActivity() {
         btnLogOut?.setOnClickListener {
             logOut()
         }
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
-            insets
-        }
         openFragment(DeliveryOrdersFragment())
 
         bottomNavigation = findViewById(R.id.bottom_navigation)
@@ -53,7 +52,7 @@ class DeliveryHomeActivity : AppCompatActivity() {
                 }
 
                 R.id.item_profile -> {
-                    openFragment(ClientProfileFragment())
+                    openFragment(ProfileFragment())
                     true
                 }
 
@@ -85,5 +84,23 @@ class DeliveryHomeActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
+    @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
+    override fun onBackPressed() {
+        val currentFragment = supportFragmentManager.findFragmentById(R.id.container)
 
+        if (currentFragment is DeliveryOrdersFragment) {
+            AlertDialog.Builder(this)
+                .setTitle("Thoát ứng dụng")
+                .setMessage("Bạn có chắc chắn muốn thoát?")
+                .setPositiveButton("Có", fun(_: DialogInterface, _: Int) {
+                    super.onBackPressed()
+                    finish()
+                })
+                .setNegativeButton("Không", null)
+                .show()
+        } else {
+            openFragment(DeliveryOrdersFragment())
+            bottomNavigation?.selectedItemId = R.id.item_orders
+        }
+    }
 }

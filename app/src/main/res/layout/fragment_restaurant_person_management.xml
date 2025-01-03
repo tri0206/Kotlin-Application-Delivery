@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#FFFFFF">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Header -->
+        <TextView
+            android:id="@+id/tv_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Quản lý nhân viên và khách hàng"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#000000"
+            android:gravity="center"
+            android:padding="16dp" />
+
+        <!-- Section: Danh sách nhân viên -->
+        <TextView
+            android:id="@+id/tv_employee_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Danh sách nhân viên"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textColor="#000000" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_employee_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:scrollbars="vertical" />
+
+        <Button
+            android:id="@+id/btn_add_employee"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thêm nhân viên mới"
+            android:backgroundTint="#007AFF"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Section: Danh sách khách hàng -->
+        <TextView
+            android:id="@+id/tv_customer_section"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Danh sách khách hàng"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:textColor="#000000" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_customer_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:scrollbars="vertical" />
+
+        <Button
+            android:id="@+id/btn_add_customer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thêm khách hàng mới"
+            android:backgroundTint="#007AFF"
+            android:textColor="#FFFFFF" />
+
+    </LinearLayout>
+</ScrollView>

@@ -3,7 +3,7 @@ package com.example.kotlinapplicationdelivery.models
 import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 
-class Order(
+data class Order @JvmOverloads constructor(
     @SerializedName("id") val id: String? = null,
     @SerializedName("id_client") val idClient: String,
     @SerializedName("id_delivery") var idDelivery: String? = null,
@@ -11,22 +11,19 @@ class Order(
     @SerializedName("status") val status: String? = null,
     @SerializedName("timestamp") val timestamp: String? = null,
     @SerializedName("products") val products: ArrayList<Product>,
+    @SerializedName("note") val note: String? = null,
+    @SerializedName("payment") val payment: String,
     @SerializedName("client") val client: User? = null,
     @SerializedName("delivery") val delivery: User? = null,
     @SerializedName("address") val address: Address? = null,
     @SerializedName("lat") var lat: Double? = null,
     @SerializedName("lng") var lng: Double? = null
 ) {
-
-
-
     fun toJson(): String {
         return Gson().toJson(this)
     }
 
     override fun toString(): String {
-        return "Order(id=$id, idClient='$idClient', idDelivery=$idDelivery, idAddress='$idAddress', status=$status, timestamp=$timestamp, products=$products, client=$client, delivery=$delivery, address=$address)"
+        return "Order(id=$id, idClient='$idClient', idDelivery=$idDelivery, idAddress='$idAddress', status=$status, timestamp=$timestamp, products=$products, note = $note, payment = $payment, client=$client, delivery=$delivery, address=$address)"
     }
-
-
 }

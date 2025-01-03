@@ -73,7 +73,10 @@ class DeliveryOrdersMapActivity : AppCompatActivity() , OnMapReadyCallback {
     private var textViewClient: TextView? = null
     private var textViewAddress: TextView? = null
     private var textViewNeighborhood: TextView? = null
+
+    private var buttonDirection: Button? = null;
     private var buttonDelivered: Button? = null
+
     private var circleImageUser: CircleImageView? = null
     private var imageViewPhone: ImageView? = null
 
@@ -91,7 +94,7 @@ class DeliveryOrdersMapActivity : AppCompatActivity() , OnMapReadyCallback {
     private val locationCallback = object: LocationCallback() {
 
         override fun onLocationResult(locationResult: LocationResult) {
-            // WE GET THE LOCATION IN REAL TIME
+
             val lastLocation = locationResult.lastLocation
             if (lastLocation != null) {
                 myLocationLatLng = LatLng(lastLocation.latitude, lastLocation.longitude)
@@ -140,6 +143,7 @@ class DeliveryOrdersMapActivity : AppCompatActivity() , OnMapReadyCallback {
         textViewNeighborhood = findViewById(R.id.textview_neighborhood)
         circleImageUser = findViewById(R.id.circleimage_user)
         imageViewPhone = findViewById(R.id.imageview_phone)
+        buttonDirection = findViewById(R.id.btn_find_route)
         buttonDelivered = findViewById(R.id.btn_delivered)
 
         getLastLocation()
@@ -152,13 +156,35 @@ class DeliveryOrdersMapActivity : AppCompatActivity() , OnMapReadyCallback {
             Glide.with(this).load(order?.client?.image).into(circleImageUser!!)
         }
 
+        buttonDirection?.setOnClickListener {
+            val sourceLatitude = myLocationLatLng?.latitude
+            val sourceLongitude = myLocationLatLng?.longitude
+            val destinationLatitude = addressLatLng?.latitude
+            val destinationLongitude = addressLatLng?.longitude
+            val gmmIntentUri = Uri.parse("google.navigation:q=$destinationLatitude,$destinationLongitude&mode=d")
+            val mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+
+            if (mapIntent.resolveActivity(packageManager) != null) {
+                startActivity(mapIntent)
+            } else {
+                Toast.makeText(this, "Google Maps chưa được cài đặt", Toast.LENGTH_SHORT).show()
+                val appPackageName = "com.google.android.apps.maps"
+                try {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$appPackageName")))
+                } catch (e: android.content.ActivityNotFoundException) {
+                    startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$appPackageName")))
+                }
+            }
+        }
+
         buttonDelivered?.setOnClickListener {
 
             if (distanceBetween <= 350) {
                 updateOrder()
             }
             else {
-                Toast.makeText(this, "Get closer to the delivery location", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Chưa tới địa điểm giao hàng", Toast.LENGTH_LONG).show()
             }
 
         }
@@ -221,7 +247,6 @@ class DeliveryOrdersMapActivity : AppCompatActivity() , OnMapReadyCallback {
             override fun onFailure(call: Call<ResponseHttp>, t: Throwable) {
                 Toast.makeText(this@DeliveryOrdersMapActivity, "Error: ${t.message}", Toast.LENGTH_LONG).show()
             }
-
         })
     }
 

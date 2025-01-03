@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".activities.client.orders.detail.ClientOrdersDetailActivity">
 
-    <include layout="@layout/action_bar" />
+    <include layout="@layout/action_sub_bar" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="55dp">
+        android:layout_marginTop="90dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_products"
@@ -40,7 +40,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Customer: "
+                android:text="Khách hàng: "
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="17sp"/>
@@ -64,7 +64,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Deliver in: "
+                android:text="Giao tới: "
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="17sp"/>
@@ -88,7 +88,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Order date: "
+                android:text="Ngày đặt hàng: "
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="17sp"/>
@@ -107,12 +107,48 @@
             android:orientation="horizontal"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ghi chú: "
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="17sp"
+                android:gravity="center_vertical"/>
+
+            <ScrollView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fillViewport="true"
+                android:paddingStart="8dp">
+
+                <TextView
+                    android:id="@+id/note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nội dung dài để kiểm tra scroll"
+                    android:padding="16dp"
+                    android:scrollbars="vertical"
+                    android:gravity="center_vertical"/>
+            </ScrollView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Order status: "
+                android:text="Trạng thái đơn hàng: "
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="17sp"/>
@@ -122,7 +158,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="State" />
-
         </LinearLayout>
 
 
@@ -139,7 +174,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="TOTAL"
+                android:text="Tổng cộng"
                 android:textStyle="bold"
                 android:textColor="@color/green"
                 android:layout_weight="1"
@@ -160,7 +195,7 @@
             android:id="@+id/btn_go_to_map"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TRACK ORDER"
+            android:text="Theo dõi đơn hàng"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"

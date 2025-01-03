@@ -18,95 +18,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="25dp"
             android:layout_marginTop="60dp"
-            android:fontFamily="@font/indigo_daisy"
-            android:text="@string/register"
+            android:text="Đăng ký"
             android:textSize="50sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="5dp"
-            android:fontFamily="@font/roboto_regular"
-            android:text="@string/register_description" />
 
-<!--        <EditText-->
-<!--            android:id="@+id/first_name"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_marginLeft="20dp"-->
-<!--            android:layout_marginTop="50dp"-->
-<!--            android:layout_marginRight="20dp"-->
-<!--            android:autofillHints=""-->
-<!--            android:background="@drawable/edittext_custom"-->
-<!--            android:hint="@string/first_name"-->
-<!--            android:inputType="text"-->
-<!--            android:padding="15dp" />-->
-
-<!--        <EditText-->
-<!--            android:id="@+id/last_name"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_marginLeft="20dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginRight="20dp"-->
-<!--            android:autofillHints=""-->
-<!--            android:background="@drawable/edittext_custom"-->
-<!--            android:hint="@string/last_name"-->
-<!--            android:inputType="text"-->
-<!--            android:padding="15dp" />-->
-
-<!--        <EditText-->
-<!--            android:id="@+id/email"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_marginLeft="20dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginRight="20dp"-->
-<!--            android:autofillHints=""-->
-<!--            android:background="@drawable/edittext_custom"-->
-<!--            android:hint="@string/email"-->
-<!--            android:inputType="textEmailAddress"-->
-<!--            android:padding="15dp" />-->
-
-<!--        <EditText-->
-<!--            android:id="@+id/phone_number"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_marginLeft="20dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginRight="20dp"-->
-<!--            android:autofillHints=""-->
-<!--            android:background="@drawable/edittext_custom"-->
-<!--            android:hint="@string/phone_number"-->
-<!--            android:inputType="phone"-->
-<!--            android:padding="15dp" />-->
-
-<!--        <EditText-->
-<!--            android:id="@+id/password"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_marginLeft="20dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginRight="20dp"-->
-<!--            android:autofillHints=""-->
-<!--            android:background="@drawable/edittext_custom"-->
-<!--            android:hint="@string/password"-->
-<!--            android:inputType="textPassword"-->
-<!--            android:padding="15dp" />-->
-
-<!--        <EditText-->
-<!--            android:id="@+id/confirm_password"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="50dp"-->
-<!--            android:layout_marginLeft="20dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:layout_marginRight="20dp"-->
-<!--            android:autofillHints=""-->
-<!--            android:background="@drawable/edittext_custom"-->
-<!--            android:hint="@string/confirm_password"-->
-<!--            android:inputType="textPassword"-->
-<!--            android:padding="15dp" />-->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/firstNameLayout"
             android:layout_width="match_parent"
@@ -114,14 +29,13 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:hint="@string/first_name">
+            android:hint="Tên">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/first_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:hint="@string/first_name"/>
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/lastNameLayout"
@@ -130,14 +44,13 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:hint="@string/last_name">
+            android:hint="Họ và tên đệm">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/last_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"
-                android:hint="@string/last_name"/>
+                android:inputType="text" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailLayout"
@@ -152,8 +65,7 @@
                 android:id="@+id/email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:hint="@string/email"/>
+                android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/phoneNumberLayout"
@@ -162,14 +74,13 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:hint="@string/phone_number">
+            android:hint="Số điện thoại">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/phone_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone"
-                android:hint="@string/phone_number"/>
+                android:inputType="phone" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordLayout"
@@ -178,14 +89,13 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:hint="@string/password">
+            android:hint="Mật khẩu">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:hint="@string/password"/>
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/confirmPasswordLayout"
@@ -194,14 +104,13 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:hint="@string/confirm_password">
+            android:hint="Xác nhận mật khẩu">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:hint="@string/confirm_password"/>
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -213,7 +122,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginBottom="40dp">
 
 
         <Button
@@ -223,20 +133,20 @@
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:backgroundTint="@color/black"
-            android:text="@string/register" />
+            android:text="Đăng ký" />
 
         <ImageView
             android:id="@+id/back_to_login"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="25dp"
             android:src="@drawable/ic_arrow_left" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="15dp"
-            android:text="@string/return_to_login" />
+            android:text="Quay lại đăng nhập" />
 
     </LinearLayout>
 

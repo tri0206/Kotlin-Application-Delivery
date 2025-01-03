@@ -6,32 +6,50 @@
     android:layout_height="match_parent"
     tools:context=".activities.client.payments.payment_method.ClientPaymentMethodActivity">
 
-    <include layout="@layout/action_bar" />
+    <include layout="@layout/action_sub_bar" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center">
-
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chọn phương thức thanh toán"
+            android:textSize="20sp"
+            android:gravity="center"/>
         <ImageView
             android:id="@+id/imageview_cash"
             android:layout_width="100dp"
             android:layout_height="100dp"
+            android:contentDescription="TODO"
             android:src="@drawable/cash" />
+        <TextView
+            android:id="@+id/textview_cash"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thanh toán khi nhận hàng"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            />
         <ImageView
-            android:id="@+id/imageview_momo"
+            android:id="@+id/imageview_zalo"
             android:layout_marginTop="20dp"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@drawable/momo" />
+            android:src="@drawable/imageview_zalo" />
 
-        <ImageView
-            android:id="@+id/imageview_paypal"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/paypal"
-            android:layout_marginTop="20dp"/>
+        <TextView
+            android:id="@+id/textview_zalo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thanh toán bằng ZaloPay"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            />
 
     </LinearLayout>
 

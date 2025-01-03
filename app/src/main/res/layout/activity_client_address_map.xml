@@ -17,6 +17,7 @@
     <ImageView
         android:layout_width="55dp"
         android:layout_height="55dp"
+        android:contentDescription="TODO"
         android:src="@drawable/my_location"
         android:layout_gravity="center" />
 
@@ -44,13 +45,25 @@
         android:id="@+id/btn_accept"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="ACCEPT"
+        android:text="Chọn vị trí này"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_gravity="bottom"
         android:layout_marginBottom="25dp"
-        android:textColor="@color/black"
-        android:background="@drawable/rounded_button"/>
-
+        android:textColor="@color/white"
+        android:backgroundTint="@color/primary_color"
+        />
+    <ImageButton
+        android:id="@+id/btn_center_current_location"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="90dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/rounded_white_background"
+        android:src="@drawable/ic_my_location"
+        android:contentDescription="@string/move_to_current_location"
+        android:padding="10dp"
+        android:elevation="4dp" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -2,7 +2,9 @@ package com.example.kotlinapplicationdelivery.activities.client.orders.map
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -23,6 +25,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.example.kotlinapplicationdelivery.R
 import com.example.kotlinapplicationdelivery.activities.delivery.home.DeliveryHomeActivity
+import com.example.kotlinapplicationdelivery.fragments.client.ClientCategoriesFragment
 import com.example.kotlinapplicationdelivery.models.Order
 import com.example.kotlinapplicationdelivery.models.SocketEmit
 import com.example.kotlinapplicationdelivery.models.User
@@ -96,15 +99,17 @@ class ClientOrdersMapActivity : AppCompatActivity(), OnMapReadyCallback {
                 myLocationLatLng = LatLng(lastLocation.latitude, lastLocation.longitude)
             }
 
-//            googleMap?.moveCamera(CameraUpdateFactory.newCameraPosition(
-//                CameraPosition.builder().target(
-//                    LatLng(myLocationLatLng?.latitude!!, myLocationLatLng?.longitude!!)
-//                ).zoom(15f).build()
-//            ))
+            googleMap?.moveCamera(CameraUpdateFactory.newCameraPosition(
+                CameraPosition.builder().target(
+                    LatLng(myLocationLatLng?.latitude!!, myLocationLatLng?.longitude!!)
+                ).zoom(15f).build()
+            ))
 
 
-//            removeDeliveryMarker()
-//            addDeliveryMarker()
+            removeDeliveryMarker()
+            if (lastLocation != null) {
+                addDeliveryMarker(lastLocation.latitude, lastLocation.longitude)
+            }
             Log.d("Location", "Callback: $lastLocation")
 
         }
@@ -167,6 +172,11 @@ class ClientOrdersMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        getLastLocation()
+        connectSocket()
+    }
     private fun connectSocket() {
         SocketHandler.setSocket()
         socket = SocketHandler.getSocket()
@@ -217,26 +227,6 @@ class ClientOrdersMapActivity : AppCompatActivity(), OnMapReadyCallback {
     private fun drawRoute() {
         if (deliveryLatLng != null) {
             val addressLocation = LatLng(order?.address?.lat!!, order?.address?.lng!!)
-//            val drawRouteSDK: DrawRouteSDK = DrawRouteSDKImpl("AIzaSyBSH_q8Ex5ryF52tHV9RckTIZGMg_U-CBE")
-//            googleMap.apply {
-//                drawRouteSDK.drawRoute(
-//                    googleMap!!,
-//                    travelMode = TravelMode.DRIVING,
-//                    source = myLocationLatLng!!,
-//                    destination = addressLocation,
-//                    context = this@ClientOrdersMapActivity,
-//                    color = Color.BLACK,
-//                    showMarkers = false,
-//                    boundMarkers = false,
-//                    polygonWidth = 12,
-//                    estimates = { leg ->
-//                        println("$TAG: drawRoute::estimates ${leg.duration}")
-//                    },
-//                    error = { throwable ->
-//                        println("$TAG: drawRoute::error ${throwable.message}")
-//                    }
-//                )
-//            }
             googleMap?.drawRouteOnMap(
                 getString(R.string.google_map_api_key),
                 source = deliveryLatLng!!,
@@ -395,5 +385,10 @@ class ClientOrdersMapActivity : AppCompatActivity(), OnMapReadyCallback {
             user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
         }
 
+    }
+    @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
+    override fun onBackPressed() {
+        Log.d(TAG, "onBackPressed: tridoan")
+        super.onBackPressed()
     }
 }

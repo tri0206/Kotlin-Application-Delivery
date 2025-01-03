@@ -11,6 +11,7 @@ import com.example.kotlinapplicationdelivery.utils.SharedPref
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -43,7 +44,16 @@ class UsersProvider(private val token: String? = null) {
     fun register(user: User): Call<ResponseHttp>? {
         return usersRoutes?.register(user)
     }
+    fun registerRoles(id: String, idRole: Int): Call<ResponseHttp>? {
+        return usersRoutes?.registerRoles(id, idRole)
+    }
+    fun resetPassword(email: String): Call<ResponseHttp>? {
+        return usersRoutes?.resetPassword(email)
+    }
 
+    fun changePassword(oldPassword: String, newPassword: String, email: String): Call<ResponseHttp>? {
+        return usersRoutesToken?.changePassword(oldPassword, newPassword, email)
+    }
     fun login(email: String, password: String): Call<ResponseHttp>? {
         return usersRoutes?.login(email, password)
     }
@@ -57,9 +67,9 @@ class UsersProvider(private val token: String? = null) {
     }
 
     fun update(file: File, user: User): Call<ResponseHttp>? {
-        val reqFile = RequestBody.create(MediaType.parse("image/*"), file)
+        val reqFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
         val image = MultipartBody.Part.createFormData("image", file.name, reqFile)
-        val requestBody = RequestBody.create(MediaType.parse("text/plain"), user.toJson())
+        val requestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), user.toJson())
         return usersRoutesToken?.update(image, requestBody, token!!)
     }
 

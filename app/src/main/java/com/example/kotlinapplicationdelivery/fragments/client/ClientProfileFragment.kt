@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.example.kotlinapplicationdelivery.R
 import com.example.kotlinapplicationdelivery.activities.MainActivity
 import com.example.kotlinapplicationdelivery.activities.SelectRolesActivity
+import com.example.kotlinapplicationdelivery.activities.client.home.ClientHomeActivity
 import com.example.kotlinapplicationdelivery.activities.client.update.ClientUpdateActivity
 import com.example.kotlinapplicationdelivery.models.User
 import com.example.kotlinapplicationdelivery.utils.SharedPref
@@ -38,7 +40,7 @@ class ClientProfileFragment : Fragment() {
     private var user: User? = null
     private var toolbar: Toolbar? = null
     private var titleBar : TextView? = null
-
+    private var buttonBack : ImageView?= null
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,7 +61,7 @@ class ClientProfileFragment : Fragment() {
         buttonSelectRol?.setOnClickListener { goToSelectRol() }
         buttonUpdateProfile?.setOnClickListener { goToUpdate() }
         imageViewLogout?.setOnClickListener { logout() }
-
+        buttonBack = myView?.findViewById(R.id.button_back)
         getUserFromSession()
         toolbar = myView?.findViewById(R.id.toolbar)
         toolbar?.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.black))
@@ -74,7 +76,11 @@ class ClientProfileFragment : Fragment() {
             Glide.with(requireContext()).load(user?.image).into(circleImageUser!!)
         }
 
-
+        buttonBack?.setOnClickListener {
+            buttonBack?.post {
+                requireActivity().supportFragmentManager.popBackStack()
+            }
+        }
         return myView
     }
 

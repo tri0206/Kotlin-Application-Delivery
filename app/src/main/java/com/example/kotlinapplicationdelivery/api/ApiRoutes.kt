@@ -4,6 +4,7 @@ import com.example.kotlinapplicationdelivery.routes.AddressRoutes
 import com.example.kotlinapplicationdelivery.routes.CategoriesRoutes
 import com.example.kotlinapplicationdelivery.routes.OrdersRoutes
 import com.example.kotlinapplicationdelivery.routes.ProductsRoutes
+import com.example.kotlinapplicationdelivery.routes.RestaurantsRoutes
 import com.example.kotlinapplicationdelivery.routes.UsersRoutes
 import retrofit2.Retrofit
 
@@ -27,6 +28,9 @@ class ApiRoutes {
     }
     fun getOrdersRoutes(token: String): OrdersRoutes {
         return retrofit.getClientWithToken(API_URL, token).create(OrdersRoutes::class.java)
+    }
+    fun getRestaurantRoutes(token: String): RestaurantsRoutes {
+        return retrofit.getClientWithToken(API_URL, token).create(RestaurantsRoutes::class.java)
     }
 
 }

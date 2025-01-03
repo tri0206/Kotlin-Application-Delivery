@@ -27,8 +27,25 @@ interface UsersRoutes {
     fun register(@Body user: User): Call<ResponseHttp>
 
     @FormUrlEncoded
+    @POST("users/registerRoles")
+    fun registerRoles(@Field("id") id: String, @Field("idRole") idRole: Int): Call<ResponseHttp>
+
+    @FormUrlEncoded
     @POST("users/login")
     fun login(@Field("email") email: String, @Field("password") password: String): Call<ResponseHttp>
+
+    @POST("users/resetPassword")
+    @FormUrlEncoded
+    fun resetPassword(@Field("email") email: String): Call<ResponseHttp>
+
+
+    @POST("users/changePassword")
+    @FormUrlEncoded
+    fun changePassword(
+        @Field("oldPassword") oldPassword: String,
+        @Field("newPassword") newPassword: String,
+        @Field("email") email: String,
+    ): Call<ResponseHttp>
 
     @Multipart
     @PUT("users/update")

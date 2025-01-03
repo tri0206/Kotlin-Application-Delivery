@@ -6,18 +6,18 @@
     android:layout_height="match_parent"
     tools:context=".activities.client.address.create.ClientAddressCreateActivity">
 
-    <include layout="@layout/action_bar" />
+    <include layout="@layout/action_sub_bar" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="55dp">
+        android:layout_marginTop="70dp">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Complete this information"
+            android:text="Hoàn thành thông tin sau"
             android:textSize="17sp"
             android:layout_marginRight="25dp"
             android:layout_marginLeft="25dp"
@@ -31,7 +31,7 @@
             android:layout_marginTop="30dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:hint="Address">
+            android:hint="Địa chỉ">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittext_address"
@@ -46,7 +46,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:hint="Neighborhood">
+            android:hint="Phố">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittext_neighborhood"
@@ -60,7 +60,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:hint="Benchmark">
+            android:hint="Tọa độ">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittext_ref_point"
@@ -77,12 +77,12 @@
         android:id="@+id/btn_create_address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Create address"
+        android:text="Tạo địa chỉ"
         android:layout_marginLeft="20dp"
         android:layout_gravity="bottom"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="25dp"
-        android:textColor="@color/black"
-        android:background="@drawable/rounded_button"/>
+        android:textColor="@color/white"
+        android:backgroundTint="@color/primary_color"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

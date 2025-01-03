@@ -2,11 +2,15 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("com.google.gms.google-services")
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
 }
+val tomtomApiKey: String by project
 android {
     namespace = "com.example.kotlinapplicationdelivery"
     compileSdk = 35
-
+    viewBinding {
+        enable = true
+    }
     defaultConfig {
         applicationId = "com.example.kotlinapplicationdelivery"
         minSdk = 24
@@ -16,7 +20,6 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -33,8 +36,12 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-}
+    buildFeatures {
+        viewBinding = true
+        buildConfig = true
+    }
 
+}
 dependencies {
     implementation(libs.material.v170)
     implementation(libs.androidx.core.ktx)
@@ -64,6 +71,15 @@ dependencies {
     implementation(libs.google.firebase.messaging.ktx)
     implementation(libs.firebase.analytics)
     implementation(platform(libs.firebase.bom))
+    implementation(fileTree(mapOf(
+        "dir" to "D:\\zalopay",
+        "include" to listOf("*.aar", "*.jar"),
+        "exclude" to listOf("")
+    )))
+    implementation(libs.design)
+    implementation(libs.okhttp)
+    implementation(libs.commons.codec)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

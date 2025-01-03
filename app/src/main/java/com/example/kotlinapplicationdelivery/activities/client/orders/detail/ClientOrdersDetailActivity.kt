@@ -6,13 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplicationdelivery.R
@@ -26,15 +24,18 @@ class ClientOrdersDetailActivity : AppCompatActivity() {
     var order: Order? = null
     val gson = Gson()
 
-    private var toolbar: Toolbar? = null
     private var textViewClient: TextView? = null
     private var textViewAddress: TextView? = null
     private var textViewDate: TextView? = null
     private var textViewTotal: TextView? = null
     private var textViewStatus: TextView? = null
+    private var textViewNote: TextView? = null
     private var recyclerViewProducts: RecyclerView? = null
     private var buttonGoToMap: Button? = null
 
+    private var toolbar: Toolbar? = null
+    private var titleBar : TextView? = null
+    private var buttonBack : ImageView?= null
     var adapter: OrderProductsAdapter? = null
 
     @SuppressLint("SetTextI18n")
@@ -44,11 +45,7 @@ class ClientOrdersDetailActivity : AppCompatActivity() {
 
         order = gson.fromJson(intent.getStringExtra("order"), Order::class.java)
 
-        toolbar = findViewById(R.id.toolbar)
-        toolbar?.setTitleTextColor(ContextCompat.getColor(this, R.color.black))
-        toolbar?.title = "Order #${order?.id}"
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
 
         textViewClient = findViewById(R.id.textview_client)
         textViewAddress = findViewById(R.id.textview_address)
@@ -56,6 +53,12 @@ class ClientOrdersDetailActivity : AppCompatActivity() {
         textViewTotal = findViewById(R.id.textview_total)
         textViewStatus = findViewById(R.id.textview_status)
         buttonGoToMap = findViewById(R.id.btn_go_to_map)
+        textViewNote = findViewById(R.id.note)
+        toolbar = findViewById(R.id.toolbar)
+        titleBar = findViewById(R.id.custom_toolbar_title)
+        buttonBack = findViewById(R.id.button_back)
+        toolbar?.title = ""
+        titleBar?.text = "Đơn hàng #${order?.id}"
 
         recyclerViewProducts = findViewById(R.id.recyclerview_products)
         recyclerViewProducts?.layoutManager = LinearLayoutManager(this)
@@ -66,8 +69,21 @@ class ClientOrdersDetailActivity : AppCompatActivity() {
         textViewClient?.text = "${order?.client?.firstname} ${order?.client?.lastname}"
         textViewAddress?.text = order?.address?.address
         textViewDate?.text = "${order?.timestamp}"
-        textViewStatus?.text = order?.status
-
+        when (order?.status) {
+            "PAID" -> {
+                textViewStatus?.text = "Đã thanh toán"
+            }
+            "DISPATCHED" -> {
+                textViewStatus?.text = "Đã gửi đi"
+            }
+            "ON THE WAY" -> {
+                textViewStatus?.text = "Đang giao hàng"
+            }
+            else -> {
+                textViewStatus?.text = "Đã giao hàng"
+            }
+        }
+        textViewNote?.text = order?.note
         Log.d(TAG, "Order: ${order.toString()}")
 
         getTotal()
@@ -88,12 +104,12 @@ class ClientOrdersDetailActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun getTotal() {
-        var total = 0.0
+        var total = 0
 
         for (p in order?.products!!) {
             total += (p.price * p.quantity!!)
         }
-        textViewTotal?.text = "${total}$"
+        textViewTotal?.text = "$total VND"
 
     }
 }

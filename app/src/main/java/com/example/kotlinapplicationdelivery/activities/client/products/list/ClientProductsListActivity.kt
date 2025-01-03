@@ -1,7 +1,10 @@
 package com.example.kotlinapplicationdelivery.activities.client.products.list
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +14,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplicationdelivery.R
+import com.example.kotlinapplicationdelivery.activities.client.home.ClientHomeActivity
+import com.example.kotlinapplicationdelivery.activities.client.shopping_bag.ClientShoppingBagActivity
 import com.example.kotlinapplicationdelivery.adapters.ProductsAdapter
 import com.example.kotlinapplicationdelivery.models.Product
 import com.example.kotlinapplicationdelivery.models.User
@@ -34,22 +39,35 @@ class ClientProductsListActivity : AppCompatActivity() {
     var products: ArrayList<Product> = ArrayList()
 
     private var idCategory: String? = null
+    private var nameCategory: String? = null
     private var toolbar: Toolbar? = null
-
+    private var titleBar : TextView? = null
+    private var buttonBack : ImageView?= null
+    private var bag : ImageView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_client_products_list)
 
         sharedPref = SharedPref(this)
-
         idCategory = intent.getStringExtra("idCategory")
+        nameCategory = intent.getStringExtra("nameCategory")
 
+        toolbar = findViewById(R.id.toolbar)
+        titleBar = findViewById(R.id.custom_toolbar_title)
+        bag = findViewById(R.id.shopping_bag)
+        buttonBack = findViewById(R.id.button_back)
+        toolbar?.title = ""
+        titleBar?.text = "$nameCategory"
         getUserFromSession()
         productsProvider = ProductsProvider(user?.sessionToken!!)
 
         recyclerViewProducts = findViewById(R.id.recyclerview_products)
         recyclerViewProducts?.layoutManager = GridLayoutManager(this, 2)
 
+        buttonBack?.setOnClickListener {
+            finish()
+        }
+        bag?.setOnClickListener { goToShoppingBag() }
         getProducts()
     }
 
@@ -86,5 +104,9 @@ class ClientProductsListActivity : AppCompatActivity() {
             }
 
         })
+    }
+    private fun goToShoppingBag() {
+        val i = Intent(this, ClientShoppingBagActivity::class.java)
+        startActivity(i)
     }
 }

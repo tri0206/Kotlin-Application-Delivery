@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="Tạo thông tin nhà hàng"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="@color/primary_color"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Restaurant Name -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tên nhà hàng"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/et_restaurant_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:hint="Nhập tên nhà hàng"
+            android:background="@drawable/bg_edittext"
+            android:padding="12dp"
+            android:textSize="16sp"
+            android:inputType="textPersonName" />
+
+        <!-- Phone Number -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Số điện thoại"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/et_restaurant_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:hint="Nhập số điện thoại"
+            android:background="@drawable/bg_edittext"
+            android:padding="12dp"
+            android:textSize="16sp"
+            android:inputType="phone" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ảnh đại diện"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="8dp" />
+
+            <ImageView
+                android:id="@+id/imageview_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/gray_light"
+                android:contentDescription="@string/avatar"
+                android:src="@drawable/ic_image" />
+        </LinearLayout>
+        <!-- Description -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mô tả nhà hàng"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp" />
+
+        <EditText
+            android:id="@+id/et_restaurant_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:hint="Nhập mô tả nhà hàng"
+            android:background="@drawable/bg_edittext"
+            android:padding="12dp"
+            android:textSize="16sp"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:gravity="top" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Địa chỉ"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp" />
+        <EditText
+            android:id="@+id/edittext_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:hint="Địa chỉ"
+            android:background="@drawable/bg_edittext"
+            android:padding="12dp"
+            android:textSize="16sp"
+            android:inputType="text" />
+        <EditText
+            android:id="@+id/edittext_neighborhood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:hint="Phố"
+            android:background="@drawable/bg_edittext"
+            android:padding="12dp"
+            android:textSize="16sp"
+            android:inputType="textPersonName"
+            android:layout_marginTop="5dp"/>
+        <EditText
+            android:id="@+id/edittext_ref_point"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints=""
+            android:hint="Tọa độ"
+            android:background="@drawable/bg_edittext"
+            android:padding="12dp"
+            android:textSize="16sp"
+            android:inputType="textPersonName"
+            android:layout_marginTop="5dp"/>
+        <!-- Submit Button -->
+        <Button
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Tạo nhà hàng"
+            android:backgroundTint="@color/primary_color"
+            android:textColor="@android:color/white"
+            android:paddingVertical="12dp"
+            android:textStyle="bold"
+            android:elevation="2dp" />
+
+    </LinearLayout>
+</ScrollView>

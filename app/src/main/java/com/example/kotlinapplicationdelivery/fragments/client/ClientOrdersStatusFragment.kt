@@ -79,9 +79,7 @@ class ClientOrdersStatusFragment : Fragment() {
     }
 
     private fun getUserFromSession() {
-
         val gson = Gson()
-
         if (!sharedPref?.getData("user").isNullOrBlank()) {
             user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
         }

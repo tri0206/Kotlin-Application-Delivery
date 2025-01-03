@@ -11,14 +11,20 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.kotlinapplicationdelivery.R
+import com.example.kotlinapplicationdelivery.activities.client.products.list.ClientProductSearchingListActivity
 import com.example.kotlinapplicationdelivery.activities.client.shopping_bag.ClientShoppingBagActivity
 import com.example.kotlinapplicationdelivery.adapters.CategoriesAdapter
 import com.example.kotlinapplicationdelivery.models.Category
@@ -43,9 +49,11 @@ class ClientCategoriesFragment : Fragment() {
     var user: User? = null
     var sharedPref: SharedPref? = null
     var categories = ArrayList<Category>()
-    private var toolbar: Toolbar? = null
     private var titleBar : TextView? = null
-
+    private  var greeting : TextView? = null;
+    private var shoppingBag : ImageView? = null
+    private var searchProduct : EditText? = null
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,25 +61,38 @@ class ClientCategoriesFragment : Fragment() {
         // Inflate the layout for this fragment
         myView = inflater.inflate(R.layout.fragment_client_categories, container, false)
         titleBar = myView?.findViewById(R.id.custom_toolbar_title)
+        greeting = myView?.findViewById(R.id.greeting)
+        shoppingBag = myView?.findViewById(R.id.shopping_bag)
+        searchProduct = myView?.findViewById(R.id.findProduct)
         setHasOptionsMenu(true)
 
-        toolbar = myView?.findViewById(R.id.toolbar)
-        toolbar?.setTitleTextColor(ContextCompat.getColor(requireContext(), R.color.primary_color))
-        toolbar?.title = ""
-        titleBar?.text = "FoodPicking"
-        (activity as AppCompatActivity).setSupportActionBar(toolbar)
 
         recyclerViewCategories = myView?.findViewById(R.id.recyclerview_categories)
-        recyclerViewCategories?.layoutManager = LinearLayoutManager(requireContext())
-
+        recyclerViewCategories?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         sharedPref = SharedPref(requireActivity())
 
         getUserFromSession()
 
         categoriesProvider = CategoriesProvider(user?.sessionToken!!)
-
+        greeting?.text = "Hi, ${user!!.firstname}"
         getCategories()
+        shoppingBag?.setOnClickListener {goToShoppingBag()}
+        searchProduct?.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                val query = searchProduct?.text.toString().trim()
+                if (query.isNotEmpty()) {
 
+                    val intent = Intent(requireContext(), ClientProductSearchingListActivity::class.java)
+                    intent.putExtra("search_query", query)
+                    startActivity(intent)
+                } else {
+                    Toast.makeText(requireContext(), "Vui lòng nhập từ khóa tìm kiếm", Toast.LENGTH_SHORT).show()
+                }
+                true
+            } else {
+                false
+            }
+        }
         return myView
     }
 

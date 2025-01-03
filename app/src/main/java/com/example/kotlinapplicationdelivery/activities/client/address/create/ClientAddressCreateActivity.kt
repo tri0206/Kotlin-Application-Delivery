@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
@@ -32,6 +34,8 @@ class ClientAddressCreateActivity : AppCompatActivity() {
     val TAG = "ClientAddressCreate"
 
     private var toolbar: Toolbar? = null
+    private var titleBar : TextView? = null
+    private var buttonBack : ImageView?= null
     private var editTextRefPoint: EditText? = null
     private var editTextAddress: EditText? = null
     private var editTextNeighborhood: EditText? = null
@@ -60,9 +64,11 @@ class ClientAddressCreateActivity : AppCompatActivity() {
         buttonCreateAddress = findViewById(R.id.btn_create_address)
 
         toolbar?.setTitleTextColor(ContextCompat.getColor(this, R.color.black))
-        toolbar?.title = "Create address"
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar = findViewById(R.id.toolbar)
+        titleBar = findViewById(R.id.custom_toolbar_title)
+        buttonBack = findViewById(R.id.button_back)
+        toolbar?.title = ""
+        titleBar?.text = "Tạo địa chỉ"
 
         editTextRefPoint?.setOnClickListener { goToAddressMap() }
         buttonCreateAddress?.setOnClickListener { createAddress() }

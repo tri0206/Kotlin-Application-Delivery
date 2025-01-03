@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.viewpager2.widget.ViewPager2
 import com.example.kotlinapplicationdelivery.R
@@ -20,7 +21,6 @@ class RestaurantOrdersFragment : Fragment() {
 
     private var viewpager: ViewPager2? = null
     private var tabLayout: TabLayout? = null
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,7 +30,6 @@ class RestaurantOrdersFragment : Fragment() {
 
         viewpager = myView?.findViewById(R.id.viewpager)
         tabLayout = myView?.findViewById(R.id.tab_layout)
-
         tabLayout?.setSelectedTabIndicatorColor(Color.BLACK)
         tabLayout?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
         tabLayout?.tabTextColors = ContextCompat.getColorStateList(requireContext(), R.color.black)
@@ -47,16 +46,16 @@ class RestaurantOrdersFragment : Fragment() {
 
             when(position) {
                 0 -> {
-                    tab.text = "PAID"
+                    tab.text = "Đã thanh toán"
                 }
                 1 -> {
-                    tab.text = "DISPATCHED"
+                    tab.text = "Đã gửi đi"
                 }
                 2 -> {
-                    tab.text = "ON THE WAY"
+                    tab.text = "Đang trên đường"
                 }
                 3 -> {
-                    tab.text = "DELIVERED"
+                    tab.text = "Đã được giao"
                 }
             }
 

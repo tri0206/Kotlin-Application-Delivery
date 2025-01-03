@@ -1,6 +1,7 @@
 package com.example.kotlinapplicationdelivery.activities.client.address.map
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -30,6 +31,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.CameraPosition
 import com.google.android.gms.maps.model.LatLng
 import android.provider.Settings
+import android.widget.ImageButton
 
 class ClientAddressMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -42,7 +44,7 @@ class ClientAddressMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private var textViewAddress: TextView? = null
     private var buttonAccept: Button? = null
-
+    private var buttonCurrentLocation: ImageButton? = null
     private var city = ""
     private var country = ""
     private var address = ""
@@ -70,14 +72,18 @@ class ClientAddressMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
         textViewAddress = findViewById(R.id.textview_address)
         buttonAccept = findViewById(R.id.btn_accept)
-
+        buttonCurrentLocation = findViewById(R.id.btn_center_current_location)
 
         getLastLocation()
-
+        buttonCurrentLocation?.setOnClickListener {getLastLocation()}
         buttonAccept?.setOnClickListener { goToCreateAddress() }
 
     }
 
+    override fun onResume() {
+        super.onResume()
+        getLastLocation()
+    }
     private fun goToCreateAddress() {
         val i = Intent()
         i.putExtra("city", city)
@@ -89,6 +95,7 @@ class ClientAddressMapActivity : AppCompatActivity(), OnMapReadyCallback {
         finish() // BACK
     }
 
+    @SuppressLint("SetTextI18n")
     private fun onCameraMove() {
 
         googleMap?.setOnCameraIdleListener {

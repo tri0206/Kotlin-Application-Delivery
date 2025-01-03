@@ -19,12 +19,12 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
-                android:background="@color/green" />
+                android:background="@color/primary_color" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="COMPLETE YOUR INFORMATION"
+                android:text="Hoàn thành thông tin của bạn"
                 android:textColor="@color/white"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -56,7 +56,7 @@
             android:id="@+id/btn_confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="CONFIRM"
+            android:text="Xác nhận"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:background="@drawable/rounded_button"/>
@@ -65,7 +65,7 @@
             android:id="@+id/btn_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Skip this step"
+            android:text="Bỏ qua bước này"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"

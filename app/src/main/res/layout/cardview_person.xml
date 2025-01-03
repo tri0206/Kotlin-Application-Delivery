@@ -1,0 +1,47 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="8dp"
+    android:background="#F5F5F5"
+    android:layout_marginBottom="8dp">
+
+    <!-- Họ và Tên -->
+    <TextView
+        android:id="@+id/tv_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Họ và tên"
+        android:textSize="16sp"
+        android:textColor="#000000"
+        android:gravity="center_vertical" />
+
+    <!-- Nút Sửa -->
+    <Button
+        android:id="@+id/btn_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sửa"
+        android:backgroundTint="#FFA500"
+        android:textColor="#FFFFFF" />
+
+    <!-- Nút Xóa -->
+    <Button
+        android:id="@+id/btn_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Xóa"
+        android:backgroundTint="#FF0000"
+        android:textColor="#FFFFFF" />
+
+    <!-- Nút Thêm (Có thể sử dụng ẩn/hiện tùy theo yêu cầu) -->
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Thêm"
+        android:backgroundTint="#007AFF"
+        android:textColor="#FFFFFF" />
+</LinearLayout>

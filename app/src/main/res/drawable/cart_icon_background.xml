@@ -1,0 +1,18 @@
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="oval">
+
+    <!-- Màu nền vàng -->
+    <solid android:color="@color/white" /> <!-- Mã màu vàng -->
+
+    <!-- Đổ bóng (nếu cần) -->
+    <size
+        android:width="60dp"
+        android:height="60dp" />
+
+
+    <padding
+        android:bottom="4dp"
+        android:top="4dp"
+        android:left="4dp"
+        android:right="4dp" />
+</shape>

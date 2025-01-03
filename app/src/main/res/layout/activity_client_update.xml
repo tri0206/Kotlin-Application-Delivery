@@ -7,7 +7,7 @@
     tools:context=".activities.client.update.ClientUpdateActivity"
     android:id="@+id/main">
 
-    <include layout="@layout/action_bar" />
+    <include layout="@layout/action_sub_bar" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,7 +22,7 @@
             app:civ_border_color="@color/gray"
             app:civ_border_width="5dp"
             android:layout_gravity="center"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="80dp"
             app:civ_circle_background_color="@color/gray_light" />
 
 
@@ -33,7 +33,7 @@
             android:layout_marginTop="50dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:hint="@string/first_name">
+            android:hint="Tên">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittext_name"
@@ -48,7 +48,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:hint="@string/last_name">
+            android:hint="Họ và tên đệm">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittext_lastname"
@@ -64,7 +64,7 @@
             android:layout_marginTop="10dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:hint="@string/phone_number">
+            android:hint="Số điện thoại">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/edittext_phone"
@@ -88,10 +88,10 @@
             android:id="@+id/btn_update"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Update"
+            android:text="Cập nhập"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="40dp"
             android:background="@drawable/rounded_button"/>
 
 

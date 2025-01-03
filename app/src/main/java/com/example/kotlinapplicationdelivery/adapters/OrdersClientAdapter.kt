@@ -28,7 +28,7 @@ class OrdersClientAdapter(val context: Activity, private val orders: ArrayList<O
 
         val order = orders[position] // EACH OF THE ORDERS
 
-        holder.textViewOrderId.text = "Order #${order.id}"
+        holder.textViewOrderId.text = "Đơn hàng #${order.id}"
         holder.textViewDate.text = "${order.timestamp}"
         holder.textViewAddress.text = "${order.address?.address}"
 

@@ -57,7 +57,6 @@ class RegisterActivity : AppCompatActivity() {
         val sharedPref = SharedPref(this)
         val gson = Gson()
         val user = gson.fromJson(data, User::class.java)
-        //Log.e("tridoan", "saveUserInSession: $user")
         sharedPref.save("user", user)
     }
     private fun String.isEmailValid(): Boolean {
@@ -74,41 +73,41 @@ class RegisterActivity : AppCompatActivity() {
     ): Boolean {
 
         if (firstName.isBlank()) {
-            Toast.makeText(this, "You must enter the first name", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Bạn phải nhập tên", Toast.LENGTH_SHORT).show()
             return false
         }
 
         if (lastName.isBlank()) {
-            Toast.makeText(this, "You must enter the last name", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Bạn phải nhập họ và tên đệm", Toast.LENGTH_SHORT).show()
             return false
         }
         if (email.isBlank()) {
-            Toast.makeText(this, "You must enter email", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Bạn phải nhập email", Toast.LENGTH_SHORT).show()
             return false
         }
         if (phoneNumber.isBlank()) {
-            Toast.makeText(this, "You must enter the phone number", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Bạn phải nhập số điện thoại", Toast.LENGTH_SHORT).show()
             return false
         }
 
 
         if (password.isBlank()) {
-            Toast.makeText(this, "You must enter the password", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Bạn phải nhập mật khẩu", Toast.LENGTH_SHORT).show()
             return false
         }
 
         if (confirmPassword.isBlank()) {
-            Toast.makeText(this, "You must enter the password confirmation", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Bạn phải nhập mật khẩu xác nhận", Toast.LENGTH_SHORT).show()
             return false
         }
 
         if (!email.isEmailValid()) {
-            Toast.makeText(this, "The email is not valid", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Email không hợp lệ", Toast.LENGTH_SHORT).show()
             return false
         }
 
         if (password != confirmPassword) {
-            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Mật khẩu không khớp", Toast.LENGTH_SHORT).show()
             return false
         }
 
@@ -124,7 +123,7 @@ class RegisterActivity : AppCompatActivity() {
         val confirmPassword = editTextConfirmPassword?.text.toString();
 
         if (isValidForm(firstName = firstName, phoneNumber = phoneNumber, lastName = lastName, email = email, password = password, confirmPassword = confirmPassword)) {
-            Toast.makeText(this, "The form is valid", Toast.LENGTH_SHORT).show()
+
             val user = User(
                 firstname = firstName,
                 lastname = lastName,
@@ -140,14 +139,14 @@ class RegisterActivity : AppCompatActivity() {
                      if(response.body()?.isSuccess == true) {
                          saveUserInSession(response.body()?.data.toString())
                          goToClientHome()
+                         Toast.makeText(this@RegisterActivity, response.body()?.message, Toast.LENGTH_LONG).show()
                      }
-                    Toast.makeText(this@RegisterActivity, response.message(), Toast.LENGTH_LONG).show()
-
+                    //response.message()
                     Log.d(TAG, "onResponse: $response" + response.body())
                 }
                 override fun onFailure(call: Call<ResponseHttp>, t: Throwable) {
                     Log.d(TAG, "onFailure: error ${t.message}")
-                    Toast.makeText(this@RegisterActivity, "un error ${t.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@RegisterActivity, "${t.message}", Toast.LENGTH_LONG).show()
                 }
             })
         }

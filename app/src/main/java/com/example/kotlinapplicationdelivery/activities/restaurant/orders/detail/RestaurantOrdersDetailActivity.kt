@@ -203,7 +203,7 @@ class RestaurantOrdersDetailActivity : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun getTotal() {
-        var total = 0.0
+        var total = 0
 
         for (p in order?.products!!) {
             total += (p.price * p.quantity!!)

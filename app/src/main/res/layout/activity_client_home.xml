@@ -12,24 +12,43 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/bottom_navigation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:menu="@menu/bottom_navigation_menu_client"
-            android:layout_gravity="bottom"
-            android:background="@color/white"
-            app:itemIconTint="@color/nav_item_color_selector"
-            app:itemTextColor="@color/nav_item_color_selector"
-            />
-
-
+<!--        <ImageView-->
+<!--            android:id="@+id/cart_icon"-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:layout_gravity="end|bottom"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            android:layout_marginBottom="140dp"-->
+<!--            android:contentDescription="@string/shopping_cart"-->
+<!--            android:elevation="8dp"-->
+<!--            android:src="@drawable/baseline_shopping_bag_24" />-->
     </FrameLayout>
-<!--    <Button-->
-<!--        android:id="@+id/log_out"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/client_home"-->
-<!--        android:layout_gravity="center"/>-->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:menu="@menu/bottom_navigation_menu_client"
+                android:layout_gravity="bottom"
+                android:background="@color/white"
+                app:itemIconTint="@color/nav_item_color_selector"
+                app:itemTextColor="@color/nav_item_color_selector" />
+
+<!--            <ImageView-->
+<!--                android:id="@+id/cart_icon"-->
+<!--                android:layout_width="60dp"-->
+<!--                android:layout_height="60dp"-->
+<!--                android:layout_gravity="center_horizontal|top"-->
+<!--                android:layout_marginTop="-40dp"-->
+<!--                android:background="@drawable/cart_icon_background"-->
+<!--                android:contentDescription="@string/shopping_cart"-->
+<!--                android:src="@drawable/baseline_shopping_bag_24"-->
+<!--                android:elevation="8dp"-->
+<!--                android:layout_alignParentBottom="true"/>-->
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

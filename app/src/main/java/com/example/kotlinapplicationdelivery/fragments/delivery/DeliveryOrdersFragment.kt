@@ -46,13 +46,13 @@ class DeliveryOrdersFragment : Fragment() {
 
             when(position) {
                 0 -> {
-                    tab.text = "DISPATCHED"
+                    tab.text = "Chờ lấy hàng"
                 }
                 1 -> {
-                    tab.text = "ON THE WAY"
+                    tab.text = "Đang trên đường"
                 }
                 2 -> {
-                    tab.text = "DELIVERED"
+                    tab.text = "Đã giao hàng"
                 }
             }
 

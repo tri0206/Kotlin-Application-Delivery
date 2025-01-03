@@ -1,14 +1,15 @@
 package com.example.kotlinapplicationdelivery.activities.client.address.list
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplicationdelivery.R
@@ -32,7 +33,6 @@ import retrofit2.Response
 
 class ClientAddressListActivity : AppCompatActivity() {
     private var fabCreateAddress: FloatingActionButton? = null
-    private var toolbar: Toolbar? = null
 
     private var recyclerViewAddress: RecyclerView? = null
 
@@ -49,7 +49,11 @@ class ClientAddressListActivity : AppCompatActivity() {
 
     private var selectedProducts = ArrayList<Product>()
 
+    private var toolbar: Toolbar? = null
+    private var titleBar : TextView? = null
+    private var buttonBack : ImageView?= null
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_client_address_list)
@@ -59,17 +63,16 @@ class ClientAddressListActivity : AppCompatActivity() {
         getProductsFromSharedPref()
 
         fabCreateAddress = findViewById(R.id.fab_address_create)
-
-        toolbar = findViewById(R.id.toolbar)
-         buttonNext = findViewById(R.id.btn_next)
+        buttonNext = findViewById(R.id.btn_next)
         recyclerViewAddress = findViewById(R.id.recyclerview_address)
 
         recyclerViewAddress?.layoutManager = LinearLayoutManager(this)
 
-        toolbar?.setTitleTextColor(ContextCompat.getColor(this, R.color.black))
-        toolbar?.title = "My addresses"
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        toolbar = findViewById(R.id.toolbar)
+        titleBar = findViewById(R.id.custom_toolbar_title)
+        buttonBack = findViewById(R.id.button_back)
+        toolbar?.title = ""
+        titleBar?.text = "Địa chỉ"
 
         getUserFromSession()
 
@@ -80,7 +83,10 @@ class ClientAddressListActivity : AppCompatActivity() {
 
         getAddress()
 
-        buttonNext?.setOnClickListener { getAddressFromSession() }
+        buttonNext?.setOnClickListener { goToPaymentsForm() }
+        buttonBack?.setOnClickListener {
+            finish()
+        }
     }
 
     private fun getProductsFromSharedPref() {
@@ -90,35 +96,33 @@ class ClientAddressListActivity : AppCompatActivity() {
             selectedProducts = gson.fromJson(sharedPref?.getData("order"), type)
 
         }
-
     }
 
     private fun createOrder(idAddress: String) {
-        goToPaymentsForm()
 
-        val order = Order(
-            products = selectedProducts,
-            idClient = user?.id!!,
-            idAddress = idAddress
-        )
-
-        ordersProvider?.create(order)?.enqueue(object: Callback<ResponseHttp> {
-            override fun onResponse(call: Call<ResponseHttp>, response: Response<ResponseHttp>) {
-
-                if (response.body() != null) {
-                    Toast.makeText(this@ClientAddressListActivity, "${response.body()?.message}", Toast.LENGTH_LONG).show()
-                }
-                else {
-                    Toast.makeText(this@ClientAddressListActivity, "An error occurred in the request", Toast.LENGTH_LONG).show()
-                }
-
-            }
-
-            override fun onFailure(call: Call<ResponseHttp>, t: Throwable) {
-                Toast.makeText(this@ClientAddressListActivity, "Error: ${t.message}", Toast.LENGTH_LONG).show()
-            }
-
-        })
+//        val order = Order(
+//            products = selectedProducts,
+//            idClient = user?.id!!,
+//            idAddress = idAddress
+//        )
+//
+//        ordersProvider?.create(order)?.enqueue(object: Callback<ResponseHttp> {
+//            override fun onResponse(call: Call<ResponseHttp>, response: Response<ResponseHttp>) {
+//
+//                if (response.body() != null) {
+//                    Toast.makeText(this@ClientAddressListActivity, "${response.body()?.message}", Toast.LENGTH_LONG).show()
+//                }
+//                else {
+//                    Toast.makeText(this@ClientAddressListActivity, "An error occurred in the request", Toast.LENGTH_LONG).show()
+//                }
+//
+//            }
+//
+//            override fun onFailure(call: Call<ResponseHttp>, t: Throwable) {
+//                Toast.makeText(this@ClientAddressListActivity, "Error: ${t.message}", Toast.LENGTH_LONG).show()
+//            }
+//
+//        })
     }
 
     private fun getAddressFromSession() {
@@ -126,7 +130,6 @@ class ClientAddressListActivity : AppCompatActivity() {
         if (!sharedPref?.getData("address").isNullOrBlank()) {
             val a = gson.fromJson(sharedPref?.getData("address"), Address::class.java) // IF IT EXISTS
             createOrder(a.id!!)
-            goToPaymentsForm()
         }
         else {
             Toast.makeText(this, "Select an address to continue", Toast.LENGTH_LONG).show()
@@ -136,6 +139,8 @@ class ClientAddressListActivity : AppCompatActivity() {
 
     private fun goToPaymentsForm() {
         val i = Intent(this, ClientPaymentMethodActivity::class.java)
+        i.putExtra("total_price", intent.getStringExtra("total_price"))
+        i.putExtra("note", intent.getStringExtra("note"))
         startActivity(i)
     }
 
@@ -178,6 +183,7 @@ class ClientAddressListActivity : AppCompatActivity() {
 
     private fun goToAddressCreate() {
         val i = Intent(this, ClientAddressCreateActivity::class.java)
+        i.putExtra("total_price", intent.getStringExtra("total_price"))
         startActivity(i)
     }
 }

@@ -1,20 +1,22 @@
 package com.example.kotlinapplicationdelivery.activities
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import com.airbnb.lottie.LottieAnimationView
 import com.example.kotlinapplicationdelivery.R
 import com.example.kotlinapplicationdelivery.activities.client.home.ClientHomeActivity
 import com.example.kotlinapplicationdelivery.activities.delivery.home.DeliveryHomeActivity
@@ -22,29 +24,82 @@ import com.example.kotlinapplicationdelivery.activities.restaurant.home.Restaura
 import com.example.kotlinapplicationdelivery.models.ResponseHttp
 import com.example.kotlinapplicationdelivery.models.User
 import com.example.kotlinapplicationdelivery.providers.UsersProvider
+import com.example.kotlinapplicationdelivery.utils.OnSwipeTouchListener
 import com.example.kotlinapplicationdelivery.utils.SharedPref
 import com.google.gson.Gson
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+
 
 class MainActivity : AppCompatActivity() {
 
-    private var btnToGoRegisterActivity : ImageView? = null
+    private var btnToGoRegisterActivity : Button? = null
     private var btnLogin : Button? = null
     private var editTextEmail : EditText? = null
     private var editTextPassword : EditText? = null
+    private var forgotPassword : TextView? = null;
     private var usersProvider = UsersProvider()
     private val TAG = "Login Activity"
+
+    var imageView: ImageView? = null
+    var textView: TextView? = null
+    var count: Int = 0
+
+    @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main)
         btnToGoRegisterActivity = findViewById(R.id.register_activity)
         btnLogin = findViewById(R.id.login)
         editTextEmail = findViewById(R.id.email)
         editTextPassword = findViewById(R.id.password)
         btnLogin?.setOnClickListener {login()}
+        forgotPassword = findViewById(R.id.forgot_password_textview)
+        imageView = findViewById(R.id.imageView);
+        textView = findViewById(R.id.textView);
+        forgotPassword!!.setOnClickListener {
+            showForgotPasswordDialog()
+        }
+        imageView!!.setOnTouchListener(object : OnSwipeTouchListener(this) {
+            override fun onSwipeTop() {
+
+            }
+
+            override fun onSwipeRight() {
+                if (count == 0) {
+                    imageView!!.setImageResource(R.drawable.good_night_img)
+                    textView!!.text = "Night"
+                    count = 1
+                } else {
+                    imageView!!.setImageResource(R.drawable.good_morning_img)
+                    textView!!.text = "Morning"
+                    count = 0
+                }
+            }
+
+            override fun onSwipeLeft() {
+                if (count == 0) {
+                    imageView!!.setImageResource(R.drawable.good_night_img)
+                    textView!!.text = "Night"
+                    count = 1
+                } else {
+                    imageView!!.setImageResource(R.drawable.good_morning_img)
+                    textView!!.text = "Morning"
+                    count = 0
+                }
+            }
+
+            override fun onSwipeBottom() {
+
+            }
+        })
+
         btnToGoRegisterActivity?.setOnClickListener { goToRegister() }
         getUserFromSession()
     }
@@ -101,7 +156,6 @@ class MainActivity : AppCompatActivity() {
                         goToDeliveryHome()
                     }
                 }
-
             }
             else {
                 goToClientHome()
@@ -149,7 +203,7 @@ class MainActivity : AppCompatActivity() {
                         saveUserInSession(response.body()?.data.toString())
                     }
                     else {
-                        Toast.makeText(this@MainActivity, "The data is not correct", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@MainActivity, "Tài khoản hoặc mật khẩu không đúng", Toast.LENGTH_LONG).show()
                     }
                 }
 
@@ -157,7 +211,7 @@ class MainActivity : AppCompatActivity() {
             //Toast.makeText(this, "Email or password is valid!", Toast.LENGTH_LONG).show()
         }
         else {
-            Toast.makeText(this, "Email or password is invalid!", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Email hoặc mật khẩu không hợp lệ!", Toast.LENGTH_LONG).show()
         }
         Log.d(TAG, "login: $email, $password")
 
@@ -170,5 +224,67 @@ class MainActivity : AppCompatActivity() {
     private fun goToRegister() {
         val intent = Intent(this, RegisterActivity::class.java)
         startActivity(intent)
+    }
+    private fun showForgotPasswordDialog() {
+        val builder = AlertDialog.Builder(this)
+        val inflater = layoutInflater
+        val dialogLayout = inflater.inflate(R.layout.dialog_forgot_password, null)
+
+        val emailInput = dialogLayout.findViewById<EditText>(R.id.email)
+        val sendButton = dialogLayout.findViewById<Button>(R.id.change_password)
+        val backButton = dialogLayout.findViewById<Button>(R.id.back)
+        val dialog = builder.setView(dialogLayout)
+            .setCancelable(true)
+            .create()
+        dialog.show()
+        backButton.setOnClickListener {
+            dialog.dismiss()
+        }
+        sendButton.setOnClickListener {
+            val email = emailInput.text.toString()
+            if (email.isNotEmpty()) {
+                showConfirmationDialog(email, dialog)
+            } else {
+                Toast.makeText(this, "Please enter your email", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+    private fun showConfirmationDialog(email: String, dialog: AlertDialog) {
+        AlertDialog.Builder(this)
+            .setTitle("Xác nhận mật khẩu đặt lại")
+            .setMessage("Bạn có chắc chắn muốn đặt lại mật khẩu cho $email?")
+            .setPositiveButton("Yes") { _, _ ->
+                sendForgotPasswordRequest(email, dialog)
+            }
+            .setNegativeButton("No") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
+    }
+    private fun sendForgotPasswordRequest(email: String, dialog: AlertDialog) {
+        usersProvider.resetPassword(email)?.enqueue(object: Callback<ResponseHttp> {
+            override fun onFailure(call: Call<ResponseHttp>, t: Throwable) {
+                Log.d("MainActivity", "There was an error ${t.message}")
+                Toast.makeText(this@MainActivity, "There was an error ${t.message}", Toast.LENGTH_LONG).show()
+            }
+
+            override fun onResponse(
+                call: Call<ResponseHttp>,
+                response: Response<ResponseHttp>
+            ) {
+
+                Log.d("MainActivity", "Response: ${response.body()}")
+
+                if (response.body()?.isSuccess == true) {
+                    Toast.makeText(this@MainActivity, "Mật khẩu mới đã được gửi tới $email", Toast.LENGTH_LONG).show()
+                    dialog.dismiss()
+                }
+                else {
+                    Toast.makeText(this@MainActivity, "Không thể đặt lại mật khẩu", Toast.LENGTH_LONG).show()
+                }
+            }
+
+        })
     }
 }

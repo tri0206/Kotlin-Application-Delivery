@@ -41,7 +41,16 @@ class RolesAdapter(private val context: Activity, private val roles: ArrayList<R
 
         val rol = roles[position]
 
-        holder.textViewRol.text = rol.name
+        if(rol.name == "CLIENT") {
+            holder.textViewRol.text = "Khách hàng"
+        }
+        if(rol.name == "RESTAURANT") {
+            holder.textViewRol.text = "Nhà hàng"
+        }
+        if(rol.name == "REPARTITION") {
+            holder.textViewRol.text = "Giao hàng"
+        }
+//        holder.textViewRol.text = rol.name
         Glide.with(context).load(rol.image).into(holder.imageViewRol)
 
         holder.itemView.setOnClickListener {
@@ -66,9 +75,7 @@ class RolesAdapter(private val context: Activity, private val roles: ArrayList<R
                 context.startActivity(i)
             }
             "REPARTITION" -> {
-
                 sharedPref.save("rol", "REPARTITION")
-
                 val i = Intent(context, DeliveryHomeActivity::class.java)
                 context.startActivity(i)
             }
