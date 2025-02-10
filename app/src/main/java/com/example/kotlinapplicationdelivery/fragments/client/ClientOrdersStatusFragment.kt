@@ -68,13 +68,11 @@ class ClientOrdersStatusFragment : Fragment() {
                     adapter = OrdersClientAdapter(requireActivity(), orders!!)
                     recyclerViewOrders?.adapter = adapter
                 }
-
             }
 
             override fun onFailure(call: Call<ArrayList<Order>>, t: Throwable) {
                 Toast.makeText(requireActivity(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
-
         })
     }
 
@@ -83,6 +81,6 @@ class ClientOrdersStatusFragment : Fragment() {
         if (!sharedPref?.getData("user").isNullOrBlank()) {
             user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
         }
-
     }
+
 }

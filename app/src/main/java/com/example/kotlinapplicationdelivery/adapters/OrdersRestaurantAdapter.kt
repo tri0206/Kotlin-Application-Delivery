@@ -25,14 +25,11 @@ class OrdersRestaurantAdapter(val context: Activity, val orders: ArrayList<Order
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: OrdersViewHolder, position: Int) {
-
         val order = orders[position]
-
-        holder.textViewOrderId.text = "Order #${order.id}"
+        holder.textViewOrderId.text = "Đơn hàng #${order.id}"
         holder.textViewDate.text = "${order.timestamp}"
-        holder.textViewAddress.text = "${order.address?.address}"
-        holder.textViewClient.text = "${order.client?.firstname} ${order.client?.lastname}"
-
+        holder.textViewAddress.text = order.address?.address + ", " + order.address?.neighborhood
+        holder.textViewClient.text = order.client?.firstname + " " + order.client?.lastname
         holder.itemView.setOnClickListener { goToOrderDetail(order) }
     }
 
@@ -43,7 +40,6 @@ class OrdersRestaurantAdapter(val context: Activity, val orders: ArrayList<Order
     }
 
     class OrdersViewHolder(view: View): RecyclerView.ViewHolder(view) {
-
         val textViewOrderId: TextView = view.findViewById(R.id.textview_order_id)
         val textViewDate: TextView = view.findViewById(R.id.textview_date)
         val textViewAddress: TextView = view.findViewById(R.id.textview_address)

@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.Color
+import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -33,13 +35,14 @@ class ClientProductsDetailActivity : AppCompatActivity() {
     private var textViewName: TextView? = null
     private var textViewDescription: TextView? = null
     private var textViewPrice: TextView? = null
-    private var textViewCounter: TextView? = null
-    private var imageViewAdd: ImageView? = null
-    private var imageViewRemove: ImageView? = null
+    private var textviewQuantity: TextView? = null
+    private var btnPlus: TextView? = null
+    private var btnMinus: TextView? = null
     private var buttonAdd: Button? = null
     private var bag: ImageView? = null
     private var counter = 1
     private var productPrice = 0
+    private var textviewDiscountedPrice: TextView? = null
 
     var sharedPref: SharedPref? = null
     private var selectedProducts = ArrayList<Product>()
@@ -56,10 +59,11 @@ class ClientProductsDetailActivity : AppCompatActivity() {
         textViewName = findViewById(R.id.textview_name)
         textViewDescription = findViewById(R.id.textview_description)
         textViewPrice = findViewById(R.id.textview_price)
-        textViewCounter = findViewById(R.id.textview_counter)
-        imageViewAdd = findViewById(R.id.imageview_add)
-        imageViewRemove = findViewById(R.id.imageview_remove)
+        textviewQuantity = findViewById(R.id.textview_quantity)
+        btnPlus = findViewById(R.id.button_plus)
+        btnMinus = findViewById(R.id.button_minus)
         buttonAdd = findViewById(R.id.btn_add_product)
+        textviewDiscountedPrice = findViewById(R.id.textview_discounted_price)
         bag = findViewById(R.id.shopping_bag)
         val imageList = ArrayList<SlideModel>()
         imageList.add(SlideModel(product?.image1, ScaleTypes.CENTER_CROP))
@@ -70,18 +74,34 @@ class ClientProductsDetailActivity : AppCompatActivity() {
 
         textViewName?.text = product?.name
         textViewDescription?.text = product?.description
-        textViewPrice?.text = "${product?.price} VND"
+        if(product?.price != product?.discountPrice) {
+            textviewDiscountedPrice?.apply {
+                text = "${product?.price}đ"
+                paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                visibility = View.VISIBLE
+            }
+            textViewPrice?.text = "${product?.discountPrice}đ"
+        }
+        else {
+            textViewPrice?.text = "${product?.price}đ"
+        }
 
-        imageViewAdd?.setOnClickListener { addItem() }
-        imageViewRemove?.setOnClickListener { removeItem() }
+        btnPlus?.setOnClickListener { addItem() }
+        btnMinus?.setOnClickListener { removeItem() }
         buttonAdd?.setOnClickListener { addToBag() }
-        bag?.setOnClickListener { goToShoppingBag() }
         getProductsFromSharedPref()
+        bag?.setOnClickListener {
+            if(!sharedPref?.getData("order").isNullOrBlank()) {
+                goToShoppingBag()
+            }
+            else {
+                Toast.makeText(this, "Giỏ hàng đang trống. Hãy thêm món ăn trước.", Toast.LENGTH_LONG).show()
+            }
+        }
     }
 
     private fun addToBag() {
         val index = getIndexOf(product?.id!!)
-
         if (index == -1) {
             if (product?.quantity == null) {
                 product?.quantity = 1
@@ -93,14 +113,11 @@ class ClientProductsDetailActivity : AppCompatActivity() {
             selectedProducts[index].quantity = counter
             Toast.makeText(this, "Đã chỉnh sửa món ăn", Toast.LENGTH_LONG).show()
         }
-
         sharedPref?.save("order", selectedProducts)
-
     }
 
     @SuppressLint("SetTextI18n")
     private fun getProductsFromSharedPref() {
-
         if (!sharedPref?.getData("order").isNullOrBlank()) {
             val type = object: TypeToken<ArrayList<Product>>() {}.type
             selectedProducts = gson.fromJson(sharedPref?.getData("order"), type)
@@ -108,9 +125,9 @@ class ClientProductsDetailActivity : AppCompatActivity() {
 
             if (index != -1) {
                 product?.quantity = selectedProducts[index].quantity
-                textViewCounter?.text = "${product?.quantity}"
-                productPrice = product?.price!! * product?.quantity!!
-                textViewPrice?.text = "$productPrice VND"
+                textviewQuantity?.text = "${product?.quantity}"
+                productPrice = product?.discountPrice!! * product?.quantity!!
+                textViewPrice?.text = "${productPrice}đ"
                 buttonAdd?.backgroundTintList = ColorStateList.valueOf(Color.RED)
             }
             for (p in selectedProducts) {
@@ -120,7 +137,6 @@ class ClientProductsDetailActivity : AppCompatActivity() {
     }
 
     private fun getIndexOf(idProduct: String): Int {
-
         for ((pos, p) in selectedProducts.withIndex()) {
             if (p.id == idProduct) {
                 return pos
@@ -132,10 +148,15 @@ class ClientProductsDetailActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun addItem() {
         counter++
-        productPrice = product?.price!! * counter
         product?.quantity = counter
-        textViewCounter?.text = "${product?.quantity}"
-        textViewPrice?.text = "$productPrice VND"
+        textviewQuantity?.text = "${product?.quantity}"
+        if(product!!.price != product!!.discountPrice) {
+            textviewDiscountedPrice?.text  = "${product!!.quantity!! * product!!.price}đ"
+            textViewPrice?.text = "${product!!.quantity!! * product!!.discountPrice!!}đ"
+        }
+        else {
+            textViewPrice?.text = "${product!!.quantity!! * product!!.price}đ"
+        }
     }
 
     @SuppressLint("SetTextI18n")
@@ -144,12 +165,19 @@ class ClientProductsDetailActivity : AppCompatActivity() {
             counter--
             productPrice = product?.price!! * counter
             product?.quantity = counter
-            textViewCounter?.text = "${product?.quantity}"
-            textViewPrice?.text = "$productPrice VND"
+            textviewQuantity?.text = "${product?.quantity}"
+            if(product!!.price != product!!.discountPrice) {
+                textviewDiscountedPrice?.text  = "${product!!.quantity!! * product!!.price}đ"
+                textViewPrice?.text = "${product!!.quantity!! * product!!.discountPrice!!}đ"
+            }
+            else {
+                textViewPrice?.text = "${product!!.quantity!! * product!!.price}đ"
+            }
         }
     }
     private fun goToShoppingBag() {
         val i = Intent(this, ClientShoppingBagActivity::class.java)
+        i.putExtra("id_restaurant", intent.getStringExtra("id_restaurant"))
         startActivity(i)
     }
 }

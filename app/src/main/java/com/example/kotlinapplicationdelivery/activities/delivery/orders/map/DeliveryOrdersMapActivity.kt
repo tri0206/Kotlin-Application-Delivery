@@ -2,6 +2,8 @@ package com.example.kotlinapplicationdelivery.activities.delivery.orders.map
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -22,6 +24,7 @@ import com.bumptech.glide.Glide
 import com.example.kotlinapplicationdelivery.R
 
 import com.example.kotlinapplicationdelivery.activities.delivery.home.DeliveryHomeActivity
+import com.example.kotlinapplicationdelivery.fragments.client.ClientCategoriesFragment
 import com.example.kotlinapplicationdelivery.models.Order
 import com.example.kotlinapplicationdelivery.models.ResponseHttp
 import com.example.kotlinapplicationdelivery.models.SocketEmit
@@ -198,7 +201,6 @@ class DeliveryOrdersMapActivity : AppCompatActivity() , OnMapReadyCallback {
             }
 
         }
-
         connectSocket()
 
     }
@@ -209,7 +211,6 @@ class DeliveryOrdersMapActivity : AppCompatActivity() , OnMapReadyCallback {
             lat = myLocationLatLng?.latitude!!,
             lng = myLocationLatLng?.longitude!!
         )
-
         socket?.emit("position", data.toJson())
     }
 
@@ -224,24 +225,18 @@ class DeliveryOrdersMapActivity : AppCompatActivity() , OnMapReadyCallback {
         if (fusedLocationClient != null) {
             fusedLocationClient?.removeLocationUpdates(locationCallback)
         }
-
         socket?.disconnect()
     }
 
     private fun updateOrder() {
         ordersProvider?.updateToDelivered(order!!)?.enqueue(object: Callback<ResponseHttp> {
             override fun onResponse(call: Call<ResponseHttp>, response: Response<ResponseHttp>) {
-
                 if (response.body() != null) {
-
                     Toast.makeText(this@DeliveryOrdersMapActivity, "${response.body()?.message}", Toast.LENGTH_LONG).show()
-
                     if (response.body()?.isSuccess == true) {
                         goToHome()
                     }
-
                 }
-
             }
 
             override fun onFailure(call: Call<ResponseHttp>, t: Throwable) {
@@ -258,7 +253,6 @@ class DeliveryOrdersMapActivity : AppCompatActivity() , OnMapReadyCallback {
 
     private fun getDistanceBetween(fromLatLng: LatLng, toLatLng: LatLng): Float {
         var distance = 0.0f
-
         val from = Location("")
         val to = Location("")
 
@@ -362,10 +356,9 @@ class DeliveryOrdersMapActivity : AppCompatActivity() , OnMapReadyCallback {
 
             if (isLocationEnabled()) {
 
-                requestNewLocationData() //WE START THE POSITION IN REAL TIME
+                requestNewLocationData()
 
                 fusedLocationClient?.lastLocation?.addOnCompleteListener { task ->
-                    //GET THE LOCATION ONLY ONCE
                     val location = task.result
 
                     if (location != null) {
@@ -422,8 +415,6 @@ class DeliveryOrdersMapActivity : AppCompatActivity() , OnMapReadyCallback {
 
     }
 
-
-
     private fun isLocationEnabled(): Boolean {
         val locationManager: LocationManager = getSystemService(LOCATION_SERVICE) as LocationManager
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) || locationManager.isProviderEnabled(
@@ -451,7 +442,6 @@ class DeliveryOrdersMapActivity : AppCompatActivity() , OnMapReadyCallback {
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
         if (requestCode == PERMISSION_ID) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 getLastLocation()
@@ -461,16 +451,28 @@ class DeliveryOrdersMapActivity : AppCompatActivity() , OnMapReadyCallback {
         if (requestCode == REQUEST_PHONE_CALL) {
             call()
         }
-
     }
 
     private fun getUserFromSession() {
-
         val gson = Gson()
-
         if (!sharedPref?.getData("user").isNullOrBlank()) {
             user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
         }
+    }
 
+    @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
+    override fun onBackPressed() {
+        super.onBackPressed()
+        goToOrders()
+    }
+    private fun goToOrders() {
+        val i = Intent(this, DeliveryHomeActivity::class.java)
+        i.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(i)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getLastLocation()
     }
 }

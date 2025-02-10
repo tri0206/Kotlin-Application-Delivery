@@ -160,13 +160,34 @@
                 android:text="State" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phương thức thanh toán: "
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="17sp"/>
+
+            <TextView
+                android:id="@+id/textview_payment_method"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="State" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="35dp"
             android:layout_marginBottom="30dp"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp">
@@ -176,18 +197,18 @@
                 android:layout_height="wrap_content"
                 android:text="Tổng cộng"
                 android:textStyle="bold"
-                android:textColor="@color/green"
+                android:textColor="@color/primary_color"
                 android:layout_weight="1"
-                android:textSize="22sp"/>
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/textview_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/vnd"
-                android:textSize="22sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
-                android:textColor="@color/green"/>
+                android:textColor="@color/primary_color"/>
 
         </LinearLayout>
 

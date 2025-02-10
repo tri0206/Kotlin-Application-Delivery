@@ -36,17 +36,14 @@ class ClientOrdersDetailActivity : AppCompatActivity() {
     private var toolbar: Toolbar? = null
     private var titleBar : TextView? = null
     private var buttonBack : ImageView?= null
+    private var textViewPaymentMethod: TextView? = null
     var adapter: OrderProductsAdapter? = null
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_client_orders_detail)
-
         order = gson.fromJson(intent.getStringExtra("order"), Order::class.java)
-
-
-
         textViewClient = findViewById(R.id.textview_client)
         textViewAddress = findViewById(R.id.textview_address)
         textViewDate = findViewById(R.id.textview_date)
@@ -54,6 +51,7 @@ class ClientOrdersDetailActivity : AppCompatActivity() {
         textViewStatus = findViewById(R.id.textview_status)
         buttonGoToMap = findViewById(R.id.btn_go_to_map)
         textViewNote = findViewById(R.id.note)
+        textViewPaymentMethod = findViewById(R.id.textview_payment_method)
         toolbar = findViewById(R.id.toolbar)
         titleBar = findViewById(R.id.custom_toolbar_title)
         buttonBack = findViewById(R.id.button_back)
@@ -67,8 +65,9 @@ class ClientOrdersDetailActivity : AppCompatActivity() {
         recyclerViewProducts?.adapter = adapter
 
         textViewClient?.text = "${order?.client?.firstname} ${order?.client?.lastname}"
-        textViewAddress?.text = order?.address?.address
+        textViewAddress?.text = order?.address?.address + ", " + order?.address?.neighborhood
         textViewDate?.text = "${order?.timestamp}"
+        textViewPaymentMethod?.text = "${order?.payment}"
         when (order?.status) {
             "PAID" -> {
                 textViewStatus?.text = "Đã thanh toán"
@@ -93,6 +92,7 @@ class ClientOrdersDetailActivity : AppCompatActivity() {
         }
 
         buttonGoToMap?.setOnClickListener { goToMap() }
+        buttonBack?.setOnClickListener { finish() }
 
     }
 
@@ -105,11 +105,9 @@ class ClientOrdersDetailActivity : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
     private fun getTotal() {
         var total = 0
-
         for (p in order?.products!!) {
-            total += (p.price * p.quantity!!)
+            total += (p.discountPrice!! * p.quantity!!)
         }
-        textViewTotal?.text = "$total VND"
-
+        textViewTotal?.text = "${total}đ"
     }
 }

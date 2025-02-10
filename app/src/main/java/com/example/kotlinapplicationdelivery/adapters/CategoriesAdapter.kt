@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kotlinapplicationdelivery.R
 import com.example.kotlinapplicationdelivery.activities.client.products.list.ClientProductsListActivity
+import com.example.kotlinapplicationdelivery.activities.client.restaurant.ClientRestaurantListActivity
 import com.example.kotlinapplicationdelivery.models.Category
 import com.example.kotlinapplicationdelivery.utils.SharedPref
 import org.checkerframework.checker.nullness.qual.NonNull
@@ -49,10 +50,10 @@ class CategoriesAdapter(val context: Activity, private val categories: ArrayList
         Glide.with(context).load(category.image).into(holder.imageViewCategory)
 
 
-        holder.itemView.setOnClickListener { goToProducts(category) }
+        holder.itemView.setOnClickListener { goToRestaurants(category) }
     }
-    private fun goToProducts(category: Category) {
-        val i = Intent(context, ClientProductsListActivity::class.java)
+    private fun goToRestaurants(category: Category) {
+        val i = Intent(context, ClientRestaurantListActivity::class.java)
         i.putExtra("idCategory", category.id)
         i.putExtra("nameCategory", category.name)
         context.startActivity(i)

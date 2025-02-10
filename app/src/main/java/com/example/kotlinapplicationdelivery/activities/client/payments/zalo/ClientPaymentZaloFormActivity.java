@@ -65,7 +65,6 @@ public class ClientPaymentZaloFormActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_client_orders_zalopay_form);
         BindView();
         txtAmount.setText(getIntent().getStringExtra("total_price"));
@@ -103,6 +102,8 @@ public class ClientPaymentZaloFormActivity extends AppCompatActivity {
                         txtToken.setText(data.getString("zp_trans_token"));
                         IsDone();
                         String token = txtToken.getText().toString();
+                        //showPaymentSuccessDialog();
+                        createOrder();
                         ZaloPaySDK.getInstance().payOrder(ClientPaymentZaloFormActivity.this, token, "demozpdk://app", new PayOrderListener() {
                             @Override
                             public void onPaymentSucceeded(final String transactionId, final String transToken, final String appTransID) {
@@ -110,6 +111,7 @@ public class ClientPaymentZaloFormActivity extends AppCompatActivity {
                                 runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
+                                        createOrder();
                                         showPaymentSuccessDialog();
                                     }
                                 });
@@ -145,10 +147,7 @@ public class ClientPaymentZaloFormActivity extends AppCompatActivity {
                         });
                         Log.e("tridoan", "onClick1: " + data.getString("app_trans_id"));
                         Log.e("tridoan", "user note: " + getIntent().getStringExtra("note"));
-
-                        //btnCreateOrder.setVisibility(View.GONE);
-                        //showPaymentSuccessDialog();
-                        createOrder();
+//                        showPaymentSuccessDialog();
                     }
 
                 } catch (Exception e) {
@@ -156,7 +155,6 @@ public class ClientPaymentZaloFormActivity extends AppCompatActivity {
                 } finally {
                     try {
                         assert data != null;
-                        Log.e("tridoan", "onClick: " + data.getString("app_trans_id"));
                         checkAndHandleOrderStatus(data.getString("app_trans_id"));
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
@@ -191,39 +189,9 @@ public class ClientPaymentZaloFormActivity extends AppCompatActivity {
         IsLoading();
     }
 
-//    @Override
-//    protected void onNewIntent(@NonNull Intent intent) {
-//        super.onNewIntent(intent);
-//        ZaloPaySDK.getInstance().onResult(intent);
-//        Log.d("ZaloPayCallback", "Intent received: " + intent.getData());
-//    }
-
-//    @Override
-//    protected void onNewIntent(Intent intent) {
-//        super.onNewIntent(intent);
-//        setIntent(intent);
-//
-//        // Lấy dữ liệu từ URL callback
-//        Uri uri = intent.getData();
-//        if (uri != null) {
-//            String appTransId = uri.getQueryParameter("app_trans_id");
-//            String status = uri.getQueryParameter("status");
-//            checkAndHandleOrderStatus(appTransId);
-//            // Xử lý dựa trên trạng thái
-//            if ("1".equals(status)) {
-//                checkAndHandleOrderStatus(appTransId);
-//            } else {
-//                Log.d("tridoan", "onNewIntent: ");
-//            }
-//        }
-//    }
-
     private void showPaymentSuccessDialog() {
-
         Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.dialog_payment_zalo_status);
-
-
         Button buttonHome = dialog.findViewById(R.id.buttonHome);
         buttonHome.setOnClickListener(v -> {
             dialog.dismiss();
@@ -320,9 +288,7 @@ public class ClientPaymentZaloFormActivity extends AppCompatActivity {
     }
     private void getUserFromSession() {
         Gson gson = new Gson();
-
         if (sharedPref != null && sharedPref.getData("user") != null && !Objects.requireNonNull(sharedPref.getData("user")).isEmpty()) {
-
             user = gson.fromJson(sharedPref.getData("user"), User.class);
         }
     }
@@ -334,19 +300,20 @@ public class ClientPaymentZaloFormActivity extends AppCompatActivity {
     }
     private void getAddressFromSession() {
         if (sharedPref != null && sharedPref.getData("address") != null && !Objects.requireNonNull(sharedPref.getData("address")).isEmpty()) {
-            // NẾU TỒN TẠI
             address = gson.fromJson(sharedPref.getData("address"), Address.class);
         } else {
             Toast.makeText(this, "Chọn một địa chỉ để tiếp tục", Toast.LENGTH_LONG).show();
         }
     }
     private void createOrder() {
+        Log.e("tridoan", "createOrder: ");
         if (user != null && user.getId() != null) {
             Order order = new Order(
                     null,
                     Objects.requireNonNull(user.getId()),
                     null,
                     Objects.requireNonNull(address.getId()),
+                    Objects.requireNonNull(getIntent().getStringExtra("id_restaurant")),
                     null,
                     null,
                     selectedProducts,
@@ -358,8 +325,9 @@ public class ClientPaymentZaloFormActivity extends AppCompatActivity {
                     null,
                     null
             );
-
+            Log.e("tridoan", "createOrder: 2");
             if (ordersProvider != null) {
+                Log.e("tridoan", "createOrder: 3");
                 Objects.requireNonNull(ordersProvider.create(order)).enqueue(new Callback<ResponseHttp>() {
                     @Override
                     public void onResponse(@NonNull Call<ResponseHttp> call, @NonNull Response<ResponseHttp> response) {

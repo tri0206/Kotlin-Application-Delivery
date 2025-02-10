@@ -11,12 +11,16 @@ class Restaurant(
     @SerializedName("image")  val image: String? = null,
     @SerializedName("status") val status: String? = null,
     @SerializedName("id_user") val idUser: String,
+    @SerializedName("res_address") val res_address: String? = null,
+    @SerializedName("res_neighborhood") val res_neighborhood: String? = null,
+    @SerializedName("lat") val latitude: Double? = null,
+    @SerializedName("lng") val longitude: Double? = null
 ) {
     fun toJson(): String {
         return Gson().toJson(this)
     }
 
     override fun toString(): String {
-        return "Restaurant(id='$id', name='$name', description='$description', phone='$phone', image='$image', status='$status', idUser='$idUser')"
+        return "Restaurant(id='$id', name='$name', description='$description', phone='$phone', image='$image', status='$status', idUser='$idUser', res_address='$res_address', res_neighborhood='$res_neighborhood', lat='$latitude', lng='$longitude')"
     }
 }

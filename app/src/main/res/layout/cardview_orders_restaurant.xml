@@ -37,7 +37,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Order date: " />
+                android:text="Đặt hàng lúc:: " />
 
             <TextView
                 android:id="@+id/textview_date"
@@ -58,7 +58,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Deliver in: " />
+                android:text="Giao hàng tới: " />
 
             <TextView
                 android:id="@+id/textview_address"
@@ -79,7 +79,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Customer: " />
+                android:text="Khách hàng: " />
 
             <TextView
                 android:id="@+id/textview_client"

@@ -14,6 +14,7 @@ import com.example.kotlinapplicationdelivery.fragments.ProfileFragment
 import com.example.kotlinapplicationdelivery.fragments.client.ClientCategoriesFragment
 import com.example.kotlinapplicationdelivery.fragments.client.ClientOrdersFragment
 import com.example.kotlinapplicationdelivery.fragments.client.ClientProfileFragment
+import com.example.kotlinapplicationdelivery.fragments.restaurant.ProductDiscountedFragment
 import com.example.kotlinapplicationdelivery.fragments.restaurant.RestaurantCategoryFragment
 import com.example.kotlinapplicationdelivery.fragments.restaurant.RestaurantOrdersFragment
 import com.example.kotlinapplicationdelivery.fragments.restaurant.RestaurantProductFragment
@@ -49,13 +50,17 @@ class RestaurantHomeActivity: AppCompatActivity() {
                     true
                 }
 
-                R.id.item_category -> {
-                    openFragment(RestaurantCategoryFragment())
-                    true
-                }
+//                R.id.item_category -> {
+//                    openFragment(RestaurantCategoryFragment())
+//                    true
+//                }
 
                 R.id.item_profile -> {
                     openFragment(ProfileFragment())
+                    true
+                }
+                R.id.discount_manage -> {
+                    openFragment(ProductDiscountedFragment())
                     true
                 }
                 R.id.item_product -> {

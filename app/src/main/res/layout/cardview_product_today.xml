@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     app:cardCornerRadius="10dp"
@@ -30,52 +29,39 @@
             android:id="@+id/imgFood"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:contentDescription="TODO"
+            android:contentDescription="Food Image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtTitle"
             app:srcCompat="@drawable/pop_1" />
 
+        <!-- Giá gốc có gạch ngang -->
         <TextView
-            android:id="@+id/fee"
+            android:id="@+id/txtOriginalPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0 "
-            android:textColor="#373b54"
-            android:textSize="18sp"
+            android:text="0"
+            android:textColor="#888888"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/imgFood"
-            app:layout_constraintHorizontal_bias="0.486"
             app:layout_constraintStart_toStartOf="@+id/imgFood"
             app:layout_constraintTop_toBottomOf="@+id/imgFood" />
 
+        <!-- Giá sau giảm -->
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/txtDiscountedPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/vnd"
+            android:text="0 "
             android:textColor="#ff3d00"
-            android:textStyle="bold"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/fee"
-            app:layout_constraintStart_toEndOf="@+id/fee"
-            app:layout_constraintTop_toTopOf="@+id/fee"
-            app:layout_constraintVertical_bias="1.0" />
-
-        <Button
-            android:id="@+id/btnAdd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:background="@null"
-            android:backgroundTint="@color/primary_color"
-            android:text="@string/add"
-            android:textAllCaps="false"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/fee" />
+            app:layout_constraintEnd_toEndOf="@+id/txtOriginalPrice"
+            app:layout_constraintStart_toStartOf="@+id/txtOriginalPrice"
+            app:layout_constraintTop_toBottomOf="@+id/txtOriginalPrice"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

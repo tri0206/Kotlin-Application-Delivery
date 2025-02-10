@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <EditText
+        android:id="@+id/etDiscountType"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Loại giảm giá"
+        android:inputType="text"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Nhập giá trị giảm giá -->
+    <EditText
+        android:id="@+id/etDiscountValue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Giá trị giảm giá"
+        android:inputType="numberDecimal"
+        app:layout_constraintTop_toBottomOf="@id/etDiscountType"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp" />
+
+    <!-- Chọn ngày giờ bắt đầu -->
+    <TextView
+        android:id="@+id/tvStartDateTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Chọn ngày và giờ bắt đầu"
+        android:background="@android:drawable/editbox_background"
+        android:padding="12dp"
+        android:textColor="@android:color/black"
+        android:gravity="center_vertical"
+        android:drawableStart="@drawable/ic_calendar"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/etDiscountValue"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Chọn ngày giờ kết thúc -->
+    <TextView
+        android:id="@+id/tvEndDateTime"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Chọn ngày và giờ kết thúc"
+        android:background="@android:drawable/editbox_background"
+        android:padding="12dp"
+        android:textColor="@android:color/black"
+        android:gravity="center_vertical"
+        android:drawableStart="@drawable/ic_calendar"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintTop_toBottomOf="@id/tvStartDateTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="8dp"/>
+
+    <!-- Nút lưu -->
+    <Button
+        android:id="@+id/btnSaveDiscount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Lưu"
+        app:layout_constraintTop_toBottomOf="@id/tvEndDateTime"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

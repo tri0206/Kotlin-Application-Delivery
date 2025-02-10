@@ -18,15 +18,15 @@ import com.example.kotlinapplicationdelivery.R
 import com.example.kotlinapplicationdelivery.activities.client.home.ClientHomeActivity
 import com.example.kotlinapplicationdelivery.activities.delivery.home.DeliveryHomeActivity
 import com.example.kotlinapplicationdelivery.activities.restaurant.home.RestaurantHomeActivity
+import com.example.kotlinapplicationdelivery.models.Restaurant
 import com.example.kotlinapplicationdelivery.models.Rol
 import com.example.kotlinapplicationdelivery.utils.SharedPref
+import com.google.gson.Gson
 
 
 class RolesAdapter(private val context: Activity, private val roles: ArrayList<Rol>): RecyclerView.Adapter<RolesAdapter.RolesViewHolder>() {
 
     private val sharedPref = SharedPref(context)
-    private lateinit var dialog: AlertDialog
-    private var dialogView : View? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RolesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.cardview_roles, parent, false)
@@ -56,7 +56,6 @@ class RolesAdapter(private val context: Activity, private val roles: ArrayList<R
         holder.itemView.setOnClickListener {
             goToRol(rol)
             Handler(Looper.getMainLooper()).postDelayed({
-                hideLoading()
             }, 1000)
         }
     }
@@ -64,7 +63,6 @@ class RolesAdapter(private val context: Activity, private val roles: ArrayList<R
     private fun goToRol(rol: Rol) {
         when (rol.name) {
             "RESTAURANT" -> {
-
                 sharedPref.save("rol", "RESTAURANT")
                 val i = Intent(context, RestaurantHomeActivity::class.java)
                 context.startActivity(i)
@@ -87,25 +85,5 @@ class RolesAdapter(private val context: Activity, private val roles: ArrayList<R
         val textViewRol: TextView = view.findViewById(R.id.textview_rol)
         val imageViewRol: ImageView = view.findViewById(R.id.imageview_rol)
 
-    }
-    private fun showLoading() {
-        val builder = AlertDialog.Builder(context)
-
-        builder.setView(dialogView)
-        builder.setCancelable(false)
-
-        dialog = builder.create()
-        dialog.window?.setGravity(Gravity.CENTER)
-
-
-        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
-        dialog.show()
-    }
-
-
-    private fun hideLoading() {
-        if (::dialog.isInitialized && dialog.isShowing) {
-            dialog.dismiss()
-        }
     }
 }

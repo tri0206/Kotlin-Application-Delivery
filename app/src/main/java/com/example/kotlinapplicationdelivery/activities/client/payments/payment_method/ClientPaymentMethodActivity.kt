@@ -40,13 +40,13 @@ class ClientPaymentMethodActivity : AppCompatActivity() {
         buttonBack?.setOnClickListener {
             finish()
         }
-
     }
 
     private fun goToZaloForm(){
         val i = Intent(this, ClientPaymentZaloFormActivity::class.java)
         i.putExtra("total_price", intent.getStringExtra("total_price"))
         i.putExtra("note", intent.getStringExtra("note"))
+        i.putExtra("id_restaurant", intent.getStringExtra("id_restaurant"))
         startActivity(i)
     }
 

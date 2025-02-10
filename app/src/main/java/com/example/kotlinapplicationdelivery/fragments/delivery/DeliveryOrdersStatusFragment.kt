@@ -35,27 +35,19 @@ class DeliveryOrdersStatusFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         myView = inflater.inflate(R.layout.fragment_delivery_orders_status, container, false)
-
         sharedPref = SharedPref(requireActivity())
-
         status = arguments?.getString("status")!!
-
         getUserFromSession()
         ordersProvider = OrdersProvider(user?.sessionToken!!)
-
         recyclerViewOrders = myView?.findViewById(R.id.recyclerview_orders)
         recyclerViewOrders?.layoutManager = LinearLayoutManager(requireContext())
-
         getOrders()
-
         return myView
     }
 
-
     private fun getOrders() {
-        ordersProvider?.getOrdersByDeliveryAndStatus(user?.id!!, status)?.enqueue(object:
+        ordersProvider?.getOrdersByDeliveryAndStatus(status)?.enqueue(object:
             Callback<ArrayList<Order>> {
             override fun onResponse(call: Call<ArrayList<Order>>, response: Response<ArrayList<Order>>) {
                 if (response.body() != null) {
@@ -63,25 +55,18 @@ class DeliveryOrdersStatusFragment : Fragment() {
                     adapter = OrdersDeliveryAdapter(requireActivity(), orders!!)
                     recyclerViewOrders?.adapter = adapter
                 }
-
             }
-
             override fun onFailure(call: Call<ArrayList<Order>>, t: Throwable) {
                 Toast.makeText(requireActivity(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
             }
-
         })
     }
 
     private fun getUserFromSession() {
-
         val gson = Gson()
-
         if (!sharedPref?.getData("user").isNullOrBlank()) {
-
             user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
         }
-
     }
 
 }

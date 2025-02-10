@@ -64,14 +64,10 @@ class ClientProductSearchingListActivity : AppCompatActivity() {
     }
 
     private fun getUserFromSession() {
-
         val gson = Gson()
-
         if (!sharedPref?.getData("user").isNullOrBlank()) {
-
             user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
         }
-
     }
 
     private fun getProducts() {
@@ -81,21 +77,17 @@ class ClientProductSearchingListActivity : AppCompatActivity() {
                 call: Call<ArrayList<Product>>,
                 response: Response<ArrayList<Product>>
             ) {
-
                 if (response.body() != null) {
                     products = response.body()!!
                     adapter = ProductsAdapter(this@ClientProductSearchingListActivity, products)
                     recyclerViewProducts?.adapter = adapter
 
                 }
-
             }
 
             override fun onFailure(call: Call<ArrayList<Product>>, t: Throwable) {
                 Toast.makeText(this@ClientProductSearchingListActivity, t.message, Toast.LENGTH_SHORT).show()
-//                Log.d(TAG, "Error: ${t.message}")
             }
-
         })
     }
     private fun goToShoppingBag() {

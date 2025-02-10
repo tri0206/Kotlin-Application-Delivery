@@ -22,7 +22,9 @@ import com.example.kotlinapplicationdelivery.activities.client.home.ClientHomeAc
 import com.example.kotlinapplicationdelivery.activities.delivery.home.DeliveryHomeActivity
 import com.example.kotlinapplicationdelivery.activities.restaurant.home.RestaurantHomeActivity
 import com.example.kotlinapplicationdelivery.models.ResponseHttp
+import com.example.kotlinapplicationdelivery.models.Restaurant
 import com.example.kotlinapplicationdelivery.models.User
+import com.example.kotlinapplicationdelivery.providers.RestaurantsProvider
 import com.example.kotlinapplicationdelivery.providers.UsersProvider
 import com.example.kotlinapplicationdelivery.utils.OnSwipeTouchListener
 import com.example.kotlinapplicationdelivery.utils.SharedPref
@@ -43,19 +45,21 @@ class MainActivity : AppCompatActivity() {
     private var forgotPassword : TextView? = null;
     private var usersProvider = UsersProvider()
     private val TAG = "Login Activity"
-
+    var sharedPref: SharedPref? = null
     var imageView: ImageView? = null
     var textView: TextView? = null
     var count: Int = 0
 
+    var user: User? = null
+
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main)
         btnToGoRegisterActivity = findViewById(R.id.register_activity)
+        sharedPref = SharedPref(this)
         btnLogin = findViewById(R.id.login)
         editTextEmail = findViewById(R.id.email)
         editTextPassword = findViewById(R.id.password)
@@ -121,11 +125,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun saveUserInSession(data: String) {
-
-        val sharedPref = SharedPref(this)
         val gson = Gson()
         val user = gson.fromJson(data, User::class.java)
-        sharedPref.save("user", user)
+        sharedPref?.save("user", user)
 
         if(user.roles?.size!! > 1) {
             goToSelectRol()
@@ -135,15 +137,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
     private fun getUserFromSession() {
-
-        val sharedPref = SharedPref(this)
         val gson = Gson()
 
-        if(!sharedPref.getData("user").isNullOrBlank()) {
-            val user = gson.fromJson(sharedPref.getData("user"), User::class.java)
+        if(!sharedPref?.getData("user").isNullOrBlank()) {
+            user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
             Log.d(TAG, "getUserFromSession: $user")
-            if(sharedPref.getData("rol").isNullOrBlank()) {
-                val rol = sharedPref.getData("rol")?.replace("\"", "")
+            if(sharedPref?.getData("rol").isNullOrBlank()) {
+                val rol = sharedPref?.getData("rol")?.replace("\"", "")
 
                 when (rol) {
                     "RESTAURANT" -> {
@@ -194,12 +194,9 @@ class MainActivity : AppCompatActivity() {
                     call: Call<ResponseHttp>,
                     response: Response<ResponseHttp>
                 ) {
-
                     Log.d("MainActivity", "Response: ${response.body()}")
-
                     if (response.body()?.isSuccess == true) {
                         Toast.makeText(this@MainActivity, response.body()?.message, Toast.LENGTH_LONG).show()
-
                         saveUserInSession(response.body()?.data.toString())
                     }
                     else {
@@ -214,8 +211,8 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Email hoặc mật khẩu không hợp lệ!", Toast.LENGTH_LONG).show()
         }
         Log.d(TAG, "login: $email, $password")
-
     }
+
     private fun goToSelectRol() {
         val i = Intent(this, SelectRolesActivity::class.java)
         i.flags = FLAG_ACTIVITY_NEW_TASK or FLAG_ACTIVITY_CLEAR_TASK
@@ -284,7 +281,6 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this@MainActivity, "Không thể đặt lại mật khẩu", Toast.LENGTH_LONG).show()
                 }
             }
-
         })
     }
 }

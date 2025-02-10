@@ -13,13 +13,11 @@ class DeliveryTabsPagerAdapter(
     private var numberOfTabs: Int
 ): FragmentStateAdapter(fragmentManager, lifecycle)
 {
-
     override fun getItemCount(): Int {
         return numberOfTabs
     }
 
     override fun createFragment(position: Int): Fragment {
-
         when(position) {
             0 -> {
                 val bundle = Bundle()

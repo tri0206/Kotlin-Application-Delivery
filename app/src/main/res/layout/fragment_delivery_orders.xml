@@ -14,8 +14,7 @@
         android:background="@color/gray"
         app:tabMaxWidth="0dp"
         app:tabTextAppearance="?android:attr/textAppearanceSmall"
-        app:textAllCaps="false"
-        android:layout_marginTop="20dp"/>
+        app:textAllCaps="false" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager"

@@ -4,9 +4,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
 
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switch_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Đang mở cửa"
+        android:textStyle="bold"
+        android:checked="true"
+        android:padding="8dp" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"

@@ -25,13 +25,10 @@ class OrdersClientAdapter(val context: Activity, private val orders: ArrayList<O
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: OrdersViewHolder, position: Int) {
-
-        val order = orders[position] // EACH OF THE ORDERS
-
+        val order = orders[position]
         holder.textViewOrderId.text = "Đơn hàng #${order.id}"
         holder.textViewDate.text = "${order.timestamp}"
-        holder.textViewAddress.text = "${order.address?.address}"
-
+        holder.textViewAddress.text = order.address?.address + ", " + order.address?.neighborhood
         holder.itemView.setOnClickListener { goToOrderDetail(order) }
     }
 
@@ -42,7 +39,6 @@ class OrdersClientAdapter(val context: Activity, private val orders: ArrayList<O
     }
 
     class OrdersViewHolder(view: View): RecyclerView.ViewHolder(view) {
-
         val textViewOrderId: TextView = view.findViewById(R.id.textview_order_id)
         val textViewDate: TextView = view.findViewById(R.id.textview_date)
         val textViewAddress: TextView = view.findViewById(R.id.textview_address)

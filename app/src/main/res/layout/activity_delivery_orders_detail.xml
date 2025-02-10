@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     >
 
-    <include layout="@layout/action_bar" />
+    <include layout="@layout/action_sub_bar" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="55dp">
+        android:layout_marginTop="70dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_products"
@@ -40,7 +40,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Customer: "
+                android:text="Khách hàng: "
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="17sp"/>
@@ -64,7 +64,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Deliver in: "
+                android:text="Giao hàng tới: "
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="17sp"/>
@@ -88,7 +88,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Order date: "
+                android:text="Đặt hàng lúc:: "
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="17sp"/>
@@ -101,6 +101,29 @@
 
         </LinearLayout>
 
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginRight="20dp">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="Trạng thái đơn hàng: "-->
+<!--                android:textStyle="bold"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textSize="17sp"/>-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/textview_status"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="State" />-->
+
+<!--        </LinearLayout>-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -112,21 +135,106 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Order status: "
+                android:text="Nhà hàng: "
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="17sp"/>
 
             <TextView
-                android:id="@+id/textview_status"
+                android:id="@+id/textview_restaurant_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="State" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Địa chỉ nhà hàng: "
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="17sp"/>
+
+            <TextView
+                android:id="@+id/textview_restaurant_address"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="State" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phương thức thanh toán: "
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="17sp"/>
+
+            <TextView
+                android:id="@+id/textview_payment_method"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="State" />
 
         </LinearLayout>
 
+        <LinearLayout
+            style="?android:attr/buttonBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
 
+            <Button
+                android:id="@+id/button_open_map"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/primary_map_color"
+                android:textColor="@color/white"
+                android:text="Tới cửa hàng">
 
+            </Button>
+
+            <Button
+                android:id="@+id/btn_update"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Bắt đầu giao hàng"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/primary_color"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/btn_go_to_map"
+                style="?android:attr/buttonBarButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Trở lại bản đồ"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/primary_map_color"
+                android:visibility="gone"/>
+
+        </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -139,9 +247,9 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="TOTAL"
+                android:text="Tổng tiền:"
                 android:textStyle="bold"
-                android:textColor="@android:color/holo_blue_light"
+                android:textColor="@color/primary_color"
                 android:layout_weight="1"
                 android:textSize="22sp"/>
 
@@ -149,39 +257,38 @@
                 android:id="@+id/textview_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0$"
+                android:text="0đ"
                 android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="@android:color/holo_blue_light"/>
-
+                android:textColor="@color/primary_color"/>
         </LinearLayout>
 
 
-        <Button
-            android:id="@+id/btn_update"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="START DELIVERY"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
-            android:textColor="@color/white"
-            app:backgroundTint="@android:color/holo_blue_light"
-            android:background="@drawable/rounded_button"
-            android:visibility="gone"/>
+<!--        <Button-->
+<!--            android:id="@+id/btn_update"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Bắt đầu giao hàng"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:textColor="@color/white"-->
+<!--            app:backgroundTint="@color/primary_color"-->
+<!--            android:background="@drawable/rounded_button"-->
+<!--            android:visibility="gone"/>-->
 
-        <Button
-            android:id="@+id/btn_go_to_map"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="BACK TO MAP"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginBottom="20dp"
-            android:textColor="@color/white"
-            app:backgroundTint="@color/orange"
-            android:background="@drawable/rounded_button"
-            android:visibility="gone"/>
+<!--        <Button-->
+<!--            android:id="@+id/btn_go_to_map"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Trở lại bản đồ"-->
+<!--            android:layout_marginLeft="20dp"-->
+<!--            android:layout_marginRight="20dp"-->
+<!--            android:layout_marginBottom="20dp"-->
+<!--            android:textColor="@color/white"-->
+<!--            app:backgroundTint="@color/primary_map_color"-->
+<!--            android:background="@drawable/rounded_button"-->
+<!--            android:visibility="gone"/>-->
 
     </LinearLayout>
 

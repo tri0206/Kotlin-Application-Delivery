@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplicationdelivery.R
 import com.example.kotlinapplicationdelivery.activities.client.home.ClientHomeActivity
@@ -38,31 +39,31 @@ class ClientProductsListActivity : AppCompatActivity() {
     private var productsProvider: ProductsProvider? = null
     var products: ArrayList<Product> = ArrayList()
 
-    private var idCategory: String? = null
-    private var nameCategory: String? = null
     private var toolbar: Toolbar? = null
     private var titleBar : TextView? = null
     private var buttonBack : ImageView?= null
     private var bag : ImageView? = null
+    private var query: String? = null
+    private var idRestaurant: String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_client_products_list)
 
         sharedPref = SharedPref(this)
-        idCategory = intent.getStringExtra("idCategory")
-        nameCategory = intent.getStringExtra("nameCategory")
 
+        query = intent.getStringExtra("search_query")
+        idRestaurant = intent.getStringExtra("id_restaurant")
         toolbar = findViewById(R.id.toolbar)
         titleBar = findViewById(R.id.custom_toolbar_title)
         bag = findViewById(R.id.shopping_bag)
         buttonBack = findViewById(R.id.button_back)
         toolbar?.title = ""
-        titleBar?.text = "$nameCategory"
+        titleBar?.text = "$query"
         getUserFromSession()
         productsProvider = ProductsProvider(user?.sessionToken!!)
 
         recyclerViewProducts = findViewById(R.id.recyclerview_products)
-        recyclerViewProducts?.layoutManager = GridLayoutManager(this, 2)
+        recyclerViewProducts?.layoutManager = LinearLayoutManager(this)
 
         buttonBack?.setOnClickListener {
             finish()
@@ -72,32 +73,27 @@ class ClientProductsListActivity : AppCompatActivity() {
     }
 
     private fun getUserFromSession() {
-
         val gson = Gson()
-
         if (!sharedPref?.getData("user").isNullOrBlank()) {
-
             user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
         }
-
     }
 
     private fun getProducts() {
-        productsProvider?.findByCategory(idCategory!!)?.enqueue(object:
+        productsProvider?.findByQuery(query!!, idRestaurant!!)?.enqueue(object:
             Callback<ArrayList<Product>> {
             override fun onResponse(
                 call: Call<ArrayList<Product>>,
                 response: Response<ArrayList<Product>>
             ) {
-
                 if (response.body() != null) {
                     products = response.body()!!
+                    Log.e("search product", "onResponse: $products")
                     adapter = ProductsAdapter(this@ClientProductsListActivity, products)
                     recyclerViewProducts?.adapter = adapter
                 }
 
             }
-
             override fun onFailure(call: Call<ArrayList<Product>>, t: Throwable) {
                 Toast.makeText(this@ClientProductsListActivity, t.message, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "Error: ${t.message}")

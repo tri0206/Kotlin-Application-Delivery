@@ -13,6 +13,7 @@ class Product(@SerializedName("id") val id: String? = null,
               @SerializedName("id_restaurant") val idRestaurant: String? = null,
               @SerializedName("price") val price: Int,
               @SerializedName("quantity") var quantity: Int? = null,
+              @SerializedName("discount_price") var discountPrice: Int? = null,
 ) {
 
     fun toJson(): String {
@@ -20,6 +21,6 @@ class Product(@SerializedName("id") val id: String? = null,
     }
 
     override fun toString(): String {
-        return "Product(id='$id', name='$name', description='$description', image1='$image1', image2='$image2', image3='$image3', idCategory='$idCategory', price=$price, quantity=$quantity)"
+        return "Product(id='$id', name='$name', description='$description', image1='$image1', image2='$image2', image3='$image3', idCategory='$idCategory', idRestaurant='$idRestaurant', price=$price, quantity=$quantity), discount_price=$discountPrice"
     }
 }

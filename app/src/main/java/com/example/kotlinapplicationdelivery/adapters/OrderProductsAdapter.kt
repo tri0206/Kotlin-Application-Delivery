@@ -42,6 +42,5 @@ class OrderProductsAdapter(val context: Activity, val products: ArrayList<Produc
         val imageViewProduct: ImageView = view.findViewById(R.id.imageview_product)
         val textViewName: TextView = view.findViewById(R.id.textview_name)
         val textViewQuantity: TextView = view.findViewById(R.id.textview_quantity)
-
     }
 }

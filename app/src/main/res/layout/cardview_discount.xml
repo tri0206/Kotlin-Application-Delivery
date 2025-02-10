@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tvDiscountType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Loại giảm giá"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvDiscountValue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Giá trị: -10%"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
+            android:id="@+id/tvStartDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bắt đầu: 01-02-2025"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"/>
+
+        <TextView
+            android:id="@+id/tvEndDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Kết thúc: 28-02-2025"
+            android:textSize="14sp"
+            android:layout_marginTop="4dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end"
+            android:layout_marginTop="8dp">
+
+            <ImageButton
+                android:id="@+id/btnEditDiscount"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/id_edit"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Chỉnh sửa"
+                android:layout_marginRight="10dp"/>
+
+            <ImageButton
+                android:id="@+id/btnDeleteDiscount"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_delete"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Xóa" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

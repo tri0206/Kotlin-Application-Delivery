@@ -26,10 +26,29 @@ class RestaurantsProvider(private val token: String) {
         val reqFile = RequestBody.create("image/*".toMediaTypeOrNull(), file)
         val imagePart = MultipartBody.Part.createFormData("image", file.name, reqFile)
 
-        // Tạo request body cho product
+
         val requestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), restaurant.toJson())
 
-        // Gửi request với file và thông tin sản phẩm
         return restaurantsRoutes?.create(imagePart, requestBody, token)
+    }
+
+    fun updateStatus(id: String, status: String): Call<ResponseHttp>? {
+        return restaurantsRoutes?.updateStatus(id, status)
+    }
+
+    fun findByUser(idUser: String): Call<ResponseHttp>? {
+        return restaurantsRoutes?.findByUser(idUser)
+    }
+
+    fun findByCategory(idCategory: String): Call<ArrayList<Restaurant>>? {
+        return restaurantsRoutes?.findByCategory(idCategory, token)
+    }
+    fun findByQuery(query: String): Call<ArrayList<Restaurant>>? {
+        return restaurantsRoutes?.findByQuery(query, token)
+    }
+
+    fun findById(idRestaurant: String): Call<ResponseHttp>? {
+        Log.e("tridoan", "findById: 2", )
+        return restaurantsRoutes?.findById(idRestaurant)
     }
 }

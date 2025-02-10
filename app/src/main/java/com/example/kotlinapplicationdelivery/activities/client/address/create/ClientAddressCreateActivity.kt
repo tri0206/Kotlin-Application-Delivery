@@ -72,18 +72,14 @@ class ClientAddressCreateActivity : AppCompatActivity() {
 
         editTextRefPoint?.setOnClickListener { goToAddressMap() }
         buttonCreateAddress?.setOnClickListener { createAddress() }
-
+        buttonBack?.setOnClickListener { finish() }
     }
 
     private fun getUserFromSession() {
-
         val gson = Gson()
-
         if (!sharedPref?.getData("user").isNullOrBlank()) {
-
             user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
         }
-
     }
 
     private fun createAddress() {

@@ -25,11 +25,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.kotlinapplicationdelivery.R
 import com.example.kotlinapplicationdelivery.activities.client.products.list.ClientProductSearchingListActivity
+import com.example.kotlinapplicationdelivery.activities.client.restaurant.ClientRestaurantSearchingListActivity
 import com.example.kotlinapplicationdelivery.activities.client.shopping_bag.ClientShoppingBagActivity
 import com.example.kotlinapplicationdelivery.adapters.CategoriesAdapter
+import com.example.kotlinapplicationdelivery.adapters.ProductsDiscountedAdapter
 import com.example.kotlinapplicationdelivery.models.Category
+import com.example.kotlinapplicationdelivery.models.DiscountedProduct
 import com.example.kotlinapplicationdelivery.models.User
 import com.example.kotlinapplicationdelivery.providers.CategoriesProvider
+import com.example.kotlinapplicationdelivery.providers.ProductsProvider
 import com.example.kotlinapplicationdelivery.utils.SharedPref
 import com.google.gson.Gson
 import retrofit2.Call
@@ -43,12 +47,15 @@ class ClientCategoriesFragment : Fragment() {
     val TAG = "CategoriesFragment"
     private var myView: View? = null
     var recyclerViewCategories: RecyclerView? = null
-
+    var recyclerViewDiscountedProducts: RecyclerView? = null
     var adapter: CategoriesAdapter? = null
+    var adapterProduct: ProductsDiscountedAdapter? = null
     private var categoriesProvider: CategoriesProvider? = null
+    private var productsProvider: ProductsProvider? = null
     var user: User? = null
     var sharedPref: SharedPref? = null
     var categories = ArrayList<Category>()
+    var discountedProducts = ArrayList<DiscountedProduct>()
     private var titleBar : TextView? = null
     private  var greeting : TextView? = null;
     private var shoppingBag : ImageView? = null
@@ -66,23 +73,25 @@ class ClientCategoriesFragment : Fragment() {
         searchProduct = myView?.findViewById(R.id.findProduct)
         setHasOptionsMenu(true)
 
-
         recyclerViewCategories = myView?.findViewById(R.id.recyclerview_categories)
+        recyclerViewDiscountedProducts = myView?.findViewById(R.id.rvPopular)
         recyclerViewCategories?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        recyclerViewDiscountedProducts?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         sharedPref = SharedPref(requireActivity())
 
         getUserFromSession()
 
         categoriesProvider = CategoriesProvider(user?.sessionToken!!)
+        productsProvider = ProductsProvider(user?.sessionToken!!)
         greeting?.text = "Hi, ${user!!.firstname}"
         getCategories()
+        getDiscountedProducts()
         shoppingBag?.setOnClickListener {goToShoppingBag()}
         searchProduct?.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
                 val query = searchProduct?.text.toString().trim()
                 if (query.isNotEmpty()) {
-
-                    val intent = Intent(requireContext(), ClientProductSearchingListActivity::class.java)
+                    val intent = Intent(requireContext(), ClientRestaurantSearchingListActivity::class.java)
                     intent.putExtra("search_query", query)
                     startActivity(intent)
                 } else {
@@ -104,11 +113,9 @@ class ClientCategoriesFragment : Fragment() {
 
     @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-
         if (item.itemId == R.id.item_shopping_bag) {
             goToShoppingBag()
         }
-
         return super.onOptionsItemSelected(item)
     }
 
@@ -121,33 +128,41 @@ class ClientCategoriesFragment : Fragment() {
         categoriesProvider?.getAll()?.enqueue(object: Callback<ArrayList<Category>> {
             override fun onResponse(call: Call<ArrayList<Category>>, response: Response<ArrayList<Category>>
             ) {
-
                 if (response.body() != null) {
-
                     categories = response.body()!!
                     adapter = CategoriesAdapter(requireActivity(), categories)
                     recyclerViewCategories?.adapter = adapter
                 }
-
             }
 
             override fun onFailure(call: Call<ArrayList<Category>>, t: Throwable) {
                 Log.d(TAG, "Error: ${t.message}")
                 Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_LONG).show()
             }
-
         })
     }
+    private fun getDiscountedProducts() {
+        productsProvider?.getDiscountedProducts()?.enqueue(object: Callback<ArrayList<DiscountedProduct>> {
+            override fun onResponse(call: Call<ArrayList<DiscountedProduct>>, response: Response<ArrayList<DiscountedProduct>>
+            ) {
+                if (response.body() != null) {
+                    discountedProducts = response.body()!!
+                    Log.e("tridoan", "onResponse: $discountedProducts", )
+                    adapterProduct = ProductsDiscountedAdapter(requireActivity(), discountedProducts)
+                    recyclerViewDiscountedProducts?.adapter = adapterProduct
+                }
+            }
 
+            override fun onFailure(call: Call<ArrayList<DiscountedProduct>>, t: Throwable) {
+                Log.d(TAG, "Error: ${t.message}")
+                Toast.makeText(requireContext(), "Error: ${t.message}", Toast.LENGTH_LONG).show()
+            }
+        })
+    }
     private fun getUserFromSession() {
-
         val gson = Gson()
-
         if (!sharedPref?.getData("user").isNullOrBlank()) {
-
             user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
         }
-
     }
-
 }

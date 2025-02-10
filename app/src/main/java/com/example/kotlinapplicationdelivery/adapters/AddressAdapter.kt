@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplicationdelivery.R
 import com.example.kotlinapplicationdelivery.activities.client.address.list.ClientAddressListActivity
+import com.example.kotlinapplicationdelivery.activities.client.shopping_bag.ClientShoppingBagActivity
 import com.example.kotlinapplicationdelivery.models.Address
 import com.example.kotlinapplicationdelivery.utils.SharedPref
 import com.google.gson.Gson
@@ -32,9 +33,7 @@ class AddressAdapter(val context: Activity, val address: ArrayList<Address>): Re
     }
 
     override fun onBindViewHolder(holder: AddressViewHolder, @SuppressLint("RecyclerView") position: Int) {
-
         val a = address[position] // EACH OF THE DIRECTIONS
-
         if (!sharedPref.getData("address").isNullOrBlank()) { // IF THE USER CHOSE AN ADDRESS FROM THE LIST
             val adr = gson.fromJson(sharedPref.getData("address"), Address::class.java)
 
@@ -48,9 +47,8 @@ class AddressAdapter(val context: Activity, val address: ArrayList<Address>): Re
         holder.textViewNeighborhood.text = a.neighborhood
 
         holder.itemView.setOnClickListener {
-
             (context as ClientAddressListActivity).resetValue(prev)
-            (context as ClientAddressListActivity).resetValue(positionAddressSession)
+            context.resetValue(positionAddressSession)
             prev = position // 1
 
             holder.imageViewCheck.visibility = View.VISIBLE
@@ -64,10 +62,8 @@ class AddressAdapter(val context: Activity, val address: ArrayList<Address>): Re
     }
 
     class AddressViewHolder(view: View): RecyclerView.ViewHolder(view) {
-
         val textViewAddress: TextView = view.findViewById(R.id.textview_address)
         val textViewNeighborhood: TextView = view.findViewById(R.id.textview_neighborhood)
         val imageViewCheck: ImageView = view.findViewById(R.id.imageview_check)
-
     }
 }

@@ -38,6 +38,15 @@
         tools:ignore="ExtraText"
         tools:targetApi="31">
         <activity
+            android:name=".activities.client.restaurant.ClientRestaurantSearchingListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.client.restaurant.ClientRestaurantDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.client.restaurant.ClientRestaurantListActivity"
+            android:exported="false" />
+        <activity
             android:name=".activities.restaurant.address.create.RestaurantAddressCreateActivity"
             android:exported="false" />
         <activity

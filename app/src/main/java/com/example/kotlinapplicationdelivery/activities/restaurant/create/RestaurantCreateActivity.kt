@@ -2,9 +2,12 @@ package com.example.kotlinapplicationdelivery.activities.restaurant.create
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
@@ -48,6 +51,7 @@ class RestaurantCreateActivity : AppCompatActivity() {
     private var addressProvider: AddressProvider? = null
     private var restaurantProvider: RestaurantsProvider? = null
     private var usersProvider: UsersProvider? = null
+    private lateinit var dialog: AlertDialog
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,10 +73,16 @@ class RestaurantCreateActivity : AppCompatActivity() {
         imgAvatar = findViewById(R.id.imageview_image)
         editTextRefPoint?.setOnClickListener { goToAddressMap() }
         btnSubmit?.setOnClickListener {
-            createRestaurantInfo()
-            getRestaurantFromSession()
-            createAddress()
-            registerRoles(user?.id.toString(), 2)
+            createRestaurantInfo { success ->
+                if (success) {
+                    getRestaurantFromSession()
+                    Log.e("tridoan", "onCreate: $restaurant")
+                    createAddress()
+                    registerRoles(user?.id.toString(), 2)
+                } else {
+                    Toast.makeText(this, "Không thể tạo nhà hàng. Vui lòng thử lại!", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
         imgAvatar?.setOnClickListener { selectImage(101) }
     }
@@ -92,18 +102,17 @@ class RestaurantCreateActivity : AppCompatActivity() {
         }
 
     }
+
     private fun getUserFromSession() {
 
         val gson = Gson()
 
         if (!sharedPref?.getData("user").isNullOrBlank()) {
-
             user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
         }
-
     }
-    private fun createAddress() {
 
+    private fun createAddress() {
         val address = editTextAddress?.text.toString()
         val neighborhood = editTextNeighborhood?.text.toString()
 
@@ -122,7 +131,7 @@ class RestaurantCreateActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<ResponseHttp>, response: Response<ResponseHttp>) {
 
                     if (response.body() != null) {
-                        Toast.makeText(this@RestaurantCreateActivity, "Tạo nhà hàng thành công!", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@RestaurantCreateActivity, "Tạo địa chỉ nhà hàng thành công!", Toast.LENGTH_LONG).show()
                     }
                     else {
                         Toast.makeText(this@RestaurantCreateActivity, "Tạo địa chỉ nhà hàng thất bại!", Toast.LENGTH_SHORT).show()
@@ -137,13 +146,12 @@ class RestaurantCreateActivity : AppCompatActivity() {
 
         }
     }
-    private fun createRestaurantInfo() {
-
+    private fun createRestaurantInfo(callback: (Boolean) -> Unit) {
         val name = editTextName?.text.toString()
-        val phone = editTextName?.text.toString()
-        val description = editTextName?.text.toString()
+        val phone = editTextPhone?.text.toString()
+        val description = editTextDescription?.text.toString()
+        showLoading()
         if (isValidForm(name, phone, description)) {
-            Log.e("tridoan", "createRestaurantInfo: 1")
             val restaurantModel = Restaurant(
                 name = name,
                 description = description,
@@ -154,25 +162,27 @@ class RestaurantCreateActivity : AppCompatActivity() {
 
             restaurantProvider?.create(restaurantModel, imageFile!!)?.enqueue(object: Callback<ResponseHttp> {
                 override fun onResponse(call: Call<ResponseHttp>, response: Response<ResponseHttp>) {
-
                     if (response.body() != null) {
                         saveRestaurantInSession(response.body()?.data.toString())
                         Toast.makeText(this@RestaurantCreateActivity, response.body()?.message, Toast.LENGTH_LONG).show()
+                        callback(true) // Thông báo thành công
+                        hideLoading()
+                    } else {
+                        Toast.makeText(this@RestaurantCreateActivity, "Đã xảy ra lỗi trong yêu cầu", Toast.LENGTH_SHORT).show()
+                        callback(false)
                     }
-                    else {
-                        Toast.makeText(this@RestaurantCreateActivity, "An error occurred in the request", Toast.LENGTH_SHORT).show()
-                    }
-
                 }
 
                 override fun onFailure(call: Call<ResponseHttp>, t: Throwable) {
-                    Toast.makeText(this@RestaurantCreateActivity, "Error: ${t.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@RestaurantCreateActivity, "Lỗi: ${t.message}", Toast.LENGTH_LONG).show()
+                    callback(false)
                 }
-
             })
-
+        } else {
+            callback(false)
         }
     }
+
     private fun isValidAddressForm(address: String, neighborhood: String): Boolean {
 
         if (address.isBlank()) {
@@ -294,4 +304,27 @@ class RestaurantCreateActivity : AppCompatActivity() {
         val user = gson.fromJson(data, User::class.java)
         sharedPref.save("user", user)
     }
+    private fun showLoading() {
+        val builder = AlertDialog.Builder(this)
+        val inflater = LayoutInflater.from(this)
+        val dialogView = inflater.inflate(R.layout.dialog_lottie_client_loading, null)
+
+        builder.setView(dialogView)
+        builder.setCancelable(false)
+
+        dialog = builder.create()
+        dialog.window?.setGravity(Gravity.CENTER)
+
+
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog.show()
+    }
+
+
+    private fun hideLoading() {
+        if (::dialog.isInitialized && dialog.isShowing) {
+            dialog.dismiss()
+        }
+    }
+
 }

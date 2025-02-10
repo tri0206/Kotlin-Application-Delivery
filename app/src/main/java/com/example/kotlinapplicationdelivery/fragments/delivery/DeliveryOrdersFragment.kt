@@ -24,7 +24,6 @@ class DeliveryOrdersFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         myView = inflater.inflate(R.layout.fragment_delivery_orders, container, false)
 
         viewpager = myView?.findViewById(R.id.viewpager)
@@ -46,7 +45,7 @@ class DeliveryOrdersFragment : Fragment() {
 
             when(position) {
                 0 -> {
-                    tab.text = "Chờ lấy hàng"
+                    tab.text = "Đơn chờ"
                 }
                 1 -> {
                     tab.text = "Đang trên đường"

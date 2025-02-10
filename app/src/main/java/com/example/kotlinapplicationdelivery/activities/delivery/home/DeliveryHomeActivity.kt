@@ -30,10 +30,8 @@ class DeliveryHomeActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         sharedPref = SharedPref(this)
         setContentView(R.layout.activity_delivery_home)
-        //btnLogOut = findViewById(R.id.log_out)
 
         bottomNavigation = findViewById(R.id.bottom_navigation)
         btnLogOut?.setOnClickListener {
@@ -43,31 +41,23 @@ class DeliveryHomeActivity : AppCompatActivity() {
 
         bottomNavigation = findViewById(R.id.bottom_navigation)
         bottomNavigation?.setOnItemSelectedListener {
-
             when (it.itemId) {
-
                 R.id.item_orders -> {
                     openFragment(DeliveryOrdersFragment())
                     true
                 }
-
                 R.id.item_profile -> {
                     openFragment(ProfileFragment())
                     true
                 }
-
                 else -> false
-
             }
-
         }
         getUserFromSession()
     }
 
     private fun getUserFromSession() {
-
         val gson = Gson()
-
         if(!sharedPref?.getData("user").isNullOrBlank()) {
             val user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
             Log.d(TAG, "getUserFromSession: $user")
@@ -87,7 +77,6 @@ class DeliveryHomeActivity : AppCompatActivity() {
     @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
     override fun onBackPressed() {
         val currentFragment = supportFragmentManager.findFragmentById(R.id.container)
-
         if (currentFragment is DeliveryOrdersFragment) {
             AlertDialog.Builder(this)
                 .setTitle("Thoát ứng dụng")

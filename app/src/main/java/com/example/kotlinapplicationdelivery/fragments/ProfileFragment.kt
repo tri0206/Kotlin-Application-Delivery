@@ -84,19 +84,20 @@ class ProfileFragment : Fragment() {
     }
 
     private fun logout() {
-        sharedPref?.remove("user")
+        while(!sharedPref?.getData("order").isNullOrBlank()) {
+            sharedPref?.remove("order")
+        }
+        while(!sharedPref?.getData("user").isNullOrBlank()) {
+            sharedPref?.remove("user")
+        }
         val i = Intent(requireContext(), MainActivity::class.java)
         startActivity(i)
     }
     private fun getUserFromSession() {
-
         val gson = Gson()
-
         if (!sharedPref?.getData("user").isNullOrBlank()) {
-
             user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
         }
-
     }
     private fun goToSelectRol() {
         val i = Intent(requireContext(), SelectRolesActivity::class.java)

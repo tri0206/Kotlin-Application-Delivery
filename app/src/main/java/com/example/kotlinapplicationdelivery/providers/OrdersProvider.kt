@@ -23,8 +23,12 @@ class OrdersProvider(val token: String) {
         return ordersRoutes?.getOrdersByClientAndStatus(idClient, status, token)
     }
 
-    fun getOrdersByDeliveryAndStatus(idDelivery: String, status: String): Call<ArrayList<Order>>? {
-        return ordersRoutes?.getOrdersByDeliveryAndStatus(idDelivery, status, token)
+//    fun getOrdersByDeliveryAndStatus(idDelivery: String, status: String): Call<ArrayList<Order>>? {
+//        return ordersRoutes?.getOrdersByDeliveryAndStatus(idDelivery, status, token)
+//    }
+
+    fun getOrdersByDeliveryAndStatus(status: String): Call<ArrayList<Order>>? {
+        return ordersRoutes?.getOrdersByDeliveryAndStatus(status, token)
     }
 
     fun create(order: Order): Call<ResponseHttp>? {

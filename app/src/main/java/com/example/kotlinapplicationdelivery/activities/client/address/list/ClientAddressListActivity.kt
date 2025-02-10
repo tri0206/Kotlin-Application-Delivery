@@ -36,7 +36,7 @@ class ClientAddressListActivity : AppCompatActivity() {
 
     private var recyclerViewAddress: RecyclerView? = null
 
-    private var buttonNext: Button? = null
+    //private var buttonNext: Button? = null
     var adapter: AddressAdapter? = null
     private var addressProvider: AddressProvider? = null
     private var ordersProvider: OrdersProvider? = null
@@ -63,7 +63,7 @@ class ClientAddressListActivity : AppCompatActivity() {
         getProductsFromSharedPref()
 
         fabCreateAddress = findViewById(R.id.fab_address_create)
-        buttonNext = findViewById(R.id.btn_next)
+        //buttonNext = findViewById(R.id.btn_next)
         recyclerViewAddress = findViewById(R.id.recyclerview_address)
 
         recyclerViewAddress?.layoutManager = LinearLayoutManager(this)
@@ -83,64 +83,35 @@ class ClientAddressListActivity : AppCompatActivity() {
 
         getAddress()
 
-        buttonNext?.setOnClickListener { goToPaymentsForm() }
+        //buttonNext?.setOnClickListener { goToPaymentsForm() }
         buttonBack?.setOnClickListener {
             finish()
         }
     }
 
     private fun getProductsFromSharedPref() {
-
         if (!sharedPref?.getData("order").isNullOrBlank()) {
             val type = object: TypeToken<ArrayList<Product>>() {}.type
             selectedProducts = gson.fromJson(sharedPref?.getData("order"), type)
-
         }
     }
 
-    private fun createOrder(idAddress: String) {
-
-//        val order = Order(
-//            products = selectedProducts,
-//            idClient = user?.id!!,
-//            idAddress = idAddress
-//        )
-//
-//        ordersProvider?.create(order)?.enqueue(object: Callback<ResponseHttp> {
-//            override fun onResponse(call: Call<ResponseHttp>, response: Response<ResponseHttp>) {
-//
-//                if (response.body() != null) {
-//                    Toast.makeText(this@ClientAddressListActivity, "${response.body()?.message}", Toast.LENGTH_LONG).show()
-//                }
-//                else {
-//                    Toast.makeText(this@ClientAddressListActivity, "An error occurred in the request", Toast.LENGTH_LONG).show()
-//                }
-//
-//            }
-//
-//            override fun onFailure(call: Call<ResponseHttp>, t: Throwable) {
-//                Toast.makeText(this@ClientAddressListActivity, "Error: ${t.message}", Toast.LENGTH_LONG).show()
-//            }
-//
-//        })
-    }
 
     private fun getAddressFromSession() {
-
         if (!sharedPref?.getData("address").isNullOrBlank()) {
             val a = gson.fromJson(sharedPref?.getData("address"), Address::class.java) // IF IT EXISTS
-            createOrder(a.id!!)
+            //createOrder(a.id!!)
         }
         else {
             Toast.makeText(this, "Select an address to continue", Toast.LENGTH_LONG).show()
         }
-
     }
 
     private fun goToPaymentsForm() {
         val i = Intent(this, ClientPaymentMethodActivity::class.java)
         i.putExtra("total_price", intent.getStringExtra("total_price"))
         i.putExtra("note", intent.getStringExtra("note"))
+        i.putExtra("id_restaurant", intent.getStringExtra("id_restaurant"))
         startActivity(i)
     }
 
@@ -154,13 +125,11 @@ class ClientAddressListActivity : AppCompatActivity() {
     private fun getAddress() {
         addressProvider?.getAddress(user?.id!!)?.enqueue(object: Callback<ArrayList<Address>> {
             override fun onResponse(call: Call<ArrayList<Address>>, response: Response<ArrayList<Address>>) {
-
                 if (response.body() != null) {
                     address = response.body()!!
                     adapter = AddressAdapter(this@ClientAddressListActivity, address)
                     recyclerViewAddress?.adapter = adapter
                 }
-
             }
 
             override fun onFailure(call: Call<ArrayList<Address>>, t: Throwable) {
@@ -171,19 +140,14 @@ class ClientAddressListActivity : AppCompatActivity() {
     }
 
     private fun getUserFromSession() {
-
         val gson = Gson()
-
         if (!sharedPref?.getData("user").isNullOrBlank()) {
-
             user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
         }
-
     }
 
     private fun goToAddressCreate() {
         val i = Intent(this, ClientAddressCreateActivity::class.java)
-        i.putExtra("total_price", intent.getStringExtra("total_price"))
         startActivity(i)
     }
 }

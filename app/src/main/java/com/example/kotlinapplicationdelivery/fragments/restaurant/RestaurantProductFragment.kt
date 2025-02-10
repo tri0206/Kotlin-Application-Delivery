@@ -23,6 +23,7 @@ import com.example.kotlinapplicationdelivery.R
 import com.example.kotlinapplicationdelivery.models.Category
 import com.example.kotlinapplicationdelivery.models.Product
 import com.example.kotlinapplicationdelivery.models.ResponseHttp
+import com.example.kotlinapplicationdelivery.models.Restaurant
 import com.example.kotlinapplicationdelivery.models.User
 import com.example.kotlinapplicationdelivery.providers.CategoriesProvider
 import com.example.kotlinapplicationdelivery.providers.ProductsProvider
@@ -53,6 +54,7 @@ class RestaurantProductFragment : Fragment() {
 
     private var categoriesProvider: CategoriesProvider? = null
     private var productsProvider: ProductsProvider? = null
+    var restaurant: Restaurant? = null
     var user: User? = null
     var sharedPref: SharedPref? = null
     var categories = ArrayList<Category>()
@@ -64,7 +66,6 @@ class RestaurantProductFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         myView = inflater.inflate(R.layout.fragment_restaurant_product, container, false)
-
         editTextName = myView?.findViewById(R.id.edittext_name)
         editTextDescription = myView?.findViewById(R.id.edittext_description)
         editTextPrice = myView?.findViewById(R.id.edittext_price)
@@ -82,7 +83,8 @@ class RestaurantProductFragment : Fragment() {
         sharedPref = SharedPref(requireActivity())
 
         getUserFromSession()
-//        showLoading()
+        getRestaurantFromSession()
+        Log.e("tridoan", "onCreateView: " + restaurant?.id )
         categoriesProvider = CategoriesProvider(user?.sessionToken!!)
         productsProvider = ProductsProvider(user?.sessionToken!!)
         getCategories()
@@ -110,10 +112,8 @@ class RestaurantProductFragment : Fragment() {
                         override fun onNothingSelected(p0: AdapterView<*>?) {
 
                         }
-
                     }
                 }
-
             }
 
             override fun onFailure(call: Call<ArrayList<Category>>, t: Throwable) {
@@ -146,7 +146,8 @@ class RestaurantProductFragment : Fragment() {
                 name = name,
                 description = description,
                 price = priceText.toInt(),
-                idCategory = idCategory
+                idCategory = idCategory,
+                idRestaurant = restaurant?.id
             )
 
             files.add(imageFile1!!)
@@ -284,5 +285,20 @@ class RestaurantProductFragment : Fragment() {
             .compress(1024)
             .maxResultSize(1080, 1080)
             .start(requestCode)
+    }
+    private fun saveRestaurantInSession(data: String) {
+
+        val sharedPref = SharedPref(requireActivity())
+        val gson = Gson()
+        val restaurant = gson.fromJson(data, Restaurant::class.java)
+        sharedPref.save("restaurant", restaurant)
+    }
+    private fun getRestaurantFromSession() {
+        val gson = Gson()
+
+        if (!sharedPref?.getData("restaurant").isNullOrBlank()) {
+            restaurant = gson.fromJson(sharedPref?.getData("restaurant"), Restaurant::class.java)
+            Log.e("tridoan", "getRestaurantFromSession: $restaurant")
+        }
     }
 }

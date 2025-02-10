@@ -1,5 +1,7 @@
 package com.example.kotlinapplicationdelivery.routes
 
+import com.example.kotlinapplicationdelivery.models.Category
+import com.example.kotlinapplicationdelivery.models.DiscountedProduct
 import com.example.kotlinapplicationdelivery.models.Product
 import com.example.kotlinapplicationdelivery.models.ResponseHttp
 import okhttp3.MultipartBody
@@ -20,11 +22,29 @@ interface ProductsRoutes {
         @Header("Authorization") token: String
     ): Call<ArrayList<Product>>
 
+    @GET("products/findByRestaurant/{id_restaurant}")
+    fun findByRestaurant(
+        @Path("id_restaurant") idRestaurant: String,
+        @Header("Authorization") token: String
+    ): Call<ArrayList<Product>>
+
     @GET("products/findByCategoryOrName/{keyword}")
     fun findByCategoryOrName(
         @Path("keyword") keyword: String,
         @Header("Authorization") token: String
     ): Call<ArrayList<Product>>
+
+    @GET("products/findByQuery/{query}/{idRestaurant}")
+    fun findByQuery(
+        @Path("query") query: String,
+        @Path("idRestaurant") idRestaurant: String,
+        @Header("Authorization") token: String
+    ): Call<ArrayList<Product>>
+
+    @GET("products/getDiscountedProducts")
+    fun getDiscountedProducts(
+        @Header("Authorization") token: String
+    ): Call<ArrayList<DiscountedProduct>>
 
     @Multipart
     @POST("products/create")

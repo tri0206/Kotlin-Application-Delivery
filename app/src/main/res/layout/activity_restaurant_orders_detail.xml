@@ -6,14 +6,14 @@
     android:layout_height="match_parent"
     >
 
-    <include layout="@layout/action_bar" />
+    <include layout="@layout/action_sub_bar" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="55dp">
+        android:layout_marginTop="70dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview_products"
@@ -40,7 +40,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Customer: "
+                android:text="Khách hàng: "
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="17sp"/>
@@ -64,7 +64,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Deliver in: "
+                android:text="Giao hàng tới: "
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="17sp"/>
@@ -88,7 +88,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Order date: "
+                android:text="Đặt hàng lúc: "
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="17sp"/>
@@ -112,7 +112,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Order status: "
+                android:text="Ghi chú: "
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:textSize="17sp"/>
@@ -134,47 +134,47 @@
             android:layout_marginRight="20dp">
 
             <TextView
-                android:id="@+id/textview_delivery_assigned"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Repartidor: "
+                android:text="Phương thức thanh toán: "
                 android:textStyle="bold"
-                android:textColor="@android:color/holo_blue_bright"
                 android:textSize="17sp"
-                android:visibility="gone"/>
+                android:textColor="@color/black"/>
+
+            <TextView
+                android:id="@+id/textview_payment_method"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Name of the delivery person"
+                android:textColor="@android:color/black"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Người giao hàng: "
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:textColor="@color/black"/>
 
             <TextView
                 android:id="@+id/textview_delivery"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Name of the delivery person"
+                android:text=""
                 android:textStyle="bold"
-                android:textColor="@android:color/holo_blue_bright"
-                android:visibility="gone"/>
+                android:textColor="@android:color/holo_blue_bright" />
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/textview_delivery_available"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Delivery people available"
-            android:textColor="@android:color/holo_red_light"
-            android:textStyle="bold"
-            android:textSize="17sp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="10dp"
-            android:visibility="gone"/>
-
-        <Spinner
-            android:id="@+id/spinner_delivery_men"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="20dp"
-            android:layout_marginLeft="20dp"
-            android:visibility="gone"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -188,7 +188,7 @@
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="TOTAL"
+                android:text="Tổng cộng:"
                 android:textStyle="bold"
                 android:textColor="@android:color/holo_red_light"
                 android:layout_weight="1"
@@ -198,7 +198,7 @@
                 android:id="@+id/textview_total"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0$"
+                android:text="0đ"
                 android:textSize="22sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/holo_red_light"/>
@@ -210,7 +210,7 @@
             android:id="@+id/btn_update"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="ASSIGN DELIVERY PERSON"
+            android:text="Xác nhận đơn hàng"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
             android:layout_marginBottom="20dp"
