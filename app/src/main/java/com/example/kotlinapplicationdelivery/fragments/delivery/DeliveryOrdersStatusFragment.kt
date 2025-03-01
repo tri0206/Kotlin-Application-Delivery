@@ -1,6 +1,7 @@
 package com.example.kotlinapplicationdelivery.fragments.delivery
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -47,19 +48,38 @@ class DeliveryOrdersStatusFragment : Fragment() {
     }
 
     private fun getOrders() {
-        ordersProvider?.getOrdersByDeliveryAndStatus(status)?.enqueue(object:
-            Callback<ArrayList<Order>> {
-            override fun onResponse(call: Call<ArrayList<Order>>, response: Response<ArrayList<Order>>) {
-                if (response.body() != null) {
-                    val orders = response.body()
-                    adapter = OrdersDeliveryAdapter(requireActivity(), orders!!)
-                    recyclerViewOrders?.adapter = adapter
+        if(status == "DISPATCHED") {
+            ordersProvider?.getOrdersByStatus(status)?.enqueue(object:
+                Callback<ArrayList<Order>> {
+                override fun onResponse(call: Call<ArrayList<Order>>, response: Response<ArrayList<Order>>) {
+                    if (response.body() != null) {
+                        val orders = response.body()
+                        adapter = OrdersDeliveryAdapter(requireActivity(), orders!!)
+                        Log.e("manhtri", "onResponse: $orders", )
+                        recyclerViewOrders?.adapter = adapter
+                    }
                 }
-            }
-            override fun onFailure(call: Call<ArrayList<Order>>, t: Throwable) {
-                Toast.makeText(requireActivity(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
-            }
-        })
+                override fun onFailure(call: Call<ArrayList<Order>>, t: Throwable) {
+                    Toast.makeText(requireActivity(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
+        else {
+            ordersProvider?.getOrdersByDeliveryAndStatus(user?.id!!, status)?.enqueue(object:
+                Callback<ArrayList<Order>> {
+                override fun onResponse(call: Call<ArrayList<Order>>, response: Response<ArrayList<Order>>) {
+                    if (response.body() != null) {
+                        val orders = response.body()
+                        Log.e("manhtri", "onResponse: $orders")
+                        adapter = OrdersDeliveryAdapter(requireActivity(), orders!!)
+                        recyclerViewOrders?.adapter = adapter
+                    }
+                }
+                override fun onFailure(call: Call<ArrayList<Order>>, t: Throwable) {
+                    Toast.makeText(requireActivity(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                }
+            })
+        }
     }
 
     private fun getUserFromSession() {

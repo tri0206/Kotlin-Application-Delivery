@@ -12,8 +12,8 @@
         android:title="Các sản phẩm" />
     <item
         android:id="@+id/discount_manage"
-        android:icon="@drawable/ic_discount"
-        android:title="Giảm giá" />
+        android:icon="@drawable/ic_add_food"
+        android:title="Thêm sản phẩm" />
     <item
         android:id="@+id/item_profile"
         android:icon="@drawable/ic_person_pin"

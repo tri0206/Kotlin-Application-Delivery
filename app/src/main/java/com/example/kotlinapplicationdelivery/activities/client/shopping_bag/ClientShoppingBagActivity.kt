@@ -96,7 +96,15 @@ class ClientShoppingBagActivity : AppCompatActivity() {
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
         getProductsFromSharedPref()
-        buttonNext?.setOnClickListener { showConfirmationDialog() }
+        buttonNext?.setOnClickListener {
+            if(adapter?.itemCount == 0) {
+                Toast.makeText(applicationContext, "Giỏ hàng trống, không thể thanh toán!", Toast.LENGTH_SHORT)
+                    .show()
+            }
+            else {
+                showConfirmationDialog()
+            }
+        }
         buttonBack?.setOnClickListener {
             finish()
         }
@@ -163,6 +171,7 @@ class ClientShoppingBagActivity : AppCompatActivity() {
         super.onResume()
         setAddress()
     }
+
     private fun setPaymentMethod() {
         val paymentMethods = listOf("Tiền mặt", "ZaloPay")
         val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, paymentMethods)

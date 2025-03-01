@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.kotlinapplicationdelivery.R
 import com.example.kotlinapplicationdelivery.adapters.OrdersRestaurantAdapter
 import com.example.kotlinapplicationdelivery.models.Order
+import com.example.kotlinapplicationdelivery.models.Restaurant
 import com.example.kotlinapplicationdelivery.models.User
 import com.example.kotlinapplicationdelivery.providers.OrdersProvider
 import com.example.kotlinapplicationdelivery.utils.SharedPref
@@ -25,6 +26,7 @@ class RestaurantOrdersStatusFragment : Fragment() {
     var myView: View? = null
     var ordersProvider: OrdersProvider? = null
     var user: User? = null
+    var restaurant: Restaurant? = null
     var sharedPref: SharedPref? = null
 
     var recyclerViewOrders: RecyclerView? = null
@@ -43,6 +45,7 @@ class RestaurantOrdersStatusFragment : Fragment() {
         status = arguments?.getString("status")!!
 
         getUserFromSession()
+        getRestaurantFromSession()
         ordersProvider = OrdersProvider(user?.sessionToken!!)
 
         recyclerViewOrders = myView?.findViewById(R.id.recyclerview_orders)
@@ -54,31 +57,51 @@ class RestaurantOrdersStatusFragment : Fragment() {
     }
 
     private fun getOrders() {
-        ordersProvider?.getOrdersByStatus(status)?.enqueue(object: Callback<ArrayList<Order>> {
-            override fun onResponse(call: Call<ArrayList<Order>>, response: Response<ArrayList<Order>>) {
-                if (response.body() != null) {
-                    val orders = response.body()
-                    adapter = OrdersRestaurantAdapter(requireActivity(), orders!!)
-                    recyclerViewOrders?.adapter = adapter
+//        if(status == "PAID") {
+//            ordersProvider?.getOrdersByStatus(status)?.enqueue(object: Callback<ArrayList<Order>> {
+//                override fun onResponse(call: Call<ArrayList<Order>>, response: Response<ArrayList<Order>>) {
+//                    if (response.body() != null) {
+//                        val orders = response.body()
+//                        adapter = OrdersRestaurantAdapter(requireActivity(), orders!!)
+//                        recyclerViewOrders?.adapter = adapter
+//                    }
+//                }
+//
+//                override fun onFailure(call: Call<ArrayList<Order>>, t: Throwable) {
+//                    Toast.makeText(requireActivity(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+//                }
+//
+//            })
+//        }
+//        else {
+            ordersProvider?.getOrdersByRestaurantAndStatus(restaurant?.id!!, status)?.enqueue(object: Callback<ArrayList<Order>> {
+                override fun onResponse(call: Call<ArrayList<Order>>, response: Response<ArrayList<Order>>) {
+                    if (response.body() != null) {
+                        val orders = response.body()
+                        adapter = OrdersRestaurantAdapter(requireActivity(), orders!!)
+                        recyclerViewOrders?.adapter = adapter
+                    }
                 }
-            }
 
-            override fun onFailure(call: Call<ArrayList<Order>>, t: Throwable) {
-                Toast.makeText(requireActivity(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
-            }
+                override fun onFailure(call: Call<ArrayList<Order>>, t: Throwable) {
+                    Toast.makeText(requireActivity(), "Error: ${t.message}", Toast.LENGTH_SHORT).show()
+                }
 
-        })
+            })
+//        }
     }
 
     private fun getUserFromSession() {
-
         val gson = Gson()
-
         if (!sharedPref?.getData("user").isNullOrBlank()) {
-
             user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
         }
-
     }
 
+    private fun getRestaurantFromSession() {
+        val gson = Gson()
+        if (!sharedPref?.getData("restaurant").isNullOrBlank()) {
+            restaurant = gson.fromJson(sharedPref?.getData("restaurant"), Restaurant::class.java)
+        }
+    }
 }

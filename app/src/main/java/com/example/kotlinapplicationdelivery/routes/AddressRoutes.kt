@@ -21,6 +21,4 @@ interface AddressRoutes {
         @Body address: Address,
         @Header("Authorization") token: String
     ): Call<ResponseHttp>
-
-
 }

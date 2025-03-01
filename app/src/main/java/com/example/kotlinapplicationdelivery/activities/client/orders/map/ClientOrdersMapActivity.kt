@@ -186,7 +186,6 @@ class ClientOrdersMapActivity : AppCompatActivity(), OnMapReadyCallback {
             if (args[0] != null) {
                 runOnUiThread {
                     val data = gson.fromJson(args[0].toString(), SocketEmit::class.java)
-
                     removeDeliveryMarker()
                     addDeliveryMarker(data.lat, data.lng)
                 }
@@ -196,7 +195,6 @@ class ClientOrdersMapActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onDestroy() {
         super.onDestroy()
-
         if (fusedLocationClient != null) {
             fusedLocationClient?.removeLocationUpdates(locationCallback)
         }

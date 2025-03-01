@@ -46,4 +46,14 @@ class ProductsProvider(private val token: String) {
     fun findByQuery(query: String, idRestaurant: String): Call<ArrayList<Product>>? {
         return productsRoutes?.findByQuery(query, idRestaurant, token)
     }
+
+    fun update(files: ArrayList<File>, product: Product): Call<ResponseHttp>? {
+        val images = arrayOfNulls<MultipartBody.Part>(files.size)
+        for (i in files.indices) {
+            val reqFile = RequestBody.create("image/*".toMediaTypeOrNull(), files[i])
+            images[i] = MultipartBody.Part.createFormData("image", files[i].name, reqFile)
+        }
+        val requestBody = RequestBody.create("text/plain".toMediaTypeOrNull(), product.toJson())
+        return productsRoutes?.update(images, requestBody, token)
+    }
 }

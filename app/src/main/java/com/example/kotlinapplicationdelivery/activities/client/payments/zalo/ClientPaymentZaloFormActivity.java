@@ -39,6 +39,7 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 
 import retrofit2.Call;
@@ -62,6 +63,7 @@ public class ClientPaymentZaloFormActivity extends AppCompatActivity {
     ArrayList<Product> selectedProducts = new ArrayList<>();
     Address address;
     String note;
+    final JSONObject[] data = {null};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,21 +91,21 @@ public class ClientPaymentZaloFormActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                JSONObject data = null;
+
                 try {
-                    data = orderApi.createOrder(txtAmount.getText().toString());
+                    data[0] = orderApi.createOrder(txtAmount.getText().toString());
                     Log.d("Amount", txtAmount.getText().toString());
                     lblZpTransToken.setVisibility(View.VISIBLE);
-                    String code = data.getString("return_code");
+                    String code = data[0].getString("return_code");
                     Toast.makeText(getApplicationContext(), "return_code: " + code, Toast.LENGTH_LONG).show();
 
                     if (code.equals("1")) {
                         //lblZpTransToken.setText("zptranstoken");
-                        txtToken.setText(data.getString("zp_trans_token"));
+                        txtToken.setText(data[0].getString("zp_trans_token"));
                         IsDone();
                         String token = txtToken.getText().toString();
                         //showPaymentSuccessDialog();
-                        createOrder();
+//                        createOrder();
                         ZaloPaySDK.getInstance().payOrder(ClientPaymentZaloFormActivity.this, token, "demozpdk://app", new PayOrderListener() {
                             @Override
                             public void onPaymentSucceeded(final String transactionId, final String transToken, final String appTransID) {
@@ -112,7 +114,7 @@ public class ClientPaymentZaloFormActivity extends AppCompatActivity {
                                     @Override
                                     public void run() {
                                         createOrder();
-                                        showPaymentSuccessDialog();
+                                        //showPaymentSuccessDialog();
                                     }
                                 });
                                 IsLoading();
@@ -145,7 +147,7 @@ public class ClientPaymentZaloFormActivity extends AppCompatActivity {
                             }
 
                         });
-                        Log.e("tridoan", "onClick1: " + data.getString("app_trans_id"));
+                        Log.e("tridoan", "onClick1: " + data[0].getString("app_trans_id"));
                         Log.e("tridoan", "user note: " + getIntent().getStringExtra("note"));
 //                        showPaymentSuccessDialog();
                     }
@@ -154,8 +156,9 @@ public class ClientPaymentZaloFormActivity extends AppCompatActivity {
                     e.printStackTrace();
                 } finally {
                     try {
-                        assert data != null;
-                        checkAndHandleOrderStatus(data.getString("app_trans_id"));
+                        assert data[0] != null;
+                        checkAndHandleOrderStatus(data[0].getString("app_trans_id"));
+                        createOrder();
                     } catch (JSONException e) {
                         throw new RuntimeException(e);
                     }
@@ -352,5 +355,10 @@ public class ClientPaymentZaloFormActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        checkAndHandleOrderStatus(Arrays.toString(data));
+        //createOrder();
+    }
 }

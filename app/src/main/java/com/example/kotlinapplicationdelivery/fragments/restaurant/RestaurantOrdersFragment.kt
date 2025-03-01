@@ -42,7 +42,6 @@ class RestaurantOrdersFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         myView = inflater.inflate(R.layout.fragment_restaurant_orders, container, false)
         sharedPref = SharedPref(requireActivity())
         getUserFromSession()
@@ -102,22 +101,19 @@ class RestaurantOrdersFragment : Fragment() {
         return myView
     }
     private fun getRestaurantFromSession() {
-
         val gson = Gson()
-
         if (!sharedPref?.getData("restaurant").isNullOrBlank()) {
             restaurant = gson.fromJson(sharedPref?.getData("restaurant"), Restaurant::class.java)
         }
     }
+
     private fun getUserFromSession() {
-
         val gson = Gson()
-
         if (!sharedPref?.getData("user").isNullOrBlank()) {
             user = gson.fromJson(sharedPref?.getData("user"), User::class.java)
         }
-
     }
+
     private fun changeStatus(id: String, status: String) {
         restaurantProvider?.updateStatus(id, status)?.enqueue(object:
             Callback<ResponseHttp> {
@@ -135,13 +131,14 @@ class RestaurantOrdersFragment : Fragment() {
             }
         })
     }
-    private fun saveRestaurantInSession(data: String) {
 
+    private fun saveRestaurantInSession(data: String) {
         val sharedPref = SharedPref(requireActivity())
         val gson = Gson()
         val restaurant = gson.fromJson(data, Restaurant::class.java)
         sharedPref.save("restaurant", restaurant)
     }
+
     private fun getRestaurant(idUser: String) {
         restaurantProvider?.findByUser(idUser)?.enqueue(object:
             Callback<ResponseHttp> {
@@ -157,4 +154,5 @@ class RestaurantOrdersFragment : Fragment() {
             }
         })
     }
+
 }

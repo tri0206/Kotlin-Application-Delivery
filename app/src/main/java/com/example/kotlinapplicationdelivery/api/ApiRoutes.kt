@@ -2,6 +2,7 @@ package com.example.kotlinapplicationdelivery.api
 
 import com.example.kotlinapplicationdelivery.routes.AddressRoutes
 import com.example.kotlinapplicationdelivery.routes.CategoriesRoutes
+import com.example.kotlinapplicationdelivery.routes.DiscountRoutes
 import com.example.kotlinapplicationdelivery.routes.OrdersRoutes
 import com.example.kotlinapplicationdelivery.routes.ProductsRoutes
 import com.example.kotlinapplicationdelivery.routes.RestaurantsRoutes
@@ -9,7 +10,7 @@ import com.example.kotlinapplicationdelivery.routes.UsersRoutes
 import retrofit2.Retrofit
 
 class ApiRoutes {
-    private val API_URL = "http://192.168.1.81:3000/api/"
+    private val API_URL = "http://192.168.171.178:3000/api/"
     private val retrofit = RetrofitClient()
     fun getUsersRoutes(): UsersRoutes {
         return retrofit.getClient(API_URL).create(UsersRoutes::class.java)
@@ -31,6 +32,9 @@ class ApiRoutes {
     }
     fun getRestaurantRoutes(token: String): RestaurantsRoutes {
         return retrofit.getClientWithToken(API_URL, token).create(RestaurantsRoutes::class.java)
+    }
+    fun getDiscountRoutes(token: String): DiscountRoutes {
+        return retrofit.getClientWithToken(API_URL, token).create(DiscountRoutes::class.java)
     }
 
 }

@@ -114,9 +114,7 @@ class ClientAddressCreateActivity : AppCompatActivity() {
                 override fun onFailure(call: Call<ResponseHttp>, t: Throwable) {
                     Toast.makeText(this@ClientAddressCreateActivity, "Error: ${t.message}", Toast.LENGTH_LONG).show()
                 }
-
             })
-
         }
     }
 

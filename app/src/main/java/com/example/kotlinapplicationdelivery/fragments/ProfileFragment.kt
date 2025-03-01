@@ -110,13 +110,9 @@ class ProfileFragment : Fragment() {
     }
 
     private fun showChangePasswordDialog() {
-        // Inflate layout dialog
         val dialogView = layoutInflater.inflate(R.layout.dialog_change_password, null)
-
-        // Tạo AlertDialog
         val builder = AlertDialog.Builder(context)
         builder.setView(dialogView)
-
 
         val etOldPassword = dialogView.findViewById<EditText>(R.id.etOldPassword)
         val etNewPassword = dialogView.findViewById<EditText>(R.id.etNewPassword)
@@ -124,7 +120,6 @@ class ProfileFragment : Fragment() {
         val btnChangePassword = dialogView.findViewById<Button>(R.id.btnChangePassword)
 
         val dialog = builder.create()
-
 
         btnChangePassword.setOnClickListener {
             val oldPassword = etOldPassword.text.toString().trim()
@@ -147,8 +142,6 @@ class ProfileFragment : Fragment() {
                 }
             }
         }
-
-        // Hiển thị dialog
         dialog.show()
     }
 

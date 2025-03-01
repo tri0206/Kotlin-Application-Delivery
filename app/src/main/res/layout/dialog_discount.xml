@@ -6,29 +6,27 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
-    <EditText
-        android:id="@+id/etDiscountType"
+    <Spinner
+        android:id="@+id/discountType"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Loại giảm giá"
-        android:inputType="text"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/spinner_background"/>
 
-    <!-- Nhập giá trị giảm giá -->
     <EditText
         android:id="@+id/etDiscountValue"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="Giá trị giảm giá"
         android:inputType="numberDecimal"
-        app:layout_constraintTop_toBottomOf="@id/etDiscountType"
+        app:layout_constraintTop_toBottomOf="@id/discountType"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp" />
 
-    <!-- Chọn ngày giờ bắt đầu -->
     <TextView
         android:id="@+id/tvStartDateTime"
         android:layout_width="0dp"
@@ -46,7 +44,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"/>
 
-    <!-- Chọn ngày giờ kết thúc -->
     <TextView
         android:id="@+id/tvEndDateTime"
         android:layout_width="0dp"
@@ -64,7 +61,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="8dp"/>
 
-    <!-- Nút lưu -->
     <Button
         android:id="@+id/btnSaveDiscount"
         android:layout_width="0dp"

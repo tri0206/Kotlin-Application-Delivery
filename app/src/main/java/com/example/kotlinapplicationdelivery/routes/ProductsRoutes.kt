@@ -54,5 +54,11 @@ interface ProductsRoutes {
         @Header("Authorization") token: String
     ): Call<ResponseHttp>
 
-
+    @Multipart
+    @POST("products/update")
+    fun update(
+        @Part images: Array<MultipartBody.Part?>,
+        @Part("product") product: RequestBody,
+        @Header("Authorization") token: String
+    ): Call<ResponseHttp>
 }
